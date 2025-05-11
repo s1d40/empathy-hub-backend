@@ -1,0 +1,14 @@
+[flake8]
+ignore = E203, E266, E501, W503, F401, F403
+# E203: whitespace before ':' (often conflicts with Black)
+# E266: too many leading '#' for block comment
+# E501: line too long (Black will handle line length)
+# W503: line break before binary operator (Black prefers after)
+# F401: module imported but unused (useful to catch, but can be noisy initially)
+# F403: 'from module import *' used (generally bad practice)
+max-line-length = 88
+max-complexity = 18
+select = B,C,E,F,W,T4,B9
+
+# You might want to exclude the venv directory
+exclude = .git,__pycache__,venv
