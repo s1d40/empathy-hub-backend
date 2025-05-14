@@ -21,7 +21,11 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from app.db.session import Base
-from app.db.models import *
+from app.db.models.user import User
+from app.db.models.post import Post
+from app.db.models.comment import Comment
+from app.db.models.post_vote_log import PostVoteLog # And any other models
+from app.db.models.comment_vote_log import CommentVoteLog
 from app.core.config import settings
 
 target_metadata = Base.metadata

@@ -2,6 +2,7 @@ from pydantic import BaseModel, ConfigDict, Field, computed_field
 from typing import Optional
 from datetime import datetime
 from .enums import ChatAvailabilityEnum
+import uuid
 
 # Properties common to user creation and potentially updates
 class UserBase(BaseModel):
@@ -10,7 +11,7 @@ class UserBase(BaseModel):
     pronouns: Optional[str] = None
     chat_availability: Optional[ChatAvailabilityEnum] = None
     avatar_url: Optional[str] = None
-    is_active: Optional[bool] = None
+    is_active: Optional[bool] = True
 
 # Properties to receive on user creation
 class UserCreate(UserBase):
@@ -34,16 +35,20 @@ class UserRead(UserBase): # Inherits username and avatar_url from UserBase
     updated_at: Optional[datetime] = None
 
     # This field captures the 'anonymous_id' from the ORM model.
-    # It's prefixed with an underscore to indicate it's for internal schema use
-    # and excluded from the final JSON output.
-    # `validation_alias` ensures it's populated from `model.anonymous_id` when `from_attributes=True`.
-    orm_anonymous_id: str = Field(validation_alias='anonymous_id', exclude=True)
+    # It's prefixed with 'orm_' to indicate its origin and excluded from the final JSON output.
+    orm_anonymous_id: uuid.UUID = Field(validation_alias='anonymous_id', exclude=True)
 
-    # This computed field will be the public 'id' in the JSON response.
-    # It uses the value captured by _orm_anonymous_id.
     @computed_field # type: ignore[misc] # Suppress Pylance warning if any
     @property
     def id(self) -> str:
-        return self.orm_anonymous_id
+        return str(self.orm_anonymous_id)
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AuthorRead(BaseModel):
+    id: uuid.UUID = Field(validation_alias='anonymous_id') # This will be the user's anonymous_id, Pydantic handles UUID -> str serialization
+    username: str
+    avatar_url: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)

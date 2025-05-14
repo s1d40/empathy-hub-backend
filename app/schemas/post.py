@@ -1,16 +1,11 @@
 from pydantic import BaseModel, ConfigDict, Field, computed_field
-from typing import Optional
+from typing import Optional, List, TYPE_CHECKING
 from datetime import datetime
 import uuid
 from app.db.models.post_vote_log import VoteTypeEnum
-
-# Define a simple schema for author details to be embedded in PostRead
-class AuthorRead(BaseModel):
-    id: uuid.UUID = Field(validation_alias='anonymous_id') # This will be the user's anonymous_id
-    username: str
-    avatar_url: Optional[str] = None
-
-    model_config = ConfigDict(from_attributes=True)
+# from .comment import CommentRead # No longer directly embedding full CommentRead here
+from app.db.models.comment import Comment as CommentModel # Import Comment model for runtime
+from .user import AuthorRead
 
 
 # Shared properties
@@ -46,8 +41,10 @@ class PostRead(PostBase):
     # We'll need to fetch author details separately or join them
     # For now, let's include the author's anonymous_id
     # In a more advanced setup, we might embed a UserRead schema here.
-    author: AuthorRead # Embed author details
+    author: AuthorRead
 
+    comment_count: int # This will be populated by the column_property on the Post model
+    
     is_active: bool
     is_edited: bool
     upvotes: int
@@ -55,4 +52,7 @@ class PostRead(PostBase):
     created_at: datetime
     updated_at: Optional[datetime] = None
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        arbitrary_types_allowed=True # Allow Pydantic to handle ORM types
+    )

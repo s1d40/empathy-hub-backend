@@ -7,11 +7,11 @@ from app.schemas.post import PostCreate, PostUpdate
 from typing import List, Optional
 import uuid # For type hinting anonymous_post_id
 
-def create_post(db: Session, *, post_in: PostCreate, user_id: int) -> Post:
+def create_post(db: Session, *, post_in: PostCreate, author_anonymous_id: uuid.UUID) -> Post:
     db_post = Post(
         title=post_in.title,
         content=post_in.content,
-        user_id=user_id
+        author_anonymous_id=author_anonymous_id
         # anonymous_post_id, is_active, is_edited, created_at, updated_at have defaults or are set by DB
     )
     db.add(db_post)
@@ -41,11 +41,15 @@ def get_multi_posts(db: Session, skip: int = 0, limit: int = 100) -> List[Post]:
         .order_by(desc(Post.created_at)).offset(skip).limit(limit)
     ).scalars().all()
 
-# We might want to filter by topic or user in the future
-# def get_multi_posts_by_user(db: Session, user_id: int, skip: int = 0, limit: int = 100) -> List[Post]:
-#     return db.execute(
-#         select(Post).where(Post.user_id == user_id).order_by(desc(Post.created_at)).offset(skip).limit(limit)
-#     ).scalars().all()
+def get_multi_posts_by_author_anonymous_id(
+    db: Session, *, author_anonymous_id: uuid.UUID, skip: int = 0, limit: int = 100
+) -> List[Post]:
+    return db.execute(
+        select(Post)
+        .options(joinedload(Post.author)) # Eager load author
+        .where(Post.author_anonymous_id == author_anonymous_id)
+        .order_by(desc(Post.created_at)).offset(skip).limit(limit)
+    ).scalars().all()
 
 def update_post(db: Session, *, db_post: Post, post_in: PostUpdate) -> Post:
     update_data = post_in.model_dump(exclude_unset=True)
@@ -67,7 +71,7 @@ def delete_post(db: Session, post_id: int) -> Optional[Post]:
         db.commit()
     return db_post
 
-def process_post_vote(db: Session, *, post_id: int, user_id: int, requested_vote_type: VoteTypeEnum) -> Optional[Post]:
+def process_post_vote(db: Session, *, post_id: int, user_anonymous_id: uuid.UUID, requested_vote_type: VoteTypeEnum) -> Optional[Post]:
     # Fetch the post and ensure its author is loaded for potential PostRead conversion
     post = db.execute(
         select(Post)
@@ -79,7 +83,10 @@ def process_post_vote(db: Session, *, post_id: int, user_id: int, requested_vote
         return None # Post not found
 
     existing_vote_log = db.execute(
-        select(PostVoteLog).where(PostVoteLog.user_id == user_id, PostVoteLog.post_id == post_id)
+        select(PostVoteLog).where(
+            PostVoteLog.user_anonymous_id == user_anonymous_id,
+            PostVoteLog.post_anonymous_id == post.anonymous_post_id  # Use post's anonymous_id
+        )
     ).scalar_one_or_none()
 
     if existing_vote_log:
@@ -103,7 +110,11 @@ def process_post_vote(db: Session, *, post_id: int, user_id: int, requested_vote
             db.add(existing_vote_log) # Add to session to save changes to vote_type
     else:
         # New vote for this user on this post
-        new_vote_log = PostVoteLog(user_id=user_id, post_id=post_id, vote_type=requested_vote_type)
+        new_vote_log = PostVoteLog(
+            user_anonymous_id=user_anonymous_id,         # Correctly use user_anonymous_id
+            post_anonymous_id=post.anonymous_post_id,  # Correctly use post.anonymous_post_id
+            vote_type=requested_vote_type
+        )
         db.add(new_vote_log)
         if requested_vote_type == VoteTypeEnum.UPVOTE:
             post.upvotes += 1

@@ -5,10 +5,11 @@ from typing import Optional, List
 import uuid
 from app.schemas.enums import ChatAvailabilityEnum # Import if needed for explicit setting
 
-def get_user(db: Session, user_id: int) -> Optional[User]:
+def get_user(db: Session, user_id: int) -> Optional[User]: # type: ignore
     return db.query(User).filter(User.id == user_id).first()
 
-def get_user_by_anonymous_id(db: Session, anonymous_id: str) -> Optional[User]:
+def get_user_by_anonymous_id(db: Session, anonymous_id: uuid.UUID) -> Optional[User]: # Changed type hint to uuid.UUID
+    # Compare directly with the UUID object since User.anonymous_id is PG_UUID(as_uuid=True)
     return db.query(User).filter(User.anonymous_id == anonymous_id).first()
 
 def get_user_by_username(db: Session, username: str) -> Optional[User]:
@@ -18,9 +19,9 @@ def get_users(db: Session, skip: int = 0, limit: int = 100) -> List[User]:
     return db.query(User).offset(skip).limit(limit).all()
 
 
-def create_user(db: Session, user: UserCreate) -> User:
+def create_user(db: Session, user_in: UserCreate) -> User: # Changed parameter name for consistency
     generated_anonymous_id = str(uuid.uuid4()) # This is for the user's main anonymous_id
-    final_username = user.username
+    final_username = user_in.username
 
     if not final_username:
         # Generate an "Anonymous" username if none provided
@@ -48,7 +49,7 @@ def create_user(db: Session, user: UserCreate) -> User:
         raise ValueError(f"Username '{final_username}' already exists.")
 
     # Assign default avatar if not provided by the client
-    avatar = user.avatar_url
+    avatar = user_in.avatar_url
     if not avatar:
         # Use the generated_anonymous_id to make the default avatar unique per user
         avatar = f"https://i.pravatar.cc/150?u={generated_anonymous_id}"
@@ -57,13 +58,13 @@ def create_user(db: Session, user: UserCreate) -> User:
     user_data = {
         "anonymous_id": generated_anonymous_id,
         "username": final_username,
-        "bio": user.bio,
-        "pronouns": user.pronouns,
+        "bio": user_in.bio,
+        "pronouns": user_in.pronouns,
         "avatar_url": avatar,
     }
     # If chat_availability is provided in the input, use it. Otherwise, DB default applies.
-    if user.chat_availability is not None:
-        user_data["chat_availability"] = user.chat_availability
+    if user_in.chat_availability is not None:
+        user_data["chat_availability"] = user_in.chat_availability
 
     db_user = User(
         **user_data
@@ -82,9 +83,19 @@ def update_user(db: Session, db_user: User, user_in: UserUpdate) -> User:
     db.refresh(db_user)
     return db_user
 
-def delete_user(db: Session, user_id: int) -> Optional[User]:
-    db_user = db.query(User).filter(User.id == user_id).first()
+def delete_user_by_anonymous_id(db: Session, anonymous_id: uuid.UUID) -> Optional[User]:
+    """
+    Delete a user by their anonymous ID.
+    Returns the deleted user object or None if not found.
+    """
+    # Fetch the user using the anonymous_id
+    db_user = db.query(User).filter(User.anonymous_id == anonymous_id).first()
     if db_user:
+        # Store a representation before deleting if needed for response,
+        # but typically delete endpoints return 204 No Content or the ID.
+        # For simplicity, we'll just return the object before deletion.
+        deleted_user_obj = db_user # Keep a reference before deleting
         db.delete(db_user)
         db.commit()
-    return db_user
+        return deleted_user_obj # Return the object that was deleted
+    return None # User not found

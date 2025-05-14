@@ -2,6 +2,7 @@ import enum
 from sqlalchemy import Column, Integer, ForeignKey, Enum as SAEnum, DateTime, func, UniqueConstraint
 from sqlalchemy.orm import relationship
 from app.db.session import Base
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 
 class VoteTypeEnum(str, enum.Enum):
     UPVOTE = "upvote"
@@ -11,8 +12,8 @@ class PostVoteLog(Base):
     __tablename__ = "post_vote_logs"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    post_id = Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
+    user_anonymous_id = Column(PG_UUID(as_uuid=True), ForeignKey("users.anonymous_id"), nullable=False)
+    post_anonymous_id = Column(PG_UUID(as_uuid=True), ForeignKey("posts.anonymous_post_id"), nullable=False)
     vote_type = Column(SAEnum(VoteTypeEnum, name="votetypeenum_sqlalchemy"), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
@@ -20,4 +21,4 @@ class PostVoteLog(Base):
     user = relationship("User", back_populates="votes")
     post = relationship("Post", back_populates="votes_log")
 
-    __table_args__ = (UniqueConstraint('user_id', 'post_id', name='_user_post_vote_uc'),)
+    __table_args__ = (UniqueConstraint('user_anonymous_id', 'post_anonymous_id', name='uq_user_post_vote_uc'),)
