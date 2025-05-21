@@ -29,4 +29,49 @@ class User(Base):
     votes = relationship("PostVoteLog", back_populates="user", cascade="all, delete-orphan")
     comments = relationship("Comment", back_populates="author", cascade="all, delete-orphan")
     comment_votes = relationship("CommentVoteLog", back_populates="user", cascade="all, delete-orphan")
-    
+
+    # Chat related relationships
+    chat_rooms = relationship(
+        "ChatRoom",
+        secondary="chatroom_participants", # Name of the association table string
+        back_populates="participants"
+    )
+    sent_chat_messages = relationship(
+        "ChatMessage",
+        back_populates="sender",
+        foreign_keys="[ChatMessage.sender_anonymous_id]",
+        cascade="all, delete-orphan"
+    )
+    sent_chat_requests = relationship(
+        "ChatRequest",
+        back_populates="requester",
+        foreign_keys="[ChatRequest.requester_anonymous_id]",
+        cascade="all, delete-orphan"
+    )
+    received_chat_requests = relationship(
+        "ChatRequest",
+        back_populates="requestee",
+        foreign_keys="[ChatRequest.requestee_anonymous_id]",
+        cascade="all, delete-orphan"
+    )
+
+    # Relationships for Mute/Block
+    initiated_relationships = relationship(
+        "UserRelationship",
+        foreign_keys="[UserRelationship.actor_anonymous_id]",
+        back_populates="actor",
+        cascade="all, delete-orphan"
+    )
+    received_relationships = relationship(
+        "UserRelationship",
+        foreign_keys="[UserRelationship.target_anonymous_id]",
+        back_populates="target",
+        cascade="all, delete-orphan"
+    )
+
+    # Relationship for reports made by this user
+    reports_made = relationship(
+        "Report",
+        foreign_keys="[Report.reporter_anonymous_id]",
+        back_populates="reporter",
+        cascade="all, delete-orphan")

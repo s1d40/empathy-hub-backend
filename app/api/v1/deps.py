@@ -1,7 +1,6 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from pydantic import ValidationError
 from sqlalchemy.orm import Session
 import uuid
 
@@ -9,6 +8,7 @@ from app.core.config import settings
 from app.db.session import get_db
 from app.db.models.user import User
 from app.crud import crud_user
+from typing import Optional # Import Optional
 
 # This scheme will look for a token in the "Authorization: Bearer <token>" header
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/token") # tokenUrl is a dummy here, as we don't have a traditional login form
@@ -52,11 +52,7 @@ async def get_current_user(
         # print(f"get_current_user: JWTError during token processing: {e}")
         # Update detail for JWT errors (e.g., invalid signature, expired)
         base_credentials_exception.detail = f"Invalid token: {e}"
-        raise base_credentials_exception
-    except ValidationError as e: # Catch Pydantic validation errors if payload was validated against a model
-        # print(f"get_current_user: ValidationError during token processing: {e}")
-        # Update detail for validation errors
-        base_credentials_exception.detail = f"Token payload validation failed: {e}"
+        # Pydantic ValidationError is less likely here unless TokenPayload schema is used for jwt.decode
         raise base_credentials_exception
     
     user = crud_user.get_user_by_anonymous_id(db, anonymous_id=anonymous_id)
@@ -75,3 +71,17 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user")
     # print("User is active. Returning user.") # Log if active
     return current_user
+
+async def get_optional_current_user(
+    db: Session = Depends(get_db), token: Optional[str] = Depends(oauth2_scheme)
+) -> Optional[User]:
+    if not token:
+        return None
+    try:
+        # Re-use get_current_user logic but catch its specific HTTPException
+        # get_current_user itself is not directly callable with an optional token
+        # so we replicate its core logic or call a modified version.
+        # For simplicity, we'll call get_current_user and handle its exception.
+        return await get_current_user(db, token)
+    except HTTPException:
+        return None

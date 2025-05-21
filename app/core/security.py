@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
-
+from pydantic import ValidationError
+from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
@@ -29,5 +30,21 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 # We might add a function here later to decode tokens for the dependency
-# def decode_access_token(token: str):
-#     pass
+def decode_access_token(token_data: str) -> Optional[dict]: # Or Optional[TokenPayload] if you parse into Pydantic model
+    """
+    Decodes the JWT access token.
+    Returns the payload dictionary if valid, None otherwise.
+    """
+    try:
+        payload = jwt.decode(
+            token_data, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+        # You might want to validate the payload structure here, e.g., using TokenPayload schema
+        # For example:
+        # token_payload = TokenPayload(**payload)
+        # return token_payload # if you want to return the Pydantic model
+        return payload # if you just want the raw dictionary
+    except JWTError: # Catches expired signature, invalid signature, etc.
+        return None
+    except ValidationError: # If you use Pydantic model validation for payload
+        return None

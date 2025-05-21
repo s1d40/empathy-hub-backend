@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Dict
 from app.schemas.token import Token # Import Token schema
 from app import schemas
 from app import crud
@@ -178,6 +178,70 @@ def read_posts_by_author(
     # by FastAPI, assuming the Post ORM objects are compatible and PostRead
     # has from_attributes=True (which it does).
     return posts
+
+@router.delete("/me/posts", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_posts(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """
+    Delete all posts created by the current authenticated user.
+    """
+    deleted_count = crud.crud_post.delete_all_posts_by_author(db, author_anonymous_id=current_user.anonymous_id)
+    return schemas.DeletionSummary(message="All your posts have been deleted.", deleted_count=deleted_count)
+
+@router.delete("/me/comments", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_comments(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """
+    Delete all comments created by the current authenticated user.
+    """
+    deleted_count = crud.comment.delete_all_comments_by_author(db, author_anonymous_id=current_user.anonymous_id)
+    return schemas.DeletionSummary(message="All your comments have been deleted.", deleted_count=deleted_count)
+
+@router.delete("/me/chat-messages", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_chat_messages(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """
+    Delete all chat messages sent by the current authenticated user.
+    This does not delete chat rooms or other users' messages in those rooms.
+    """
+    deleted_count = crud.chat_message.delete_all_messages_by_sender(db, sender_anonymous_id=current_user.anonymous_id)
+    return schemas.DeletionSummary(message="All your chat messages have been deleted.", deleted_count=deleted_count)
+
+@router.delete("/me/all-content", response_model=schemas.AllContentDeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_content(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """
+    Delete all posts, comments, and chat messages created/sent by the current authenticated user.
+    The user account itself is NOT deleted.
+    """
+    posts_deleted_count = crud.crud_post.delete_all_posts_by_author(
+        db, author_anonymous_id=current_user.anonymous_id
+    )
+    
+    comments_deleted_count = crud.comment.delete_all_comments_by_author(
+        db, author_anonymous_id=current_user.anonymous_id
+    )
+    
+    chat_messages_deleted_count = crud.chat_message.delete_all_messages_by_sender(
+        db, sender_anonymous_id=current_user.anonymous_id
+    )
+    
+    summary = schemas.AllContentDeletionSummary(
+        posts_deleted=posts_deleted_count,
+        comments_deleted=comments_deleted_count,
+        chat_messages_deleted=chat_messages_deleted_count,
+        message="All your content (posts, comments, chat messages) has been deleted."
+    )
+    
+    return summary
 
 @router.get("/{author_anonymous_id}/comments", response_model=List[schemas.CommentRead])
 def read_comments_by_author(

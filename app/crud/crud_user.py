@@ -3,7 +3,11 @@ from app.db.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
 from typing import Optional, List
 import uuid
-from app.schemas.enums import ChatAvailabilityEnum # Import if needed for explicit setting
+import random # Import the random module
+from app.schemas.enums import ChatAvailabilityEnum
+from app.core.config import settings # Import settings
+
+
 
 def get_user(db: Session, user_id: int) -> Optional[User]: # type: ignore
     return db.query(User).filter(User.id == user_id).first()
@@ -48,11 +52,19 @@ def create_user(db: Session, user_in: UserCreate) -> User: # Changed parameter n
         # before calling create_user, but as a safeguard:
         raise ValueError(f"Username '{final_username}' already exists.")
 
-    # Assign default avatar if not provided by the client
+    # Assign random avatar if not provided by the client
     avatar = user_in.avatar_url
     if not avatar:
-        # Use the generated_anonymous_id to make the default avatar unique per user
-        avatar = f"https://i.pravatar.cc/150?u={generated_anonymous_id}"
+        if settings.DEFAULT_AVATAR_FILENAMES:
+            # Select a random avatar filename from the list
+            selected_avatar_filename = random.choice(settings.DEFAULT_AVATAR_FILENAMES)
+            avatar = f"http://192.168.1.120:8000{settings.AVATAR_BASE_URL}{selected_avatar_filename}"
+        else:
+            # This case handles if settings.DEFAULT_AVATAR_FILENAMES is empty or not configured.
+            # random.choice would raise an IndexError if the list is empty,
+            # so this 'else' branch (or an explicit check before random.choice) is important.
+            print("Warning: settings.DEFAULT_AVATAR_FILENAMES is not configured or is empty. Using fallback avatar.")
+            avatar = f"{settings.AVATAR_BASE_URL}default.jpg" # Ensure 'default.jpg' exists
     
     # Prepare user data for model creation
     user_data = {

@@ -26,6 +26,7 @@ from app.db.models.post import Post
 from app.db.models.comment import Comment
 from app.db.models.post_vote_log import PostVoteLog # And any other models
 from app.db.models.comment_vote_log import CommentVoteLog
+from app.db.models.chat import ChatRoom, ChatMessage, ChatRequest, chatroom_participants_association    
 from app.core.config import settings
 
 target_metadata = Base.metadata

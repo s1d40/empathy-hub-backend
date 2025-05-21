@@ -4,11 +4,13 @@ from typing import List, Optional, Union, Dict, Any
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import desc, select # For ordering and select
 
-from app.crud.base import CRUDBase
+from .base import CRUDBase # Changed to relative import for consistency
 from app.db.models.comment import Comment
 from app.db.models.comment_vote_log import CommentVoteLog # Import the new model
 from app.db.models.post_vote_log import VoteTypeEnum # Reusing VoteTypeEnum
 from app.schemas.comment import CommentCreate, CommentUpdate
+from .crud_user_relationship import user_relationship # For block/mute list
+from app.schemas.enums import RelationshipTypeEnum # For block/mute list
 
 
 class CRUDComment(CRUDBase[Comment, CommentCreate, CommentUpdate]):
@@ -39,21 +41,34 @@ class CRUDComment(CRUDBase[Comment, CommentCreate, CommentUpdate]):
         ).scalar_one_or_none()
 
     def get_multi_by_post(
-        self, db: Session, *, post_id: uuid.UUID, skip: int = 0, limit: int = 100
+        self,
+        db: Session,
+        *,
+        post_id: uuid.UUID,
+        skip: int = 0,
+        limit: int = 100,
+        current_user_anonymous_id: Optional[uuid.UUID] = None
     ) -> List[Comment]:
         """
         Get multiple comments for a specific post, ordered by creation date (newest first).
+        Optionally filters out comments from users muted/blocked by current_user.
         """
-        return (
-            db.query(self.model)
-            .filter(Comment.post_id == post_id)
-            .options(joinedload(self.model.author)) # Eager load author for CommentRead
-            .order_by(desc(Comment.created_at)) # Or asc(Comment.created_at) for oldest first
-            .offset(skip)
-            .limit(limit)
-            .all()
-        )
+        query = db.query(self.model).filter(Comment.post_id == post_id)
 
+        if current_user_anonymous_id:
+            excluded_author_ids = user_relationship.get_target_ids_by_actor_and_type(
+                db,
+                actor_anonymous_id=current_user_anonymous_id,
+                relationship_types=[RelationshipTypeEnum.MUTE, RelationshipTypeEnum.BLOCK]
+            )
+            if excluded_author_ids:
+                query = query.filter(Comment.author_id.notin_(excluded_author_ids))
+
+        return query.options(joinedload(self.model.author)) \
+                    .order_by(desc(Comment.created_at)) \
+                    .offset(skip) \
+                    .limit(limit) \
+                    .all()
     def get_multi_by_author_anonymous_id(
         self, db: Session, *, author_anonymous_id: uuid.UUID, skip: int = 0, limit: int = 100
     ) -> List[Comment]:
@@ -161,5 +176,15 @@ class CRUDComment(CRUDBase[Comment, CommentCreate, CommentUpdate]):
         db.commit()
         db.refresh(comment) # Refresh to get any DB-side updates and ensure relationships are current
         return comment
+
+    def delete_all_comments_by_author(self, db: Session, author_anonymous_id: uuid.UUID) -> int:
+        """Deletes all comments by a given author and returns the count of deleted comments."""
+        comments_to_delete = db.query(self.model).filter(self.model.author_id == author_anonymous_id).all()
+        count = len(comments_to_delete)
+        if count > 0:
+            for comment_obj in comments_to_delete:
+                db.delete(comment_obj)
+            db.commit()
+        return count
 
 comment = CRUDComment(Comment)
