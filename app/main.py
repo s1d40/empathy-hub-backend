@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 # from app.db.session import create_db_and_tables
 from app.db.models import user
 from app.api.v1.api import api_router as api_v1_router
@@ -24,7 +25,7 @@ class RawRequestLoggerMiddleware:
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    description="API for Empathy Hub, a platform for empathic connection and support.",
+    description="API for Anonymous Hub, a platform for anonymous connection and support.",
     version="0.1.0",
 )
 
@@ -42,7 +43,9 @@ if settings.BACKEND_CORS_ORIGINS:
 
 # Mount static files directory
 # This will serve files from a directory named "static" at the project root
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# If avatars are now served from GCS and this was their only purpose,
+# this line can be removed. Ensure the 'static' directory is also removed if no longer needed.
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.include_router(api_v1_router, prefix=settings.API_V1_STR)
 
@@ -55,8 +58,12 @@ def on_startup():
 
 @app.get("/")
 async def read_root():
-    return {"message": "Welcome to Empathy Hub API"}
+    return {"message": "Welcome to Anonymous Hub API"}
 
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
+
+if __name__== "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="info", reload=True)
