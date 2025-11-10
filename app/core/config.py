@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     # AVATAR_BASE_URL should now be the full public URL to your GCS bucket's avatar folder
     # Example: "https://storage.googleapis.com/your-bucket-name/static/avatars/"
     # Ensure it ends with a trailing slash.
-    AVATAR_BASE_URL: str = os.getenv("AVATAR_BASE_URL", "https://storage.googleapis.com/your-default-bucket/static/avatars/")
+    AVATAR_BASE_URL: str = os.getenv("AVATAR_BASE_URL", "https://storage.googleapis.com/empathy-hub-avatars-anonymous-hubs-477707/static/avatars/")
     BACKEND_CORS_ORIGINS: list[str] = [
         "http://localhost:43391",      # Previous frontend origin
         "http://127.0.0.1:44093",
