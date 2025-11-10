@@ -20,8 +20,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /usr/src/app
 
 # Expose the port the app runs on
-EXPOSE 8000
+EXPOSE 8080
 
 # Command to run the application
 # We use 0.0.0.0 to make it accessible from outside the container
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Use Gunicorn as the process manager with Uvicorn workers for production.
+CMD ["/bin/sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port \"$PORT\""]

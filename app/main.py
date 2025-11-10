@@ -1,10 +1,23 @@
+import os
+import uvicorn
 from fastapi import FastAPI, APIRouter
-from app.core.config import settings
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import firebase_admin
-from firebase_admin import credentials as firebase_credentials # Alias to avoid conflict
-from google.auth import credentials as google_credentials # Import for AnonymousCredentials
+from firebase_admin import credentials as firebase_credentials
+from google.auth import credentials as google_credentials
+
+from app.core.config import settings
+from app.api.v1.endpoints import (
+    auth as auth_router,
+    users as users_router,
+    posts as posts_router,
+    comments as comments_router,
+    user_actions as user_actions_router,
+    reports as reports_router,
+    chat as chat_router,
+    avatars as avatars_router,
+)
 
 # --- Firebase Initialization ---
 print("Initializing Firebase Admin SDK...")
@@ -28,19 +41,6 @@ if not firebase_admin._apps:
         print(f"Firebase initialization failed: {e}")
 else:
     print("Firebase app already initialized.")
-
-
-# Import the refactored endpoint routers
-from app.api.v1.endpoints import (
-    auth as auth_router,
-    users as users_router,
-    posts as posts_router,
-    comments as comments_router,
-    user_actions as user_actions_router,
-    reports as reports_router,
-    chat as chat_router,
-    avatars as avatars_router,
-)
 
 app = FastAPI(
     title=f"{settings.PROJECT_NAME} - Firestore Backend",
@@ -71,10 +71,6 @@ api_router_firestore.include_router(avatars_router.router, prefix="/avatars", ta
 
 app.include_router(api_router_firestore, prefix=settings.API_V1_STR)
 
-# --- Original SQL-based API Router (for reference) ---
-# from app.api.v1.api import api_router as api_v1_router
-# app.include_router(api_v1_router, prefix=settings.API_V1_STR)
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
@@ -84,3 +80,7 @@ async def read_root():
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
+
+if __name__== "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="info", reload=True)

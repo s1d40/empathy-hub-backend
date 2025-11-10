@@ -12,10 +12,13 @@ from typing import Optional
 load_dotenv()
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Empathy Hub API"
+    PROJECT_NAME: str = "Anonymous Hub API"
     API_V1_STR: str = "/api/v1"
     DEFAULT_AVATAR_FILENAMES: list[str] = avatar_filenames # Use the imported list
-    AVATAR_BASE_URL: str = "/static/avatars/"
+    # AVATAR_BASE_URL should now be the full public URL to your GCS bucket's avatar folder
+    # Example: "https://storage.googleapis.com/your-bucket-name/static/avatars/"
+    # Ensure it ends with a trailing slash.
+    AVATAR_BASE_URL: str = os.getenv("AVATAR_BASE_URL", "https://storage.googleapis.com/your-default-bucket/static/avatars/")
     BACKEND_CORS_ORIGINS: list[str] = [
         "http://localhost:43391",      # Previous frontend origin
         "http://127.0.0.1:44093",

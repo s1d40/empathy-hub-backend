@@ -2,13 +2,35 @@ __pycache__
 *.pyc
 *.pyo
 *.pyd
-.Python
-env
-venv
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Git
 .git
 .gitignore
+
+# IDE / Editor specific
+.vscode/
+.idea/
+
+# Python build / distribution
+dist/
+build/
+*.egg-info/
+
+# Local environment files (should be managed by Cloud Run's env vars)
+.env
+*.env.*
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+
+# Development tools / configs
 .flake8
-Dockerfile
 docker-compose.yml
 README.md
 *.log

@@ -58,7 +58,7 @@ def create_user(db: Session, user_in: UserCreate) -> User: # Changed parameter n
         if settings.DEFAULT_AVATAR_FILENAMES:
             # Select a random avatar filename from the list
             selected_avatar_filename = random.choice(settings.DEFAULT_AVATAR_FILENAMES)
-            avatar = f"http://192.168.1.120:8000{settings.AVATAR_BASE_URL}{selected_avatar_filename}"
+            avatar = f"{settings.AVATAR_BASE_URL}{selected_avatar_filename}" # Use AVATAR_BASE_URL directly
         else:
             # This case handles if settings.DEFAULT_AVATAR_FILENAMES is empty or not configured.
             # random.choice would raise an IndexError if the list is empty,
