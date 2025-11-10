@@ -1,0 +1,215 @@
+[
+  {
+    "insertId": "6911d880000cf74958c53cc6",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://t-2616093886---sfaisolutions-frontend-gmjes64qia-uc.a.run.app/anonymous-hubs",
+      "requestSize": "1400",
+      "status": 404,
+      "responseSize": "3724",
+      "userAgent": "Google",
+      "remoteIp": "192.178.15.70",
+      "serverIp": "34.143.79.2",
+      "latency": "0.299623532s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "sfaisolutions-frontend",
+        "location": "us-central1",
+        "revision_name": "sfaisolutions-frontend-build-2025-11-10-003",
+        "service_name": "sfaisolutions-frontend",
+        "project_id": "cocreator-d0nbh"
+      }
+    },
+    "timestamp": "2025-11-10T12:20:16.529357Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "firebase-app-hosting",
+      "instanceId": "0014778296563328ca804639a75f9ee746ed5b801cb0ed36ada2934d82682875381e9f4f46d39ec32f453c9de2854392a8d5c9f75b976ea33111aec69980d133e9ae867baa85c8835f94a2665e2ff3"
+    },
+    "logName": "projects/cocreator-d0nbh/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/cocreator-d0nbh/traces/e3eadfee1c898e24f1f2e971d995377a",
+    "receiveTimestamp": "2025-11-10T12:20:16.855756985Z",
+    "spanId": "e3b9a6374a0b1ec4",
+    "traceSampled": true
+  },
+  {
+    "insertId": "6911d8a00001650562828489",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://t-2616093886---sfaisolutions-frontend-gmjes64qia-uc.a.run.app/anonymous-hubs",
+      "requestSize": "1349",
+      "status": 404,
+      "responseSize": "3723",
+      "userAgent": "Google",
+      "remoteIp": "74.125.212.198",
+      "serverIp": "34.143.75.2",
+      "latency": "0.029492380s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "cocreator-d0nbh",
+        "location": "us-central1",
+        "revision_name": "sfaisolutions-frontend-build-2025-11-10-003",
+        "configuration_name": "sfaisolutions-frontend",
+        "service_name": "sfaisolutions-frontend"
+      }
+    },
+    "timestamp": "2025-11-10T12:20:48.050820Z",
+    "severity": "WARNING",
+    "labels": {
+      "instanceId": "0014778296563328ca804639a75f9ee746ed5b801cb0ed36ada2934d82682875381e9f4f46d39ec32f453c9de2854392a8d5c9f75b976ea33111aec69980d133e9ae867baa85c8835f94a2665e2ff3",
+      "goog-managed-by": "firebase-app-hosting"
+    },
+    "logName": "projects/cocreator-d0nbh/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/cocreator-d0nbh/traces/8548b9e6f273e8d1b0355352d179a80d",
+    "receiveTimestamp": "2025-11-10T12:20:48.097753886Z",
+    "spanId": "0a3c1916329f1882",
+    "traceSampled": true
+  },
+  {
+    "insertId": "6911d8a1000420244d12d1a7",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://t-2616093886---sfaisolutions-frontend-gmjes64qia-uc.a.run.app/anonymous-hubs",
+      "requestSize": "1349",
+      "status": 404,
+      "responseSize": "3722",
+      "userAgent": "Google",
+      "remoteIp": "64.233.172.225",
+      "serverIp": "34.143.78.2",
+      "latency": "0.021879344s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "sfaisolutions-frontend-build-2025-11-10-003",
+        "service_name": "sfaisolutions-frontend",
+        "project_id": "cocreator-d0nbh",
+        "location": "us-central1",
+        "configuration_name": "sfaisolutions-frontend"
+      }
+    },
+    "timestamp": "2025-11-10T12:20:49.246440Z",
+    "severity": "WARNING",
+    "labels": {
+      "instanceId": "0014778296563328ca804639a75f9ee746ed5b801cb0ed36ada2934d82682875381e9f4f46d39ec32f453c9de2854392a8d5c9f75b976ea33111aec69980d133e9ae867baa85c8835f94a2665e2ff3",
+      "goog-managed-by": "firebase-app-hosting"
+    },
+    "logName": "projects/cocreator-d0nbh/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/cocreator-d0nbh/traces/2dd6a13606c82c9f15c6f1599f466d9f",
+    "receiveTimestamp": "2025-11-10T12:20:49.431869579Z",
+    "spanId": "3d82ab4627c57105"
+  },
+  {
+    "insertId": "6911d8a20001e2c328b6f780",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://t-2616093886---sfaisolutions-frontend-gmjes64qia-uc.a.run.app/anonymous-hubs",
+      "requestSize": "1349",
+      "status": 404,
+      "responseSize": "3720",
+      "userAgent": "Google",
+      "remoteIp": "74.125.215.168",
+      "serverIp": "34.143.74.2",
+      "latency": "0.023551140s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "sfaisolutions-frontend-build-2025-11-10-003",
+        "location": "us-central1",
+        "project_id": "cocreator-d0nbh",
+        "service_name": "sfaisolutions-frontend",
+        "configuration_name": "sfaisolutions-frontend"
+      }
+    },
+    "timestamp": "2025-11-10T12:20:50.097872Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "firebase-app-hosting",
+      "instanceId": "0014778296563328ca804639a75f9ee746ed5b801cb0ed36ada2934d82682875381e9f4f46d39ec32f453c9de2854392a8d5c9f75b976ea33111aec69980d133e9ae867baa85c8835f94a2665e2ff3"
+    },
+    "logName": "projects/cocreator-d0nbh/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/cocreator-d0nbh/traces/c9dbc0019446e0d06def6b32fcdceec4",
+    "receiveTimestamp": "2025-11-10T12:20:50.428285557Z",
+    "spanId": "c2ddb9152da64cce"
+  },
+  {
+    "insertId": "6911d928000856dff5e09931",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://t-2616093886---sfaisolutions-frontend-gmjes64qia-uc.a.run.app/anonymous-hubs",
+      "requestSize": "1348",
+      "status": 404,
+      "responseSize": "3723",
+      "userAgent": "Google",
+      "remoteIp": "74.125.215.162",
+      "serverIp": "34.143.75.2",
+      "latency": "0.039896908s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "sfaisolutions-frontend-build-2025-11-10-003",
+        "service_name": "sfaisolutions-frontend",
+        "project_id": "cocreator-d0nbh",
+        "configuration_name": "sfaisolutions-frontend"
+      }
+    },
+    "timestamp": "2025-11-10T12:23:04.476790Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "firebase-app-hosting",
+      "instanceId": "0014778296563328ca804639a75f9ee746ed5b801cb0ed36ada2934d82682875381e9f4f46d39ec32f453c9de2854392a8d5c9f75b976ea33111aec69980d133e9ae867baa85c8835f94a2665e2ff3"
+    },
+    "logName": "projects/cocreator-d0nbh/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/cocreator-d0nbh/traces/1f0306c56aad9fc807db9f3af1177947",
+    "receiveTimestamp": "2025-11-10T12:23:04.553675456Z",
+    "spanId": "0650d003835d2242",
+    "traceSampled": true
+  },
+  {
+    "insertId": "6911d9290009cb2aa011a2a6",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://t-2616093886---sfaisolutions-frontend-gmjes64qia-uc.a.run.app/anonymous-hubs",
+      "requestSize": "1349",
+      "status": 404,
+      "responseSize": "3723",
+      "userAgent": "Google",
+      "remoteIp": "74.125.215.75",
+      "serverIp": "34.143.72.2",
+      "latency": "0.032946950s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "cocreator-d0nbh",
+        "revision_name": "sfaisolutions-frontend-build-2025-11-10-003",
+        "location": "us-central1",
+        "configuration_name": "sfaisolutions-frontend",
+        "service_name": "sfaisolutions-frontend"
+      }
+    },
+    "timestamp": "2025-11-10T12:23:05.607007Z",
+    "severity": "WARNING",
+    "labels": {
+      "goog-managed-by": "firebase-app-hosting",
+      "instanceId": "0014778296563328ca804639a75f9ee746ed5b801cb0ed36ada2934d82682875381e9f4f46d39ec32f453c9de2854392a8d5c9f75b976ea33111aec69980d133e9ae867baa85c8835f94a2665e2ff3"
+    },
+    "logName": "projects/cocreator-d0nbh/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/cocreator-d0nbh/traces/a0444d485b5015cbdc0ae952b37837db",
+    "receiveTimestamp": "2025-11-10T12:23:05.883916481Z",
+    "spanId": "6829d15013f229b5"
+  }
+]

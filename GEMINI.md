@@ -1,10 +1,14 @@
 # Gemini Project Analysis: Empathy Hub Backend
 
-This document provides an analysis of the Empathy Hub FastAPI backend application, based on the provided source code from the `app/` directory.
+## Project Status (November 2025)
+
+This project has undergone a significant migration from a PostgreSQL + SQLAlchemy backend to a **Google Cloud Firestore** backend. As part of this migration, all SQLAlchemy-related code, including the `app/db` and `app/crud` directories, has been removed. The application now uses the `firebase-admin` SDK and a custom `app/services/firestore_services` layer to interact with Firestore.
+
+This document has been updated to reflect the current Firestore-based architecture.
 
 ## Project Overview
 
-The Empathy Hub backend is a Python application built with the **FastAPI** framework. It serves as the API for the Empathy Hub platform, providing endpoints for user authentication, content management (posts and comments), real-time chat, and user interaction features like muting, blocking, and reporting. The backend uses **SQLAlchemy** for its Object-Relational Mapping (ORM) to interact with a PostgreSQL database.
+The Empathy Hub backend is a Python application built with the **FastAPI** framework. It serves as the API for the Empathy Hub platform, providing endpoints for user authentication, content management (posts and comments), real-time chat, and user interaction features like muting, blocking, and reporting. The backend uses **Google Cloud Firestore** as its database.
 
 ## Core Architecture
 
@@ -12,8 +16,7 @@ The application follows a clean, layered architecture that separates concerns in
 
 *   **`api`**: Defines the API endpoints using FastAPI's `APIRouter`. This is the entry point for all incoming HTTP requests.
 *   **`core`**: Contains core logic and configuration, including security (JWT handling), application settings, and the real-time chat connection manager.
-*   **`db`**: Manages the database connection (`session.py`) and defines the data structure through SQLAlchemy ORM models (`models/`).
-*   **`crud`**: Stands for Create, Read, Update, Delete. This layer contains the functions that directly interact with the database models to perform data operations. It acts as an abstraction layer between the API endpoints and the database.
+*   **`services/firestore_services`**: This layer contains the functions that directly interact with Firestore to perform data operations. It acts as an abstraction layer between the API endpoints and the database.
 *   **`schemas`**: Defines the data shapes for API requests and responses using **Pydantic** models. This ensures data validation and serialization.
 *   **`scripts`**: Contains utility scripts, such as generating the list of default avatar filenames.
 
@@ -29,29 +32,6 @@ The API is versioned under `/api/v1` and is organized into the following resourc
 *   **`user_actions.py`**: Contains endpoints for user interactions like muting, blocking, and listing muted/blocked users.
 *   **`reports.py`**: Provides endpoints for users to submit reports against other users, posts, or comments, as well as admin-only endpoints for managing these reports.
 *   **`avatars.py`**: A simple endpoint to retrieve the list of default avatar URLs.
-
-## Database Models (`app/db/models/`)
-
-The application uses SQLAlchemy to define its database schema. Key models include:
-
-*   **`user.py`**: The `User` model, which stores user information like `anonymous_id`, `username`, `bio`, `avatar_url`, and `chat_availability`. It has relationships with posts, comments, votes, chat rooms, and user relationships.
-*   **`post.py`**: The `Post` model, containing the content of a post, its author, and relationships with comments and votes.
-*   **`comment.py`**: The `Comment` model, representing a comment on a post.
-*   **`chat.py`**: Defines the `ChatRoom`, `ChatMessage`, and `ChatRequest` models for the chat feature.
-*   **`user_relationship.py`**: The `UserRelationship` model, which stores information about mute and block relationships between users.
-*   **`report.py`**: The `Report` model, for storing user-submitted reports.
-*   **`post_vote_log.py` & `comment_vote_log.py`**: These models log user votes on posts and comments to prevent duplicate votes.
-
-## CRUD Layer (`app/crud/`)
-
-The CRUD layer provides a clear separation between the business logic of the API endpoints and the database interaction logic. Each `crud_*.py` file corresponds to a database model and contains functions for:
-
-*   **Creating**: `create_*` functions that take a Pydantic schema as input and create a new database record.
-*   **Reading**: `get_*` functions for retrieving single records or lists of records.
-*   **Updating**: `update_*` functions for modifying existing records.
-*   **Deleting**: `remove` or `delete_*` functions for deleting records.
-
-This layer is crucial for keeping the API endpoints clean and focused on handling HTTP requests and responses, while the CRUD functions handle the specifics of database queries.
 
 ## Pydantic Schemas (`app/schemas/`)
 
