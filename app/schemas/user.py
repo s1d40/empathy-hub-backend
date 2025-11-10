@@ -52,3 +52,8 @@ class AuthorRead(BaseModel):
     avatar_url: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class UserInDB(UserBase):
+    anonymous_id: str
+    created_at: datetime
+    updated_at: datetime

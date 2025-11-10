@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, DateTime, func, Text, Enum as SAEnum, Boolean
-from app.db.session import Base
+# from app.db.session import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from app.schemas.enums import ChatAvailabilityEnum
 import uuid
 
-class User(Base):
+class User:
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)

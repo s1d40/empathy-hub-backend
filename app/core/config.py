@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from datetime import timedelta
 from pydantic_settings import BaseSettings
 from app.scripts.generate_avatar_filenames import avatar_filenames
+from typing import Optional
+
 # This import is where the traceback indicates the ImportError occurs.
 # Fixing the Settings class structure below is the first step.
 
@@ -22,10 +24,17 @@ class Settings(BaseSettings):
         'http://0.0.0.0:8000',
         'http://localhost:8000',
         'http://127.0.0.1:8000',
+        "https://sfaisolutions.com", # Deployed frontend origin
+        "https://empathy-hub-backend-131065304705.us-central1.run.app", # Backend's own Cloud Run URL
         # Add any other origins if needed, e.g., your deployed frontend URL
     ]
 
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@host:port/db")
+    
+    # GCP and Firebase Settings
+    GCP_PROJECT_ID: str = os.getenv("GCP_PROJECT_ID", "your-gcp-project-id") # TODO: Replace with your GCP project ID
+    FIRESTORE_EMULATOR_HOST: Optional[str] = os.getenv("FIRESTORE_EMULATOR_HOST") # e.g., "localhost:8080"
+
     #JWT Settings
     SECRET_KEY: str = os.getenv("SECRET_KEY", "secret_key")
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
@@ -41,3 +50,5 @@ settings = Settings()
 print(f"DEBUG: Loaded DATABASE_URL: '{settings.DATABASE_URL}'")
 print(f"DEBUG: Type of DATABASE_URL: {type(settings.DATABASE_URL)}")
 print(f"DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: {len(settings.DEFAULT_AVATAR_FILENAMES) if settings.DEFAULT_AVATAR_FILENAMES else 'Not loaded or empty'}")
+print(f"DEBUG: GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}")
+print(f"DEBUG: FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")

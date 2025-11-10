@@ -1,12 +1,9 @@
-import enum
 from sqlalchemy import Column, Integer, ForeignKey, Enum as SAEnum, DateTime, func, UniqueConstraint
 from sqlalchemy.orm import relationship
 from app.db.session import Base
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
+from app.schemas.enums import VoteTypeEnum
 
-class VoteTypeEnum(str, enum.Enum):
-    UPVOTE = "upvote"
-    DOWNVOTE = "downvote"
 
 class PostVoteLog(Base):
     __tablename__ = "post_vote_logs"

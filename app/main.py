@@ -1,61 +1,85 @@
-from fastapi import FastAPI
-# from app.db.session import create_db_and_tables
-from app.db.models import user
-from app.api.v1.api import api_router as api_v1_router
+from fastapi import FastAPI, APIRouter
 from app.core.config import settings
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.types import ASGIApp, Receive, Scope, Send # Add these imports
+import firebase_admin
+from firebase_admin import credentials as firebase_credentials # Alias to avoid conflict
+from google.auth import credentials as google_credentials # Import for AnonymousCredentials
+
+# --- Firebase Initialization ---
+print("Initializing Firebase Admin SDK...")
+print(f"DEBUG (main.py): GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}")
+print(f"DEBUG (main.py): FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
+if not firebase_admin._apps:
+    try:
+        if settings.FIRESTORE_EMULATOR_HOST:
+            # Use emulator if the host is set
+            cred = google_credentials.AnonymousCredentials()
+            firebase_admin.initialize_app(cred, {
+                'projectId': settings.GCP_PROJECT_ID,
+            })
+            print("Firebase initialized with EMULATOR.")
+        else:
+            # Use Application Default Credentials for production
+            cred = firebase_credentials.ApplicationDefault()
+            firebase_admin.initialize_app(cred, {'projectId': settings.GCP_PROJECT_ID})
+            print("Firebase initialized with Application Default Credentials.")
+    except Exception as e:
+        print(f"Firebase initialization failed: {e}")
+else:
+    print("Firebase app already initialized.")
 
 
-class RawRequestLoggerMiddleware:
-    def __init__(self, app: ASGIApp) -> None:
-        self.app = app
-
-    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
-        if scope["type"] in ("http", "websocket"):
-            print(f"--- MIDDLEWARE LOG ---")
-            print(f"Scope Type: {scope['type']}")
-            print(f"Path: {scope.get('path')}")
-            print(f"Headers: {scope.get('headers')}") # This will show the initial HTTP headers
-            print(f"----------------------")
-        await self.app(scope, receive, send)
-
-
-app = FastAPI(
-    title=settings.PROJECT_NAME,
-    description="API for Empathy Hub, a platform for empathic connection and support.",
-    version="0.1.0",
+# Import the refactored endpoint routers
+from app.api.v1.endpoints import (
+    auth as auth_router,
+    users as users_router,
+    posts as posts_router,
+    comments as comments_router,
+    user_actions as user_actions_router,
+    reports as reports_router,
+    chat as chat_router,
+    avatars as avatars_router,
 )
 
-# Add the RawRequestLoggerMiddleware as the VERY FIRST middleware
-app.add_middleware(RawRequestLoggerMiddleware)
+app = FastAPI(
+    title=f"{settings.PROJECT_NAME} - Firestore Backend",
+    description="API for Empathy Hub, running on a serverless Firestore backend.",
+    version="0.2.0",
+)
 
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin).strip("/") for origin in settings.BACKEND_CORS_ORIGINS],
+        allow_origins=settings.BACKEND_CORS_ORIGINS, # Use the list from settings
         allow_credentials=True,
-        allow_methods=["*"],  # Allows all methods
-        allow_headers=["*"],  # Allows all headers
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
-# Mount static files directory
-# This will serve files from a directory named "static" at the project root
+# --- Firestore Backend API Router ---
+api_router_firestore = APIRouter()
+api_router_firestore.include_router(auth_router.router, prefix="/auth", tags=["auth"])
+api_router_firestore.include_router(users_router.router, prefix="/users", tags=["users"])
+api_router_firestore.include_router(posts_router.router, prefix="/posts", tags=["posts"])
+# Note: The path for comments is now more RESTful, directly under the posts resource
+api_router_firestore.include_router(comments_router.router, prefix="/posts", tags=["comments"])
+api_router_firestore.include_router(user_actions_router.router, prefix="/user-actions", tags=["user-actions"])
+api_router_firestore.include_router(reports_router.router, prefix="/reports", tags=["reports"])
+api_router_firestore.include_router(chat_router.router, prefix="/chat", tags=["chat"])
+api_router_firestore.include_router(avatars_router.router, prefix="/avatars", tags=["avatars"])
+
+app.include_router(api_router_firestore, prefix=settings.API_V1_STR)
+
+# --- Original SQL-based API Router (for reference) ---
+# from app.api.v1.api import api_router as api_v1_router
+# app.include_router(api_v1_router, prefix=settings.API_V1_STR)
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-app.include_router(api_v1_router, prefix=settings.API_V1_STR)
-
-
-@app.on_event("startup")
-def on_startup():
-    print("Creating database and tables...")
-    #create_db_and_tables()
-
 
 @app.get("/")
 async def read_root():
-    return {"message": "Welcome to Empathy Hub API"}
+    return {"message": "Welcome to Empathy Hub API (Firestore Backend)"}
 
 @app.get("/health")
 async def health_check():

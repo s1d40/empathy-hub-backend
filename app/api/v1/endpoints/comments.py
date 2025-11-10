@@ -1,138 +1,124 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-import uuid
 from typing import List, Optional
-
-from app import crud
-from app.schemas import CommentCreate, CommentRead, CommentUpdate, CommentVoteCreate
-from app.db.session import get_db
-from app.db.models.user import User # For type hinting current_user
-from app.api.v1 import deps # Changed to import deps directly
+from app import schemas
+from app.services.firestore_services import comment_service, post_service
+from app.api.v1.firestore_deps import get_current_active_user_firestore, get_optional_current_user_firestore
 
 router = APIRouter()
 
 @router.post(
-    "/{post_anonymous_id}/comments/", # This path implies it's nested under a post
-    response_model=CommentRead,
+    "/{post_id}/comments/",
+    response_model=schemas.CommentRead,
     status_code=status.HTTP_201_CREATED,
     summary="Create a comment for a post",
-    tags=["comments"] # Add a tag for better OpenAPI docs
+    tags=["comments"]
 )
 def create_comment_for_post(
-    post_anonymous_id: uuid.UUID,
-    comment_in: CommentCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(deps.get_current_active_user),
+    post_id: str,
+    comment_in: schemas.CommentCreate,
+    current_user: dict = Depends(get_current_active_user_firestore),
 ):
     """
-    Create a new comment for a specific post.
-    The user making the comment will be the currently authenticated user.
+    Create a new comment for a specific post in Firestore.
     """
-    post = crud.crud_post.get_post_by_anonymous_id(db, anonymous_post_id=post_anonymous_id)
-    if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found to comment on")
-    
-    comment = crud.comment.create_with_author_and_post(
-        db=db, obj_in=comment_in, author_id=current_user.anonymous_id, post_id=post.anonymous_post_id
-    )
-    return comment
+    try:
+        comment = comment_service.create_comment(
+            post_id=post_id,
+            comment_in=comment_in,
+            author_id=current_user['anonymous_id']
+        )
+        return comment
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
 @router.get(
-    "/{post_anonymous_id}/comments/", # This path implies it's nested under a post
-    response_model=List[CommentRead],
+    "/{post_id}/comments/",
+    response_model=List[schemas.CommentRead],
     summary="List comments for a post",
     tags=["comments"]
 )
 def read_comments_for_post(
-    post_anonymous_id: uuid.UUID,
-    db: Session = Depends(get_db),
+    post_id: str,
     skip: int = 0,
     limit: int = 20,
-    current_user: Optional[User] = Depends(deps.get_optional_current_user),
+    current_user: Optional[dict] = Depends(get_optional_current_user_firestore),
 ):
     """
-    Retrieve comments for a specific post with pagination.
+    Retrieve comments for a specific post from Firestore.
     """
-    post = crud.crud_post.get_post_by_anonymous_id(db, anonymous_post_id=post_anonymous_id)
-    if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found to list comments for")
+    if not post_service.get_post(post_id=post_id):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
     
-    user_anon_id_for_filtering = current_user.anonymous_id if current_user else None
-    
-    comments = crud.comment.get_multi_by_post(
-        db,
-        post_id=post.anonymous_post_id,
-        skip=skip, limit=limit,
-        current_user_anonymous_id=user_anon_id_for_filtering
-    )
+    comments = comment_service.get_comments_for_post(post_id=post_id, skip=skip, limit=limit)
     return comments
 
 @router.put(
-    "/comments/{comment_id}/", # Path for operating directly on a comment
-    response_model=CommentRead,
+    "/comments/{comment_id}",
+    response_model=schemas.CommentRead,
     summary="Update a comment",
     tags=["comments"]
 )
 def update_comment(
-    comment_id: uuid.UUID,
-    comment_in: CommentUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(deps.get_current_active_user),
+    comment_id: str,
+    comment_in: schemas.CommentUpdate,
+    current_user: dict = Depends(get_current_active_user_firestore),
 ):
     """
-    Update an existing comment. Only the author of the comment can update it.
+    Update an existing comment in Firestore.
     """
-    comment = crud.comment.get(db, id=comment_id)
+    comment = comment_service.get_comment_by_id(comment_id=comment_id)
     if not comment:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Comment not found")
-    if comment.author_id != current_user.anonymous_id:
+    if comment['author']['anonymous_id'] != current_user['anonymous_id']:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions to update this comment")
     
-    updated_comment = crud.comment.update(db=db, db_obj=comment, obj_in=comment_in)
+    updated_comment = comment_service.update_comment(comment_id=comment_id, comment_in=comment_in)
     return updated_comment
 
 @router.delete(
-    "/comments/{comment_id}/", # Path for operating directly on a comment
+    "/comments/{comment_id}",
     status_code=status.HTTP_204_NO_CONTENT,
     summary="Delete a comment",
     tags=["comments"]
 )
 def delete_comment(
-    comment_id: uuid.UUID,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(deps.get_current_active_user),
+    comment_id: str,
+    current_user: dict = Depends(get_current_active_user_firestore),
 ):
     """
-    Delete a comment. Only the author of the comment can delete it.
+    Delete a comment from Firestore.
     """
-    comment = crud.comment.get(db, id=comment_id)
+    comment = comment_service.get_comment_by_id(comment_id=comment_id)
     if not comment:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Comment not found")
-    if comment.author_id != current_user.anonymous_id:
+    if comment['author']['anonymous_id'] != current_user['anonymous_id']:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions to delete this comment")
     
-    crud.comment.remove(db=db, id=comment_id)
+    comment_service.delete_comment(comment_id=comment_id)
     return
 
 @router.post(
-    "/comments/{comment_anonymous_id}/vote",
-    response_model=CommentRead,
+    "/comments/{comment_id}/vote",
+    response_model=schemas.CommentRead,
     summary="Vote on a comment",
     tags=["comments"]
 )
 def vote_on_comment(
-    *,
-    db: Session = Depends(get_db),
-    comment_anonymous_id: uuid.UUID,
-    vote_in: CommentVoteCreate,
-    current_user: User = Depends(deps.get_current_active_user)
+    comment_id: str,
+    vote_in: schemas.CommentVoteCreate,
+    current_user: dict = Depends(get_current_active_user_firestore)
 ):
     """
-    Vote on a comment (upvote or downvote).
+    Vote on a comment in Firestore.
     """
-    updated_comment = crud.comment.process_comment_vote(
-        db=db, comment_anonymous_id=comment_anonymous_id, user_anonymous_id=current_user.anonymous_id, requested_vote_type=vote_in.vote_type
-    )
-    if not updated_comment: # This also implicitly checks if comment was found
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Comment not found or vote processing failed")
-    return updated_comment
+    try:
+        updated_comment = comment_service.vote_on_comment(
+            comment_id=comment_id,
+            user_id=current_user['anonymous_id'],
+            vote_type=vote_in.vote_type
+        )
+        if not updated_comment:
+            raise HTTPException(status_code=404, detail="Comment not found")
+        return updated_comment
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

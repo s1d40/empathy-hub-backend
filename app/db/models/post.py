@@ -1,8 +1,7 @@
 import uuid
 from sqlalchemy import Column, Integer, String, DateTime, func, Text, ForeignKey, Boolean
-from sqlalchemy.orm import relationship, column_property # Added column_property
-from sqlalchemy.dialects.postgresql import UUID as PG_UUID # Keep PG_UUID
-from sqlalchemy import select # Added select
+from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from app.db.session import Base
 
 class Post(Base):
@@ -34,14 +33,3 @@ class Post(Base):
 
     # TODO: Add relationship for comments when Comment model is created
     # TODO: Add relationship for topic when Topic model is created
-
-# Define column_property after Post and Comment classes are known to avoid circular import issues
-# This assumes Comment model is defined in '.comment' and accessible.
-from .comment import Comment # Import Comment model for use in column_property
-
-Post.comment_count = column_property(
-    select(func.count(Comment.id))
-    .where(Comment.post_id == Post.anonymous_post_id) # Link Comment.post_id to Post.anonymous_post_id
-    .correlate_except(Comment) # Correlate the subquery with the Post table, excluding Comment itself from correlation
-    .as_scalar()
-)

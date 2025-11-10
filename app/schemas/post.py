@@ -2,9 +2,8 @@ from pydantic import BaseModel, ConfigDict, Field, computed_field
 from typing import Optional, List, TYPE_CHECKING
 from datetime import datetime
 import uuid
-from app.db.models.post_vote_log import VoteTypeEnum
+from app.schemas.enums import VoteTypeEnum
 # from .comment import CommentRead # No longer directly embedding full CommentRead here
-from app.db.models.comment import Comment as CommentModel # Import Comment model for runtime
 from .user import AuthorRead
 
 
@@ -42,8 +41,6 @@ class PostRead(PostBase):
     # For now, let's include the author's anonymous_id
     # In a more advanced setup, we might embed a UserRead schema here.
     author: AuthorRead
-
-    comment_count: int # This will be populated by the column_property on the Post model
     
     is_active: bool
     is_edited: bool
