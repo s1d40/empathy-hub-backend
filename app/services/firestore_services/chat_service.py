@@ -254,7 +254,7 @@ def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender
 
     # For the response, we need the sender's data
     users_map = {sender_id: sender_data}
-    return _format_chat_message(message_data, users_map)
+    return _format_chat_message(message_data, users_map, room_id)
 
 def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
     """
@@ -274,7 +274,7 @@ def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
     users_data = user_service.get_users_by_anonymous_ids(list(all_user_ids))
     users_map = {user['anonymous_id']: user for user in users_data}
 
-    return [_format_chat_message(doc.to_dict(), users_map) for doc in docs]
+    return [_format_chat_message(doc.to_dict(), users_map, room_id) for doc in docs]
 
 def delete_all_chat_messages_by_user(user_id: str) -> int:
     """
