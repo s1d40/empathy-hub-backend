@@ -1,4 +1,5 @@
 import uuid
+import logging
 from typing import List, Union, Any
 from fastapi import APIRouter, Depends, HTTPException, status, Query, WebSocket, WebSocketDisconnect
 from app import schemas
@@ -9,6 +10,7 @@ from app.core.chat_manager import manager # This manager might need refactoring 
 from app.core import security
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 @router.post(
     "/initiate-direct",
@@ -123,26 +125,33 @@ async def websocket_endpoint(
     room_id: str,
     token: str = Query(...),
 ):
+    logger.info(f"WebSocket connection attempt for room_id={room_id}")
     # Authenticate user from token
     try:
         payload = security.decode_access_token(token_data=token)
         user_id = payload.get("anonymous_id")
         if not user_id:
+            logger.warning(f"WebSocket: No user_id found in token for room_id={room_id}")
             await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Invalid authentication credentials")
             return
         current_user = user_service.get_user_by_anonymous_id(user_id)
         if not current_user or not current_user.get("is_active"):
+            logger.warning(f"WebSocket: User {user_id} not found or inactive for room_id={room_id}")
             await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="User not found or inactive")
             return
-    except Exception:
+        logger.info(f"WebSocket: User {user_id} authenticated for room_id={room_id}")
+    except Exception as e:
+        logger.error(f"WebSocket authentication failed for room_id={room_id}: {e}")
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Invalid authentication credentials")
         return
 
     # Authorize user for the chat room
     chat_room = chat_service.get_chat_room(room_id)
     if not chat_room or not any(p.anonymous_id == uuid.UUID(current_user['anonymous_id']) for p in chat_room['participants']):
+        logger.warning(f"WebSocket: User {current_user['anonymous_id']} not authorized for room_id={room_id}")
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Chat room not found or you are not a participant")
         return
+    logger.info(f"WebSocket: User {current_user['anonymous_id']} authorized for room_id={room_id}")
 
     # TODO: Add block check for 1-on-1 chats
 
@@ -150,6 +159,7 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_text()
+            logger.info(f"WebSocket: Received message from user {current_user['anonymous_id']} in room {room_id}: {data}")
             try:
                 message_data = schemas.WebSocketChatMessage.model_validate_json(data)
                 
@@ -159,6 +169,7 @@ async def websocket_endpoint(
                     message_in=schemas.ChatMessageCreate(content=message_data.content),
                     sender_id=current_user['anonymous_id']
                 )
+                logger.info(f"WebSocket: Message saved to Firestore by user {current_user['anonymous_id']} in room {room_id}. Message ID: {db_message.get('id')}")
                 
                 # TODO: The manager needs to be refactored to not require a db session
                 # and to handle dictionary objects.
@@ -166,6 +177,11 @@ async def websocket_endpoint(
                 await manager.broadcast_to_room_dict(room_id, db_message, current_user['anonymous_id'])
 
             except Exception as e:
+                logger.error(f"WebSocket: Error processing message from user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)
                 await manager.send_personal_message(websocket, f"Error: {str(e)}")
     except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected: user_id={current_user['anonymous_id']}, room_id={room_id}")
         manager.disconnect(websocket, room_id, current_user['anonymous_id'])
+    except Exception as e:
+        logger.error(f"WebSocket unexpected error for user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)
+        await websocket.close(code=status.WS_500_INTERNAL_ERROR, reason="Internal server error")

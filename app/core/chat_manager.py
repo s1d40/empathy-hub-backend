@@ -1,13 +1,9 @@
+import logging
 from typing import Dict, List, Tuple
 from fastapi import WebSocket
 from app import schemas
 
-# NOTE: In a truly serverless environment with multiple scaled instances of Cloud Run,
-# this in-memory ConnectionManager will not work as expected, because each instance
-# would have its own separate list of connections.
-# A production-ready solution would require a separate messaging service like
-# Redis Pub/Sub or Google Cloud Pub/Sub to broadcast messages across all instances.
-# For the purpose of this migration and for single-instance deployments, this manager will suffice.
+logger = logging.getLogger(__name__)
 
 class ConnectionManager:
     def __init__(self):
@@ -19,14 +15,17 @@ class ConnectionManager:
         if room_id not in self.active_connections:
             self.active_connections[room_id] = []
         self.active_connections[room_id].append((user_id, websocket))
+        logger.info(f"WebSocket connected: user_id={user_id}, room_id={room_id}. Active connections in room: {len(self.active_connections[room_id])}")
 
     def disconnect(self, websocket: WebSocket, room_id: str, user_id: str):
         if room_id in self.active_connections:
             connection_to_remove = (user_id, websocket)
             if connection_to_remove in self.active_connections[room_id]:
                 self.active_connections[room_id].remove(connection_to_remove)
+                logger.info(f"WebSocket disconnected: user_id={user_id}, room_id={room_id}. Remaining connections in room: {len(self.active_connections[room_id])}")
                 if not self.active_connections[room_id]:
                     del self.active_connections[room_id]
+                    logger.info(f"Room {room_id} is now empty and removed.")
 
     async def broadcast_to_room_dict(
         self,
@@ -44,13 +43,13 @@ class ConnectionManager:
                 payload=message_payload
             )
             message_str = ws_message.model_dump_json()
+            logger.info(f"Broadcasting message to room {room_id} from sender {sender_id}. Payload: {message_payload}")
 
             for recipient_id, connection in self.active_connections[room_id]:
                 # The block check is removed from here. It should be handled in the
                 # service or endpoint layer before broadcasting.
-                await connection.send_text(message_str)
-
-    async def send_personal_message(self, websocket: WebSocket, message: str):
-        await websocket.send_text(message)
-
-manager = ConnectionManager()
+                try:
+                    await connection.send_text(message_str)
+                    logger.debug(f"Message sent to user {recipient_id} in room {room_id}.")
+                except Exception as e:
+                    logger.error(f"Error sending message to user {recipient_id} in room {room_id}: {e}")
