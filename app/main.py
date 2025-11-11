@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import firebase_admin
 from firebase_admin import credentials as firebase_credentials
 from google.auth import credentials as google_credentials
+from contextlib import asynccontextmanager # Import asynccontextmanager
 
 from app.core.config import settings
 from app.api.v1.endpoints import (
@@ -42,10 +43,17 @@ if not firebase_admin._apps:
 else:
     print("Firebase app already initialized.")
 
+@asynccontextmanager
+async def lifespan_context_manager(app: FastAPI):
+    # Include lifespan from chat_router
+    async with chat_router.lifespan(app):
+        yield
+
 app = FastAPI(
     title=f"{settings.PROJECT_NAME} - Firestore Backend",
     description="API for Empathy Hub, running on a serverless Firestore backend.",
     version="0.2.0",
+    lifespan=lifespan_context_manager # Register the lifespan context manager
 )
 
 if settings.BACKEND_CORS_ORIGINS:
