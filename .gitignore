@@ -66,3 +66,11 @@ venv.bak/
 
 # Docker
 docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+*.json # For downloaded logs
+
+# Scripts (if not part of the deployable application)
+scripts/
