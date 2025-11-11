@@ -54,6 +54,9 @@ async def lifespan_context_manager(app: FastAPI):
     print("Main app lifespan shutdown: Stopping Pub/Sub subscriber...")
     manager.stop_pubsub_subscriber()
 
+# This comment is added to trigger a new Cloud Run deployment after IAM changes.
+
+
 app = FastAPI(
     title=f"{settings.PROJECT_NAME} - Firestore Backend",
     description="API for Empathy Hub, running on a serverless Firestore backend.",
