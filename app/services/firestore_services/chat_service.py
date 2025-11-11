@@ -1,14 +1,76 @@
 import uuid
 from typing import List, Optional
 from firebase_admin import firestore
-from app.schemas.chat import ChatRoomCreate, ChatMessageCreate
+from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, UserSimple, ChatMessageRead
 from app.services.firestore_services import user_service
+from datetime import datetime
 
 # This service replaces the functionality of crud/crud_chat.py for a Firestore database.
 
 def get_chat_rooms_collection():
     """Returns the 'chat_rooms' collection reference, ensuring the client is requested after initialization."""
     return firestore.client().collection('chat_rooms')
+
+def _format_chat_room(room_dict: dict) -> Optional[dict]:
+    """
+    Formats a chat room dictionary from Firestore to match the ChatRoomRead schema.
+    """
+    if not room_dict:
+        return None
+
+    # Rename room_id to anonymous_room_id
+    room_dict['anonymous_room_id'] = room_dict.pop('room_id')
+
+    # Convert Firestore Timestamps to datetime objects
+    if isinstance(room_dict.get('created_at'), firestore.SERVER_TIMESTAMP.__class__):
+        # If it's still a Sentinel, it means it hasn't been written/read back yet, or is a placeholder.
+        # For now, we'll set it to a default or handle it as None if it's not a real datetime.
+        # In a real scenario, you'd re-fetch the document after creation to get actual timestamps.
+        room_dict['created_at'] = datetime.now() # Placeholder, should be actual timestamp
+    elif isinstance(room_dict.get('created_at'), firestore.Timestamp):
+        room_dict['created_at'] = room_dict['created_at'].to_datetime()
+
+    if isinstance(room_dict.get('updated_at'), firestore.SERVER_TIMESTAMP.__class__):
+        room_dict['updated_at'] = datetime.now() # Placeholder
+    elif isinstance(room_dict.get('updated_at'), firestore.Timestamp):
+        room_dict['updated_at'] = room_dict['updated_at'].to_datetime()
+    
+    # Format participants
+    if 'participants' in room_dict and isinstance(room_dict['participants'], list):
+        formatted_participants = []
+        for p_id in room_dict['participants']:
+            user_data = user_service.get_user_by_anonymous_id(p_id)
+            if user_data:
+                formatted_participants.append(UserSimple(anonymous_id=user_data['anonymous_id'], username=user_data['username']).model_dump())
+        room_dict['participants'] = formatted_participants
+
+    # Format last_message if present
+    if 'last_message' in room_dict and room_dict['last_message']:
+        last_msg = room_dict['last_message']
+        # Assuming last_message_summary in Firestore has content, sender_id, timestamp
+        # Need to convert sender_id to UserSimple and timestamp to datetime
+        sender_id = last_msg.get('sender_id')
+        sender_user_simple = None
+        if sender_id:
+            sender_data = user_service.get_user_by_anonymous_id(sender_id)
+            if sender_data:
+                sender_user_simple = UserSimple(anonymous_id=sender_data['anonymous_id'], username=sender_data['username'])
+        
+        if isinstance(last_msg.get('timestamp'), firestore.Timestamp):
+            last_msg['timestamp'] = last_msg['timestamp'].to_datetime()
+        elif isinstance(last_msg.get('timestamp'), firestore.SERVER_TIMESTAMP.__class__):
+            last_msg['timestamp'] = datetime.now() # Placeholder
+
+        room_dict['last_message'] = ChatMessageRead(
+            anonymous_message_id=uuid.uuid4(), # This is a placeholder, actual message ID should be used
+            chatroom_anonymous_id=room_dict['anonymous_room_id'],
+            sender_anonymous_id=uuid.UUID(sender_id) if sender_id else uuid.uuid4(), # Placeholder
+            content=last_msg.get('content'),
+            timestamp=last_msg.get('timestamp'),
+            sender=sender_user_simple
+        ).model_dump()
+    
+    return room_dict
 
 def create_chat_room(room_in: ChatRoomCreate, initiator_id: str) -> dict:
     """
@@ -38,7 +100,13 @@ def create_chat_room(room_in: ChatRoomCreate, initiator_id: str) -> dict:
         "updated_at": firestore.SERVER_TIMESTAMP,
     }
     chat_rooms_collection.document(room_id).set(room_data)
-    return room_data
+
+    # Retrieve the document to get server-generated timestamps and then format
+    created_doc = chat_rooms_collection.document(room_id).get()
+    if not created_doc.exists:
+        raise ValueError("Failed to create chat room")
+
+    return _format_chat_room(created_doc.to_dict())
 
 def get_chat_room(room_id: str) -> Optional[dict]:
     """
@@ -48,7 +116,7 @@ def get_chat_room(room_id: str) -> Optional[dict]:
     doc_ref = chat_rooms_collection.document(room_id)
     doc = doc_ref.get()
     if doc.exists:
-        return doc.to_dict()
+        return _format_chat_room(doc.to_dict())
     return None
 
 def get_direct_chat_by_participants(user1_id: str, user2_id: str) -> Optional[dict]:
@@ -63,7 +131,7 @@ def get_direct_chat_by_participants(user1_id: str, user2_id: str) -> Optional[di
     query = chat_rooms_collection.where('is_group', '==', False).where('participants', '==', participants_sorted)
     docs = query.limit(1).stream()
     for doc in docs:
-        return doc.to_dict()
+        return _format_chat_room(doc.to_dict())
     return None
 
 def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
@@ -73,7 +141,7 @@ def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
     chat_rooms_collection = get_chat_rooms_collection()
     query = chat_rooms_collection.where('participants', 'array_contains', user_id).order_by('updated_at', direction='DESCENDING')
     docs = query.limit(limit).stream()
-    return [doc.to_dict() for doc in docs]
+    return [_format_chat_room(doc.to_dict()) for doc in docs]
 
 def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender_id: str) -> dict:
     """
