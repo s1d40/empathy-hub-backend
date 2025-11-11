@@ -115,7 +115,7 @@ def delete_user(anonymous_id: str) -> bool:
     # Delete user's comments
     user_comments = comment_service.get_comments_by_author(anonymous_id)
     for comment in user_comments:
-        comment_service.delete_comment(comment['post_id'], comment['comment_id'])
+        comment_service.delete_comment(comment['comment_id'])
 
     # Delete the user document
     users_collection = get_users_collection()

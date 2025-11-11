@@ -22,7 +22,10 @@ def _format_chat_message(message_data: dict) -> dict:
         return None
 
     message_data['id'] = message_data.get('message_id')
-    message_data['anonymous_message_id'] = f"msg_{uuid.UUID(message_data.get('message_id')).hex[:8]}"
+    if message_data.get('message_id'):
+        message_data['anonymous_message_id'] = f"msg_{uuid.UUID(message_data.get('message_id')).hex[:8]}"
+    else:
+        message_data['anonymous_message_id'] = None
 
 
     # Format sender if sender_id exists
