@@ -94,3 +94,29 @@ def delete_user_me(current_user: dict = Depends(get_current_active_user_firestor
 # def delete_all_my_posts(current_user: dict = Depends(get_current_active_user_firestore)):
 #     deleted_count = post_service.delete_all_posts_by_author(author_id=current_user['anonymous_id'])
 #     return schemas.DeletionSummary(message="All your posts have been deleted.", deleted_count=deleted_count)
+
+@router.get("/{user_anonymous_id}/posts", response_model=List[schemas.PostRead])
+def read_posts_by_user(
+    user_anonymous_id: str,
+    skip: int = 0,
+    limit: int = 100
+):
+    """
+    Retrieve posts by a specific user ID from Firestore.
+    """
+    posts = post_service.get_posts_by_author(author_id=user_anonymous_id)
+    # Apply skip and limit manually as get_posts_by_author doesn't support it directly
+    return posts[skip : skip + limit]
+
+@router.get("/{user_anonymous_id}/comments", response_model=List[schemas.CommentRead])
+def read_comments_by_user(
+    user_anonymous_id: str,
+    skip: int = 0,
+    limit: int = 100
+):
+    """
+    Retrieve comments by a specific user ID from Firestore.
+    """
+    comments = comment_service.get_comments_by_author(author_id=user_anonymous_id)
+    # Apply skip and limit manually as get_comments_by_author doesn't support it directly
+    return comments[skip : skip + limit]
