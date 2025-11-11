@@ -6,7 +6,7 @@ from app import schemas
 from app.services.firestore_services import chat_service, chat_request_service, user_service, user_relationship_service
 from app.api.v1.firestore_deps import get_current_active_user_firestore
 from app.schemas.enums import ChatAvailabilityEnum, ChatRequestStatusEnum, RelationshipTypeEnum
-from app.core.chat_manager import manager # This manager might need refactoring for a stateless environment
+from app.core.chat_manager import manager
 from app.core import security
 
 router = APIRouter()
@@ -171,10 +171,8 @@ async def websocket_endpoint(
                 )
                 logger.info(f"WebSocket: Message saved to Firestore by user {current_user['anonymous_id']} in room {room_id}. Message ID: {db_message.get('id')}")
                 
-                # TODO: The manager needs to be refactored to not require a db session
-                # and to handle dictionary objects.
-                # For now, we'll just broadcast the dictionary.
-                await manager.broadcast_to_room_dict(room_id, db_message, current_user['anonymous_id'])
+                # Publish message to Pub/Sub instead of direct broadcast
+                await manager.publish_message_to_pubsub(room_id, db_message)
 
             except Exception as e:
                 logger.error(f"WebSocket: Error processing message from user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)

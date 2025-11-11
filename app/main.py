@@ -19,6 +19,7 @@ from app.api.v1.endpoints import (
     chat as chat_router,
     avatars as avatars_router,
 )
+from app.core.chat_manager import manager # Import manager
 
 # --- Firebase Initialization ---
 print("Initializing Firebase Admin SDK...")
@@ -45,9 +46,13 @@ else:
 
 @asynccontextmanager
 async def lifespan_context_manager(app: FastAPI):
-    # Include lifespan from chat_router
-    async with chat_router.lifespan(app):
-        yield
+    # Startup
+    print("Main app lifespan startup: Starting Pub/Sub subscriber...")
+    manager.start_pubsub_subscriber()
+    yield
+    # Shutdown
+    print("Main app lifespan shutdown: Stopping Pub/Sub subscriber...")
+    manager.stop_pubsub_subscriber()
 
 app = FastAPI(
     title=f"{settings.PROJECT_NAME} - Firestore Backend",
