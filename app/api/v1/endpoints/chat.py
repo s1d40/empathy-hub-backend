@@ -140,7 +140,7 @@ async def websocket_endpoint(
 
     # Authorize user for the chat room
     chat_room = chat_service.get_chat_room(room_id)
-    if not chat_room or current_user['anonymous_id'] not in chat_room['participants']:
+    if not chat_room or not any(p.anonymous_id == uuid.UUID(current_user['anonymous_id']) for p in chat_room['participants']):
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Chat room not found or you are not a participant")
         return
 
