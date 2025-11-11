@@ -11,18 +11,22 @@ def get_posts_collection():
     """Returns the 'posts' collection reference, ensuring the client is requested after initialization."""
     return firestore.client().collection('posts')
 
-def _format_post(post_dict: dict) -> dict:
+def _format_post(post_dict: dict, users_map: dict) -> dict:
     """
     Formats a post dictionary to match the PostRead schema.
     """
     if not post_dict:
         return None
     post_dict['anonymous_post_id'] = post_dict.pop('post_id')
+    author_id = post_dict.pop('author_id')
+    author_data = users_map.get(author_id)
     post_dict['author'] = {
-        'anonymous_id': post_dict.pop('author_id'),
-        'username': post_dict.pop('author_username'),
-        'avatar_url': post_dict.pop('author_avatar_url')
+        'anonymous_id': author_id,
+        'username': author_data.get('username') if author_data else "Unknown",
+        'avatar_url': author_data.get('avatar_url') if author_data else None
     }
+    post_dict.pop('author_username', None)
+    post_dict.pop('author_avatar_url', None)
     return post_dict
 
 def delete_collection(coll_ref, batch_size):
@@ -70,7 +74,8 @@ def create_post(post_in: PostCreate, author_id: str) -> dict:
     if not created_doc.exists:
         raise ValueError("Failed to create post")
 
-    return _format_post(created_doc.to_dict())
+    users_map = {author_id: author_data}
+    return _format_post(created_doc.to_dict(), users_map)
 
 def get_post(post_id: str) -> Optional[dict]:
     """
@@ -80,7 +85,11 @@ def get_post(post_id: str) -> Optional[dict]:
     doc_ref = posts_collection.document(post_id)
     doc = doc_ref.get()
     if doc.exists:
-        return _format_post(doc.to_dict())
+        post_data = doc.to_dict()
+        author_id = post_data.get('author_id')
+        users_data = user_service.get_users_by_anonymous_ids([author_id])
+        users_map = {user['anonymous_id']: user for user in users_data}
+        return _format_post(post_data, users_map)
     return None
 
 def get_posts(skip: int = 0, limit: int = 100) -> List[dict]:
@@ -88,34 +97,67 @@ def get_posts(skip: int = 0, limit: int = 100) -> List[dict]:
     Retrieves a list of posts with pagination.
     """
     posts_collection = get_posts_collection()
-    docs = posts_collection.order_by('created_at', direction='DESCENDING').limit(limit).offset(skip).stream()
-    return [_format_post(doc.to_dict()) for doc in docs]
+    docs = list(posts_collection.order_by('created_at', direction='DESCENDING').limit(limit).offset(skip).stream())
+    
+    if not docs:
+        return []
+
+    author_ids = list(set(doc.to_dict().get('author_id') for doc in docs))
+    users_data = user_service.get_users_by_anonymous_ids(author_ids)
+    users_map = {user['anonymous_id']: user for user in users_data}
+
+    return [_format_post(doc.to_dict(), users_map) for doc in docs]
 
 def get_posts_by_author(author_id: str) -> List[dict]:
     """
     Retrieves all posts by a specific author.
     """
     posts_collection = get_posts_collection()
-    docs = posts_collection.where('author_id', '==', author_id).stream()
-    return [doc.to_dict() for doc in docs]
+    docs = list(posts_collection.where('author_id', '==', author_id).stream())
+
+    if not docs:
+        return []
+
+    author_ids = list(set(doc.to_dict().get('author_id') for doc in docs))
+    users_data = user_service.get_users_by_anonymous_ids(author_ids)
+    users_map = {user['anonymous_id']: user for user in users_data}
+
+    return [_format_post(doc.to_dict(), users_map) for doc in docs]
 
 def update_post(post_id: str, post_in: PostUpdate) -> Optional[dict]:
     """
-    Updates a post document in Firestore.
+    Updates a post document in Firestore using a transaction.
     """
+    db = firestore.client()
     posts_collection = get_posts_collection()
-    doc_ref = posts_collection.document(post_id)
-    doc = doc_ref.get()
-    if not doc.exists:
+    post_ref = posts_collection.document(post_id)
+
+    @firestore.transactional
+    def update_in_transaction(transaction):
+        doc = post_ref.get(transaction=transaction)
+        if not doc.exists:
+            return None
+
+        update_data = post_in.model_dump(exclude_unset=True)
+        update_data['updated_at'] = firestore.SERVER_TIMESTAMP
+        if 'content' in update_data or 'title' in update_data:
+            update_data['is_edited'] = True
+
+        transaction.update(post_ref, update_data)
+        return doc.to_dict().get('author_id')
+
+    try:
+        transaction = db.transaction()
+        author_id = update_in_transaction(transaction)
+        if author_id:
+            post_data = post_ref.get().to_dict()
+            users_data = user_service.get_users_by_anonymous_ids([author_id])
+            users_map = {user['anonymous_id']: user for user in users_data}
+            return _format_post(post_data, users_map)
         return None
-
-    update_data = post_in.model_dump(exclude_unset=True)
-    update_data['updated_at'] = firestore.SERVER_TIMESTAMP
-    if 'content' in update_data:
-        update_data['is_edited'] = True
-
-    doc_ref.update(update_data)
-    return _format_post(doc_ref.get().to_dict())
+    except Exception as e:
+        # Log the exception e
+        raise e
 
 def delete_post(post_id: str) -> bool:
     """
@@ -197,8 +239,13 @@ def vote_on_post(post_id: str, user_id: str, vote_type: VoteTypeEnum) -> Optiona
                 transaction.update(post_ref, {'upvotes': current_upvotes + 1})
             else:
                 transaction.update(post_ref, {'downvotes': current_downvotes + 1})
+        
+        return post_snapshot.to_dict().get('author_id')
 
     transaction = db.transaction()
-    update_in_transaction(transaction, post_ref, vote_ref)
+    author_id = update_in_transaction(transaction, post_ref, vote_ref)
 
-    return _format_post(post_ref.get().to_dict())
+    post_data = post_ref.get().to_dict()
+    users_data = user_service.get_users_by_anonymous_ids([author_id])
+    users_map = {user['anonymous_id']: user for user in users_data}
+    return _format_post(post_data, users_map)

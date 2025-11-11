@@ -20,12 +20,12 @@ def delete_collection(coll_ref, batch_size):
     if deleted >= batch_size:
         return delete_collection(coll_ref, batch_size)
 
-def _format_comment_response(comment: dict) -> Optional[dict]:
+def _format_comment_response(comment: dict, users_map: dict) -> Optional[dict]:
     if not comment:
         return None
     author_id = comment.get('author_id')
     if author_id:
-        author_data = user_service.get_user_by_anonymous_id(author_id)
+        author_data = users_map.get(author_id)
         comment['author'] = {
             "anonymous_id": author_id,
             "username": author_data.get('username') if author_data else "Unknown",
@@ -77,7 +77,8 @@ def create_comment(post_id: str, comment_in: CommentCreate, author_id: str) -> d
     update_in_transaction(transaction, post_ref, comment_ref, comment_data, mapping_ref)
 
     created_comment = comment_ref.get().to_dict()
-    return _format_comment_response(created_comment)
+    users_map = {author_id: author_data}
+    return _format_comment_response(created_comment, users_map)
 
 def get_post_id_for_comment(comment_id: str) -> Optional[str]:
     mapping_doc = get_comment_post_mapping_collection().document(comment_id).get()
@@ -94,12 +95,26 @@ def get_comment_by_id(comment_id: str) -> Optional[dict]:
 def get_comment(post_id: str, comment_id: str) -> Optional[dict]:
     doc_ref = get_posts_collection().document(post_id).collection('comments').document(comment_id)
     doc = doc_ref.get()
-    return _format_comment_response(doc.to_dict())
+    if doc.exists:
+        comment_data = doc.to_dict()
+        author_id = comment_data.get('author_id')
+        users_data = user_service.get_users_by_anonymous_ids([author_id])
+        users_map = {user['anonymous_id']: user for user in users_data}
+        return _format_comment_response(comment_data, users_map)
+    return None
 
 def get_comments_for_post(post_id: str, skip: int = 0, limit: int = 100) -> List[dict]:
     comments_query = get_posts_collection().document(post_id).collection('comments').order_by('created_at', direction='DESCENDING')
-    docs = comments_query.limit(limit).offset(skip).stream()
-    return [_format_comment_response(doc.to_dict()) for doc in docs]
+    docs = list(comments_query.limit(limit).offset(skip).stream())
+
+    if not docs:
+        return []
+
+    author_ids = list(set(doc.to_dict().get('author_id') for doc in docs))
+    users_data = user_service.get_users_by_anonymous_ids(author_ids)
+    users_map = {user['anonymous_id']: user for user in users_data}
+
+    return [_format_comment_response(doc.to_dict(), users_map) for doc in docs]
 
 def get_comments_by_author(author_id: str) -> List[dict]:
     # This is inefficient. A better solution would be a root-level 'comments' collection.
@@ -110,19 +125,47 @@ def get_comments_by_author(author_id: str) -> List[dict]:
         user_comments = comments_query.stream()
         for comment in user_comments:
             comments.append(comment.to_dict())
-    return comments
+    
+    if not comments:
+        return []
+
+    author_ids = list(set(comment.get('author_id') for comment in comments))
+    users_data = user_service.get_users_by_anonymous_ids(author_ids)
+    users_map = {user['anonymous_id']: user for user in users_data}
+
+    return [_format_comment_response(comment, users_map) for comment in comments]
 
 def update_comment(comment_id: str, comment_in: CommentUpdate) -> Optional[dict]:
+    db = firestore.client()
     post_id = get_post_id_for_comment(comment_id)
     if not post_id:
         return None
-    doc_ref = get_posts_collection().document(post_id).collection('comments').document(comment_id)
-    if not doc_ref.get().exists:
+    
+    comment_ref = get_posts_collection().document(post_id).collection('comments').document(comment_id)
+
+    @firestore.transactional
+    def update_in_transaction(transaction):
+        doc = comment_ref.get(transaction=transaction)
+        if not doc.exists:
+            return None
+
+        update_data = comment_in.model_dump(exclude_unset=True)
+        update_data['updated_at'] = firestore.SERVER_TIMESTAMP
+        transaction.update(comment_ref, update_data)
+        return doc.to_dict().get('author_id')
+
+    try:
+        transaction = db.transaction()
+        author_id = update_in_transaction(transaction)
+        if author_id:
+            comment_data = comment_ref.get().to_dict()
+            users_data = user_service.get_users_by_anonymous_ids([author_id])
+            users_map = {user['anonymous_id']: user for user in users_data}
+            return _format_comment_response(comment_data, users_map)
         return None
-    update_data = comment_in.model_dump(exclude_unset=True)
-    update_data['updated_at'] = firestore.SERVER_TIMESTAMP
-    doc_ref.update(update_data)
-    return get_comment(post_id, comment_id)
+    except Exception as e:
+        # Log the exception e
+        raise e
 
 def delete_comment(comment_id: str) -> bool:
     post_id = get_post_id_for_comment(comment_id)
@@ -164,7 +207,7 @@ def delete_all_comments_by_author(author_id: str) -> int:
     comments_to_delete = get_comments_by_author(author_id)
     
     for comment_data in comments_to_delete:
-        comment_id = comment_data.get('comment_id')
+        comment_id = comment_data.get('anonymous_comment_id')
         if comment_id:
             if delete_comment(comment_id):
                 deleted_count += 1
@@ -218,7 +261,12 @@ def vote_on_comment(comment_id: str, user_id: str, vote_type: VoteTypeEnum) -> O
             'upvotes': current_upvotes + upvote_change,
             'downvotes': current_downvotes + downvote_change
         })
+        return comment_snapshot.to_dict().get('author_id')
 
     transaction = db.transaction()
-    update_in_transaction(transaction, comment_ref, vote_ref)
-    return get_comment(post_id, comment_id)
+    author_id = update_in_transaction(transaction, comment_ref, vote_ref)
+
+    comment_data = comment_ref.get().to_dict()
+    users_data = user_service.get_users_by_anonymous_ids([author_id])
+    users_map = {user['anonymous_id']: user for user in users_data}
+    return _format_comment_response(comment_data, users_map)

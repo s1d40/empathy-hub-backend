@@ -14,7 +14,7 @@ def get_chat_rooms_collection():
     """Returns the 'chat_rooms' collection reference, ensuring the client is requested after initialization."""
     return firestore.client().collection('chat_rooms')
 
-def _format_chat_message(message_data: dict) -> dict:
+def _format_chat_message(message_data: dict, users_map: dict) -> dict:
     """
     Formats a chat message dictionary from Firestore to match the ChatMessageRead schema.
     """
@@ -30,7 +30,7 @@ def _format_chat_message(message_data: dict) -> dict:
 
     # Format sender if sender_id exists
     if 'sender_id' in message_data:
-        sender_data = user_service.get_user_by_anonymous_id(message_data['sender_id'])
+        sender_data = users_map.get(message_data['sender_id'])
         if sender_data:
             message_data['sender'] = UserSimple(
                 anonymous_id=uuid.UUID(sender_data['anonymous_id']),
@@ -48,7 +48,7 @@ def _format_chat_message(message_data: dict) -> dict:
 
     return message_data
 
-def _format_chat_room(room_dict: dict) -> Optional[dict]:
+def _format_chat_room(room_dict: dict, users_map: dict) -> Optional[dict]:
     """
     Formats a chat room dictionary from Firestore to match the ChatRoomRead schema.
     """
@@ -88,7 +88,7 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
     if 'participants' in room_dict and isinstance(room_dict['participants'], list):
         formatted_participants = []
         for p_id in room_dict['participants']:
-            user_data = user_service.get_user_by_anonymous_id(p_id)
+            user_data = users_map.get(p_id)
             if user_data:
                 formatted_participants.append(UserSimple(
                     anonymous_id=uuid.UUID(user_data['anonymous_id']),
@@ -101,7 +101,7 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
 
     # Format last_message if present as a ChatMessageRead Pydantic model
     if 'last_message' in room_dict and room_dict['last_message']:
-        room_dict['last_message'] = _format_chat_message(room_dict['last_message'])
+        room_dict['last_message'] = _format_chat_message(room_dict['last_message'], users_map)
     else:
         room_dict['last_message'] = None # Ensure it's None if no last message
     
@@ -111,37 +111,53 @@ def create_chat_room(room_in: ChatRoomCreate, initiator_id: str) -> dict:
     """
     Creates a new chat room document in Firestore.
     """
+    db = firestore.client()
     chat_rooms_collection = get_chat_rooms_collection()
-    room_id = str(uuid.uuid4())
     
-    all_participant_ids = list(set([initiator_id] + [str(p_id) for p_id in room_in.participant_anonymous_ids]))
+    all_participant_ids = sorted(list(set([initiator_id] + [str(p_id) for p_id in room_in.participant_anonymous_ids])))
 
     if not room_in.is_group and len(all_participant_ids) != 2:
         raise ValueError("Direct chats must have exactly two participants.")
 
-    # For direct chats, check if a room already exists
-    if not room_in.is_group:
-        existing_room = get_direct_chat_by_participants(all_participant_ids[0], all_participant_ids[1])
-        if existing_room:
-            return existing_room
+    @firestore.transactional
+    def create_room_in_transaction(transaction):
+        if not room_in.is_group:
+            # Check if a room with these participants already exists
+            query = chat_rooms_collection.where('is_group', '==', False).where('participants', '==', all_participant_ids)
+            docs = list(query.stream(transaction=transaction))
+            if docs:
+                return docs[0].reference
 
-    room_data = {
-        "room_id": room_id,
-        "name": room_in.name if room_in.is_group else None,
-        "is_group": room_in.is_group,
-        "participants": all_participant_ids,
-        "last_message": None,
-        "created_at": firestore.SERVER_TIMESTAMP,
-        "updated_at": firestore.SERVER_TIMESTAMP,
-    }
-    chat_rooms_collection.document(room_id).set(room_data)
+        room_id = str(uuid.uuid4())
+        room_ref = chat_rooms_collection.document(room_id)
+        room_data = {
+            "room_id": room_id,
+            "name": room_in.name if room_in.is_group else None,
+            "is_group": room_in.is_group,
+            "participants": all_participant_ids,
+            "last_message": None,
+            "created_at": firestore.SERVER_TIMESTAMP,
+            "updated_at": firestore.SERVER_TIMESTAMP,
+        }
+        transaction.set(room_ref, room_data)
+        return room_ref
 
-    # Retrieve the document to get server-generated timestamps and then format
-    created_doc = chat_rooms_collection.document(room_id).get()
-    if not created_doc.exists:
-        raise ValueError("Failed to create chat room")
+    try:
+        transaction = db.transaction()
+        room_ref = create_room_in_transaction(transaction)
+        created_doc = room_ref.get()
+        if not created_doc.exists:
+            raise ValueError("Failed to create or find chat room")
+        
+        # Fetch users for formatting
+        user_ids = created_doc.to_dict().get('participants', [])
+        users_data = user_service.get_users_by_anonymous_ids(user_ids)
+        users_map = {user['anonymous_id']: user for user in users_data}
 
-    return _format_chat_room(created_doc.to_dict())
+        return _format_chat_room(created_doc.to_dict(), users_map)
+    except Exception as e:
+        # Log the exception e
+        raise e
 
 def get_chat_room(room_id: str) -> Optional[dict]:
     """
@@ -151,7 +167,14 @@ def get_chat_room(room_id: str) -> Optional[dict]:
     doc_ref = chat_rooms_collection.document(room_id)
     doc = doc_ref.get()
     if doc.exists:
-        return _format_chat_room(doc.to_dict())
+        room_data = doc.to_dict()
+        user_ids = room_data.get('participants', [])
+        if room_data.get('last_message') and room_data['last_message'].get('sender_id'):
+            user_ids.append(room_data['last_message']['sender_id'])
+        
+        users_data = user_service.get_users_by_anonymous_ids(list(set(user_ids)))
+        users_map = {user['anonymous_id']: user for user in users_data}
+        return _format_chat_room(room_data, users_map)
     return None
 
 def get_direct_chat_by_participants(user1_id: str, user2_id: str) -> Optional[dict]:
@@ -166,7 +189,14 @@ def get_direct_chat_by_participants(user1_id: str, user2_id: str) -> Optional[di
     query = chat_rooms_collection.where('is_group', '==', False).where('participants', '==', participants_sorted)
     docs = query.limit(1).stream()
     for doc in docs:
-        return _format_chat_room(doc.to_dict())
+        room_data = doc.to_dict()
+        user_ids = room_data.get('participants', [])
+        if room_data.get('last_message') and room_data['last_message'].get('sender_id'):
+            user_ids.append(room_data['last_message']['sender_id'])
+        
+        users_data = user_service.get_users_by_anonymous_ids(list(set(user_ids)))
+        users_map = {user['anonymous_id']: user for user in users_data}
+        return _format_chat_room(room_data, users_map)
     return None
 
 def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
@@ -175,8 +205,25 @@ def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
     """
     chat_rooms_collection = get_chat_rooms_collection()
     query = chat_rooms_collection.where('participants', 'array_contains', user_id).order_by('updated_at', direction='DESCENDING')
-    docs = query.limit(limit).stream()
-    return [_format_chat_room(doc.to_dict()) for doc in docs]
+    docs = list(query.limit(limit).stream())
+
+    if not docs:
+        return []
+
+    # Collect all user IDs from all rooms
+    all_user_ids = set()
+    for doc in docs:
+        room_data = doc.to_dict()
+        all_user_ids.update(room_data.get('participants', []))
+        if room_data.get('last_message') and room_data['last_message'].get('sender_id'):
+            all_user_ids.add(room_data['last_message']['sender_id'])
+
+    # Fetch all users in one batch
+    users_data = user_service.get_users_by_anonymous_ids(list(all_user_ids))
+    users_map = {user['anonymous_id']: user for user in users_data}
+
+    # Format all rooms with the complete user map
+    return [_format_chat_room(doc.to_dict(), users_map) for doc in docs]
 
 def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender_id: str) -> dict:
     """
@@ -217,7 +264,9 @@ def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender
     })
     batch.commit()
 
-    return message_data
+    # For the response, we need the sender's data
+    users_map = {sender_id: sender_data}
+    return _format_chat_message(message_data, users_map)
 
 def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
     """
@@ -225,8 +274,19 @@ def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
     """
     chat_rooms_collection = get_chat_rooms_collection()
     messages_query = chat_rooms_collection.document(room_id).collection('messages').order_by('timestamp', direction='DESCENDING')
-    docs = messages_query.limit(limit).stream()
-    return [_format_chat_message(doc.to_dict()) for doc in docs]
+    docs = list(messages_query.limit(limit).stream())
+
+    if not docs:
+        return []
+
+    # Collect all user IDs from all messages
+    all_user_ids = set(doc.to_dict().get('sender_id') for doc in docs if doc.to_dict().get('sender_id'))
+
+    # Fetch all users in one batch
+    users_data = user_service.get_users_by_anonymous_ids(list(all_user_ids))
+    users_map = {user['anonymous_id']: user for user in users_data}
+
+    return [_format_chat_message(doc.to_dict(), users_map) for doc in docs]
 
 def delete_all_chat_messages_by_user(user_id: str) -> int:
     """

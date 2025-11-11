@@ -25,6 +25,15 @@ def get_user_by_anonymous_id(anonymous_id: str) -> Optional[dict]:
         return doc.to_dict()
     return None
 
+def get_users_by_anonymous_ids(anonymous_ids: List[str]) -> List[dict]:
+    """
+    Retrieves multiple user documents by their anonymous_ids in a single batch.
+    """
+    db = firestore.client()
+    refs = [get_users_collection().document(user_id) for user_id in anonymous_ids]
+    docs = db.get_all(refs)
+    return [doc.to_dict() for doc in docs if doc.exists]
+
 def get_user_by_username(username: str) -> Optional[dict]:
     """
     Retrieves a user by their username.
