@@ -53,3 +53,5 @@ class ConnectionManager:
                     logger.debug(f"Message sent to user {recipient_id} in room {room_id}.")
                 except Exception as e:
                     logger.error(f"Error sending message to user {recipient_id} in room {room_id}: {e}")
+
+manager = ConnectionManager()
