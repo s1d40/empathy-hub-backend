@@ -50,3 +50,4 @@ websockets==15.0.1
 google-cloud-firestore
 google-auth
 firebase-admin==6.5.0
+google-cloud-pubsub
