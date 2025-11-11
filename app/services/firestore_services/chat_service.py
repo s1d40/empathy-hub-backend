@@ -18,57 +18,78 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
     if not room_dict:
         return None
 
-    # Rename room_id to anonymous_room_id
-    room_dict['anonymous_room_id'] = room_dict.pop('room_id')
+    # Ensure room_id is present and convert to UUID
+    room_id_str = room_dict.pop('room_id', None)
+    if not room_id_str:
+        return None # Or raise an error, depending on desired behavior
+    room_dict['anonymous_room_id'] = uuid.UUID(room_id_str)
 
     # Convert Firestore Timestamps to datetime objects
-    if isinstance(room_dict.get('created_at'), firestore.SERVER_TIMESTAMP.__class__):
-        # If it's still a Sentinel, it means it hasn't been written/read back yet, or is a placeholder.
-        # For now, we'll set it to a default or handle it as None if it's not a real datetime.
-        # In a real scenario, you'd re-fetch the document after creation to get actual timestamps.
-        room_dict['created_at'] = datetime.now() # Placeholder, should be actual timestamp
-    elif isinstance(room_dict.get('created_at'), firestore.Timestamp):
-        room_dict['created_at'] = room_dict['created_at'].to_datetime()
+    # created_at is required by schema, so it must be a datetime
+    created_at_ts = room_dict.get('created_at')
+    if isinstance(created_at_ts, firestore.Timestamp):
+        room_dict['created_at'] = created_at_ts.to_datetime()
+    elif isinstance(created_at_ts, firestore.SERVER_TIMESTAMP.__class__):
+        # This should ideally not happen if the document is read after being written
+        # If it does, it means the timestamp hasn't been resolved by Firestore yet.
+        # For now, we'll use datetime.now() as a fallback, but this indicates a potential race condition
+        # or an issue with how the document is being read.
+        room_dict['created_at'] = datetime.now()
+    else:
+        # Fallback for cases where created_at might be missing or not a timestamp
+        room_dict['created_at'] = datetime.now() # Ensure it's always a datetime
 
-    if isinstance(room_dict.get('updated_at'), firestore.SERVER_TIMESTAMP.__class__):
-        room_dict['updated_at'] = datetime.now() # Placeholder
-    elif isinstance(room_dict.get('updated_at'), firestore.Timestamp):
-        room_dict['updated_at'] = room_dict['updated_at'].to_datetime()
+    updated_at_ts = room_dict.get('updated_at')
+    if isinstance(updated_at_ts, firestore.Timestamp):
+        room_dict['updated_at'] = updated_at_ts.to_datetime()
+    elif isinstance(updated_at_ts, firestore.SERVER_TIMESTAMP.__class__):
+        room_dict['updated_at'] = datetime.now() # Fallback
+    else:
+        room_dict['updated_at'] = None # updated_at is Optional, so None is acceptable
     
-    # Format participants
+    # Format participants as a list of UserSimple Pydantic models
     if 'participants' in room_dict and isinstance(room_dict['participants'], list):
         formatted_participants = []
         for p_id in room_dict['participants']:
             user_data = user_service.get_user_by_anonymous_id(p_id)
             if user_data:
-                formatted_participants.append(UserSimple(anonymous_id=user_data['anonymous_id'], username=user_data['username']).model_dump())
+                formatted_participants.append(UserSimple(anonymous_id=uuid.UUID(user_data['anonymous_id']), username=user_data['username']))
         room_dict['participants'] = formatted_participants
+    else:
+        room_dict['participants'] = [] # Ensure it's always a list
 
-    # Format last_message if present
+    # Format last_message if present as a ChatMessageRead Pydantic model
     if 'last_message' in room_dict and room_dict['last_message']:
-        last_msg = room_dict['last_message']
-        # Assuming last_message_summary in Firestore has content, sender_id, timestamp
-        # Need to convert sender_id to UserSimple and timestamp to datetime
-        sender_id = last_msg.get('sender_id')
+        last_msg_data = room_dict['last_message']
+        sender_id = last_msg_data.get('sender_id')
         sender_user_simple = None
         if sender_id:
             sender_data = user_service.get_user_by_anonymous_id(sender_id)
             if sender_data:
-                sender_user_simple = UserSimple(anonymous_id=sender_data['anonymous_id'], username=sender_data['username'])
+                sender_user_simple = UserSimple(anonymous_id=uuid.UUID(sender_data['anonymous_id']), username=sender_data['username'])
         
-        if isinstance(last_msg.get('timestamp'), firestore.Timestamp):
-            last_msg['timestamp'] = last_msg['timestamp'].to_datetime()
-        elif isinstance(last_msg.get('timestamp'), firestore.SERVER_TIMESTAMP.__class__):
-            last_msg['timestamp'] = datetime.now() # Placeholder
+        message_timestamp = last_msg_data.get('timestamp')
+        if isinstance(message_timestamp, firestore.Timestamp):
+            message_timestamp = message_timestamp.to_datetime()
+        elif isinstance(message_timestamp, firestore.SERVER_TIMESTAMP.__class__):
+            message_timestamp = datetime.now() # Fallback
+        else:
+            message_timestamp = datetime.now() # Ensure it's always a datetime
+
+        # Ensure anonymous_message_id and chatroom_anonymous_id are UUIDs
+        anonymous_message_id = uuid.UUID(last_msg_data.get('message_id')) if last_msg_data.get('message_id') else uuid.uuid4()
+        chatroom_anonymous_id = room_dict['anonymous_room_id'] # Already converted to UUID above
 
         room_dict['last_message'] = ChatMessageRead(
-            anonymous_message_id=uuid.uuid4(), # This is a placeholder, actual message ID should be used
-            chatroom_anonymous_id=room_dict['anonymous_room_id'],
-            sender_anonymous_id=uuid.UUID(sender_id) if sender_id else uuid.uuid4(), # Placeholder
-            content=last_msg.get('content'),
-            timestamp=last_msg.get('timestamp'),
+            anonymous_message_id=anonymous_message_id,
+            chatroom_anonymous_id=chatroom_anonymous_id,
+            sender_anonymous_id=uuid.UUID(sender_id) if sender_id else uuid.uuid4(),
+            content=last_msg_data.get('content'),
+            timestamp=message_timestamp,
             sender=sender_user_simple
-        ).model_dump()
+        )
+    else:
+        room_dict['last_message'] = None # Ensure it's None if no last message
     
     return room_dict
 
