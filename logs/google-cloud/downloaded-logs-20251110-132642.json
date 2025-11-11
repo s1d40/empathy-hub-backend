@@ -1,0 +1,73 @@
+[
+  {
+    "insertId": "691210e3000c28613c2e4972",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/chat/?skip=0&limit=20",
+      "requestSize": "1008",
+      "status": 500,
+      "responseSize": "130",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.372410860s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T16:20:51.422729Z",
+    "severity": "ERROR",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "00147782965fbf5bd187f2cc19e7c64cd941e3f945ec67f32aee7bd5787e924a8c9687000ec6abab66cdb54a7c48b0746183903f1f580f0ecb41d53cf79655da1b4dfb3560af8f85c01b80cec5229d",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/f751725009638307fb9154774ab08efb",
+    "receiveTimestamp": "2025-11-10T16:20:51.922387797Z",
+    "spanId": "ddd93b021d8d5177"
+  },
+  {
+    "textPayload": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py\", line 409, in run_asgi\n    result = await app(  # type: ignore[func-returns-value]\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py\", line 60, in __call__\n    return await self.app(scope, receive, send)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/applications.py\", line 1054, in __call__\n    await super().__call__(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/applications.py\", line 112, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py\", line 187, in __call__\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py\", line 165, in __call__\n    await self.app(scope, receive, _send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py\", line 93, in __call__\n    await self.simple_response(scope, receive, send, request_headers=headers)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py\", line 144, in simple_response\n    await self.app(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py\", line 62, in __call__\n    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 714, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 734, in app\n    await route.handle(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 288, in handle\n    await self.app(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 76, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 73, in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/routing.py\", line 301, in app\n    raw_response = await run_endpoint_function(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/routing.py\", line 214, in run_endpoint_function\n    return await run_in_threadpool(dependant.call, **values)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/starlette/concurrency.py\", line 37, in run_in_threadpool\n    return await anyio.to_thread.run_sync(func)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/to_thread.py\", line 56, in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\", line 2470, in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\", line 967, in run\n    result = context.run(func, *args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/src/app/app/api/v1/endpoints/chat.py\", line 58, in list_user_chat_rooms\n    chat_rooms = chat_service.get_chat_rooms_for_user(user_id=current_user['anonymous_id'], limit=limit)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/src/app/app/services/firestore_services/chat_service.py\", line 76, in get_chat_rooms_for_user\n    return [doc.to_dict() for doc in docs]\n                                     ^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/stream_generator.py\", line 58, in __next__\n    return self._generator.__next__()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/query.py\", line 410, in _make_stream\n    response_iterator, expected_prefix = self._get_stream_iterator(\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/query.py\", line 260, in _get_stream_iterator\n    response_iterator = self._client._firestore_api.run_query(\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/services/firestore/client.py\", line 1624, in run_query\n    response = rpc(\n               ^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/gapic_v1/method.py\", line 131, in __call__\n    return wrapped_func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 294, in retry_wrapped_func\n    return retry_target(\n           ^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 156, in retry_target\n    next_sleep = _retry_error_helper(\n                 ^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_base.py\", line 214, in _retry_error_helper\n    raise final_exc from source_exc\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 147, in retry_target\n    result = target()\n             ^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/timeout.py\", line 130, in func_with_timeout\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/grpc_helpers.py\", line 173, in error_remapped_callable\n    raise exceptions.from_grpc_error(exc) from exc\ngoogle.api_core.exceptions.FailedPrecondition: 400 The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/anonymous-hubs-477707/firestore/indexes?create_composite=Clhwcm9qZWN0cy9hbm9ueW1vdXMtaHVicy00Nzc3MDcvZGF0YWJhc2VzLyhkZWZhdWx0KS9jb2xsZWN0aW9uR3JvdXBzL2NoYXRfcm9vbXMvaW5kZXhlcy9fEAEaEAoMcGFydGljaXBhbnRzGAEaDgoKdXBkYXRlZF9hdBACGgwKCF9fbmFtZV9fEAI",
+    "insertId": "691210e3000c25c7693839de",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T16:20:51.796103Z",
+    "severity": "ERROR",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "instanceId": "00147782965fbf5bd187f2cc19e7c64cd941e3f945ec67f32aee7bd5787e924a8c9687000ec6abab66cdb54a7c48b0746183903f1f580f0ecb41d53cf79655da1b4dfb3560af8f85c01b80cec5229d",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T16:20:52.133093243Z",
+    "errorGroups": [
+      {
+        "id": "CN6Yofu0opexIQ"
+      }
+    ]
+  }
+]

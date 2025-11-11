@@ -134,6 +134,20 @@ def delete_post(post_id: str) -> bool:
     post_ref.delete()
     return True
 
+def delete_all_posts_by_author(author_id: str) -> int:
+    """
+    Deletes all posts by a specific author, including their subcollections.
+    """
+    posts_collection = get_posts_collection()
+    query = posts_collection.where('author_id', '==', author_id).stream()
+    
+    deleted_count = 0
+    for doc in query:
+        post_id = doc.id
+        delete_post(post_id) # Use the existing delete_post to handle subcollections
+        deleted_count += 1
+    return deleted_count
+
 def vote_on_post(post_id: str, user_id: str, vote_type: VoteTypeEnum) -> Optional[dict]:
     """
     Processes a vote on a post.

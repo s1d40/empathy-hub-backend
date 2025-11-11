@@ -1,6 +1,7 @@
 import uuid
 from typing import List, Optional
 from firebase_admin import firestore
+from google.cloud.firestore import Timestamp
 from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, UserSimple, ChatMessageRead
 from app.services.firestore_services import user_service
 from datetime import datetime
@@ -212,3 +213,54 @@ def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
     messages_query = chat_rooms_collection.document(room_id).collection('messages').order_by('timestamp', direction='DESCENDING')
     docs = messages_query.limit(limit).stream()
     return [doc.to_dict() for doc in docs]
+
+def delete_all_chat_messages_by_user(user_id: str) -> int:
+    """
+    Deletes all messages sent by a specific user across all chat rooms they are a participant in.
+    Updates the 'last_message' field in chat rooms if the deleted message was the last one.
+    """
+    db = firestore.client()
+    chat_rooms_collection = get_chat_rooms_collection()
+    deleted_count = 0
+
+    # Get all chat rooms the user is a participant in
+    user_chat_rooms = chat_rooms_collection.where('participants', 'array_contains', user_id).stream()
+
+    for room_doc in user_chat_rooms:
+        room_ref = room_doc.reference
+        messages_query = room_ref.collection('messages').where('sender_id', '==', user_id).stream()
+        
+        messages_to_delete_refs = []
+        for msg_doc in messages_query:
+            messages_to_delete_refs.append(msg_doc.reference)
+            deleted_count += 1
+        
+        # Delete messages in batches
+        if messages_to_delete_refs:
+            batch = db.batch()
+            for msg_ref in messages_to_delete_refs:
+                batch.delete(msg_ref)
+            batch.commit()
+
+        # Check if the last_message was from this user and update if necessary
+        room_data = room_doc.to_dict()
+        if room_data and room_data.get('last_message') and room_data['last_message'].get('sender_id') == user_id:
+            # Find the new last message, if any
+            remaining_messages_query = room_ref.collection('messages').order_by('timestamp', direction='DESCENDING').limit(1).stream()
+            new_last_message = None
+            for msg_doc in remaining_messages_query:
+                new_last_message = {
+                    "content": msg_doc.get('content'),
+                    "sender_id": msg_doc.get('sender_id'),
+                    "timestamp": msg_doc.get('timestamp'),
+                }
+            
+            batch = db.batch()
+            batch.update(room_ref, {
+                'last_message': new_last_message,
+                'updated_at': firestore.SERVER_TIMESTAMP # Update timestamp as room content changed
+            })
+            batch.commit()
+            
+    return deleted_count
+

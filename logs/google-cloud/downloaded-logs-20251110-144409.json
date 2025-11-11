@@ -1,0 +1,3466 @@
+[
+  {
+    "insertId": "69121fff000d70d7b9aac2bd",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "753",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "8.181370467s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:11.541044Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/a42026f68e6f5418150a8b640a8306bb",
+    "receiveTimestamp": "2025-11-10T17:25:19.885324412Z",
+    "spanId": "063800a8ae9e2fa6",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.",
+    "insertId": "69121ff7000883ad194bd8f4",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:11.557997Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "scaling_reason": "AUTOSCALING",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2025-11-10T17:25:11.563490500Z"
+  },
+  {
+    "textPayload": "DEBUG: Loaded DATABASE_URL: 'postgresql://user:password@host:port/db'",
+    "insertId": "69121ffc000e2bfa6b2f138e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:16.928762Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:16.934555046Z"
+  },
+  {
+    "textPayload": "DEBUG: Type of DATABASE_URL: <class 'str'>",
+    "insertId": "69121ffc000e2c1896684a9e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:16.928792Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:16.934555046Z"
+  },
+  {
+    "textPayload": "DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: 200",
+    "insertId": "69121ffc000e2c3184d3dade",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:16.928817Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:16.934555046Z"
+  },
+  {
+    "textPayload": "DEBUG: GCP_PROJECT_ID from settings: anonymous-hubs-477707",
+    "insertId": "69121ffc000e2c5a0a321b67",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:16.928858Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:16.934555046Z"
+  },
+  {
+    "textPayload": "DEBUG: FIRESTORE_EMULATOR_HOST from settings: None",
+    "insertId": "69121ffc000e2c8a66781952",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:16.928906Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:17.269044390Z"
+  },
+  {
+    "textPayload": "Initializing Firebase Admin SDK...",
+    "insertId": "69121fff000aca0686ada1e7",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.707078Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:19.934541823Z"
+  },
+  {
+    "textPayload": "DEBUG (main.py): GCP_PROJECT_ID from settings: anonymous-hubs-477707",
+    "insertId": "69121fff000aca169cf4add5",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.707094Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:19.934541823Z"
+  },
+  {
+    "textPayload": "DEBUG (main.py): FIRESTORE_EMULATOR_HOST from settings: None",
+    "insertId": "69121fff000aca4b60bf5d7c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.707147Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:19.934541823Z"
+  },
+  {
+    "textPayload": "Firebase initialized with Application Default Credentials.",
+    "insertId": "69121fff000acaec1445c984",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.707308Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:19.934541823Z"
+  },
+  {
+    "textPayload": "INFO:     Started server process [1]",
+    "insertId": "69121fff000c6025b31968bd",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.811045Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:25:19.817498105Z"
+  },
+  {
+    "textPayload": "INFO:     Waiting for application startup.",
+    "insertId": "69121fff000c604169409b2d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.811073Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:25:19.817498105Z"
+  },
+  {
+    "textPayload": "INFO:     Application startup complete.",
+    "insertId": "69121fff000c66a81d425992",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.812712Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:25:20.162967910Z"
+  },
+  {
+    "textPayload": "INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)",
+    "insertId": "69121fff000c753238a90b78",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.816434Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:25:20.162967910Z"
+  },
+  {
+    "textPayload": "Default STARTUP TCP probe succeeded after 1 attempt for container \"empathy-hub-backend-1\" on port 8000.",
+    "insertId": "69121fff000c8555d8f65a09",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.820565Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fvarlog%2Fsystem",
+    "receiveTimestamp": "2025-11-10T17:25:19.889298845Z"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:11276 - \"OPTIONS /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "69121fff000d33bb61cdbe7e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:19.865211Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:19.934541823Z"
+  },
+  {
+    "insertId": "6912200100033e27618df8aa",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "994",
+      "status": 200,
+      "responseSize": "545",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "1.138191916s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:20.072745Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/e6b0d85e7bfa031c498bb39b5026b200",
+    "receiveTimestamp": "2025-11-10T17:25:21.220214876Z",
+    "spanId": "fda823b567d32fd8"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:11294 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "691220010003397f33be63f9",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:21.211327Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:21.267851711Z"
+  },
+  {
+    "insertId": "691220010009270aca88e57d",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "753",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.002522250s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:21.595653Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/82e4ce7d1f2ec85f498bb39b5026b58a",
+    "receiveTimestamp": "2025-11-10T17:25:21.884926820Z",
+    "spanId": "9ac295627359a2a2",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:56100 - \"OPTIONS /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "6912200100092389eb1eadb6",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:21.598921Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:21.933732519Z"
+  },
+  {
+    "insertId": "69122001000f0156ca75e92e",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1008",
+      "status": 200,
+      "responseSize": "641",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.208692564s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:21.773021Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/ad9d02037ebe4928498bb39b5026b154",
+    "receiveTimestamp": "2025-11-10T17:25:22.217411838Z",
+    "spanId": "91f03bf59418fb3e"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:56114 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "69122001000efcdae99be0dd",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:21.982234Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:22.264837683Z"
+  },
+  {
+    "insertId": "69122007000c3aa1130fb0f5",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "732",
+      "status": 200,
+      "responseSize": "345",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.003177559s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:27.796599Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/6441fbe2d5c449361e810fc9367c3683",
+    "receiveTimestamp": "2025-11-10T17:25:27.880160458Z",
+    "spanId": "78c8f9ccbdcb57d4"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:56120 - \"OPTIONS /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "69122007000c36f980b631c5",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:27.800505Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:27.929456311Z"
+  },
+  {
+    "insertId": "69122007000eb321f135a3b6",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "772",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.005416820s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:27.955931Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/52558ffff6285f691e810fc9367c3194",
+    "receiveTimestamp": "2025-11-10T17:25:28.214482138Z",
+    "spanId": "60039c324d7f3a09"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:56122 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "69122007000eae93b7abaafa",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:27.962195Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:28.261196611Z"
+  },
+  {
+    "insertId": "69122011000e25bbd13c9f9b",
+    "httpRequest": {
+      "requestMethod": "DELETE",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "985",
+      "status": 204,
+      "responseSize": "182",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "3.510151575s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:34.415171Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/88f97d5d563293821e810fc9367c3148",
+    "receiveTimestamp": "2025-11-10T17:25:38.201903906Z",
+    "spanId": "838343bcb840022f",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/base_collection.py:304: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.",
+    "insertId": "6912200e000950b0a5b8e96d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:34.610480Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:25:34.616743380Z"
+  },
+  {
+    "textPayload": "  return query.where(field_path, op_string, value)",
+    "insertId": "6912200e000950c985c4930d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:34.610505Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:25:34.616743380Z"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:42624 - \"DELETE /api/v1/users/me HTTP/1.1\" 204 No Content",
+    "insertId": "69122011000e211b1964fcec",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:37.925979Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:38.253411761Z"
+  },
+  {
+    "insertId": "691220120002c5d17b08aec0",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "771",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.006063309s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:38.174078Z",
+    "severity": "INFO",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/76b678d5f3dad6b100af8dbac0e20bb5",
+    "receiveTimestamp": "2025-11-10T17:25:38.201903906Z",
+    "spanId": "ff132047fa4aef66"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:42650 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "691220120002bf5bd3fe5b75",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:38.180059Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:38.253411761Z"
+  },
+  {
+    "insertId": "691220190004b631e2e1e3f4",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "772",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.004631380s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:45.302478Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/ec8f18dc1e9b2f6a00af8dbac0e2051a",
+    "receiveTimestamp": "2025-11-10T17:25:45.533070232Z",
+    "spanId": "8a53a29b333000fd",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:61492 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "691220190004b25e2f50366f",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:25:45.307806Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:25:45.577266184Z"
+  },
+  {
+    "insertId": "691220b0000e5d455b584cf6",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "786",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.005636420s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:16.934009Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/81071c2b59a52bd003c8aff2ff2f4d96",
+    "receiveTimestamp": "2025-11-10T17:28:16.947104146Z",
+    "spanId": "bbd412ac529ba5ae",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:44734 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "691220b0000e58a8ab0769ab",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:16.940200Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:16.945386449Z"
+  },
+  {
+    "insertId": "691220b30009cf1ebe3bd117",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "771",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.003851590s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:19.637526Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/d4fe8fc6fe5c32b4c66844a151c1807f",
+    "receiveTimestamp": "2025-11-10T17:28:19.945647471Z",
+    "spanId": "a67ad238f7de37ca"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:44738 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "691220b30009cb522ef198f9",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:19.641874Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:19.944873835Z"
+  },
+  {
+    "insertId": "691220b7000066c4e15644eb",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "771",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.004285609s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:23.020245Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/9c750012fefc7162c66844a151c1847c",
+    "receiveTimestamp": "2025-11-10T17:28:23.275447612Z",
+    "spanId": "ba37e7e945e1dbda"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:52042 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "691220b7000062af410351cf",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:23.025263Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:23.275277798Z"
+  },
+  {
+    "insertId": "691220bc000327e60f7fc260",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/",
+      "requestSize": "724",
+      "status": 200,
+      "responseSize": "345",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.002605s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:28.202602Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/f2643a160e2f36efc66844a151c182c8",
+    "receiveTimestamp": "2025-11-10T17:28:28.275082229Z",
+    "spanId": "6953c82d0db410bb",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:52050 - \"OPTIONS /api/v1/users/ HTTP/1.1\" 200 OK",
+    "insertId": "691220bc0003238f3fe0e807",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:28.205711Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:28.268339542Z"
+  },
+  {
+    "insertId": "691220bd0004932aabf1b977",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/",
+      "requestSize": "832",
+      "status": 201,
+      "responseSize": "528",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.888350544s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:28.409738Z",
+    "severity": "INFO",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/ecd0117d90ca3909c66844a151c18990",
+    "receiveTimestamp": "2025-11-10T17:28:29.602341550Z",
+    "spanId": "46afee2b7f4d0473"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:52056 - \"POST /api/v1/users/ HTTP/1.1\" 201 Created",
+    "insertId": "691220bd00048e768a27ff5e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:29.298614Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:29.600430945Z"
+  },
+  {
+    "insertId": "691220bd000af6a24c3ce37a",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "994",
+      "status": 200,
+      "responseSize": "547",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.176083881s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:29.540616Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/afe9e04946b896045e3bd492ba56c0c2",
+    "receiveTimestamp": "2025-11-10T17:28:29.934904912Z",
+    "spanId": "bc1a65d8e5ce2f1d"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:52062 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "691220bd000af2d15794313e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:29.717521Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:29.935032342Z"
+  },
+  {
+    "insertId": "691220be00078936e12e6db0",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1009",
+      "status": 200,
+      "responseSize": "199",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.460494809s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:30.031477Z",
+    "severity": "INFO",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/d59031468573f75f5e3bd492ba56cef5",
+    "receiveTimestamp": "2025-11-10T17:28:30.600176872Z",
+    "spanId": "61c7c3231696cd8d"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:52070 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691220be0007856209309673",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:30.492898Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:30.601513106Z"
+  },
+  {
+    "insertId": "691220c5000e1545f0878df2",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/",
+      "requestSize": "738",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.002525309s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:37.919235Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/817a3cb6851ea1445e3bd492ba56c9bc",
+    "receiveTimestamp": "2025-11-10T17:28:38.260559955Z",
+    "spanId": "87a21720932b4d78"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:8924 - \"OPTIONS /api/v1/posts/ HTTP/1.1\" 200 OK",
+    "insertId": "691220c5000e11e44da16310",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:37.922084Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:38.260812197Z"
+  },
+  {
+    "insertId": "691220c7000cfa6281b601e1",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/",
+      "requestSize": "1102",
+      "status": 201,
+      "responseSize": "669",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "1.710087938s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:38.137947Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/8800b903e29289765e3bd492ba56cb8d",
+    "receiveTimestamp": "2025-11-10T17:28:39.925930367Z",
+    "spanId": "5fd8ea8abc8aa37e"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:8932 - \"POST /api/v1/posts/ HTTP/1.1\" 201 Created",
+    "insertId": "691220c7000cf21ac43a450c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:28:39.848410Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:28:39.926294472Z"
+  },
+  {
+    "insertId": "691220ed00079b542a7cfb4f",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1022",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.76.2",
+      "latency": "0.186144422s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:29:17.310829Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/e590ec8b411fccfe8bb667b89a338074",
+    "receiveTimestamp": "2025-11-10T17:29:17.506570104Z",
+    "spanId": "5a10b2c15c7b9c5f",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:48670 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691220ed000797a3c8e85954",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:29:17.497571Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:29:17.506991810Z"
+  },
+  {
+    "insertId": "69122386000d17d63dd3b502",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "754",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.002876991s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:22.853235Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/aa55cd9d9333c5fbbb86a34f5df1dba4",
+    "receiveTimestamp": "2025-11-10T17:40:22.863525420Z",
+    "spanId": "f75a5179e980311a",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:3394 - \"OPTIONS /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "69122386000d15b1ab8378a4",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:22.857521Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:22.864633947Z"
+  },
+  {
+    "insertId": "691223880000f91f143c53d3",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "995",
+      "status": 200,
+      "responseSize": "547",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.992465642s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:23.069784Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/fc4a5dfb7dfc3b87bb86a34f5df1d41d",
+    "receiveTimestamp": "2025-11-10T17:40:24.195424345Z",
+    "spanId": "8c539da0d5068a6f"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:3396 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "691223880000f51a37bfcc08",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:24.062746Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:24.196259199Z"
+  },
+  {
+    "insertId": "691223880006b59ba26eb773",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "753",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.002205790s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:24.436056Z",
+    "severity": "INFO",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/ba57ad0a06e8a1c8bb86a34f5df1ddf5",
+    "receiveTimestamp": "2025-11-10T17:40:24.529624882Z",
+    "spanId": "02e50478488535fe"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:3406 - \"OPTIONS /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223880006b2c2388f8bed",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:24.438978Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:24.528419643Z"
+  },
+  {
+    "insertId": "69122388000c228afcd760b9",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1008",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.197357445s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:24.596344Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/fb1f619e6863eac3bb86a34f5df1d653",
+    "receiveTimestamp": "2025-11-10T17:40:24.863457780Z",
+    "spanId": "1d0963a4c7ef0083"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:3422 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "69122388000c1f86a67420ff",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:24.794502Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:24.860088645Z"
+  },
+  {
+    "insertId": "6912238d000c9fe4644cbcb3",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "995",
+      "status": 200,
+      "responseSize": "547",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.186072739s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:29.639808Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/07b080958e336047c201d58194466a56",
+    "receiveTimestamp": "2025-11-10T17:40:29.857617180Z",
+    "spanId": "73402373ebba58c7"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:3436 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "6912238d000c9cd9cb22a9ea",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:29.826585Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:29.854778077Z"
+  },
+  {
+    "insertId": "6912238e0007f6e5b38e9d2d",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1008",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.401412643s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:30.118997Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/89686271ff4bbc42c201d5819446611b",
+    "receiveTimestamp": "2025-11-10T17:40:30.861566070Z",
+    "spanId": "0936418624a44054"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:3452 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "6912238e0007f2fbfed3f785",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:30.520955Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:30.855947213Z"
+  },
+  {
+    "insertId": "6912238f00080843e18be46a",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "732",
+      "status": 200,
+      "responseSize": "345",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.004178439s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:31.520800Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/f7cab919a41291a0c201d581944669f3",
+    "receiveTimestamp": "2025-11-10T17:40:31.856601518Z",
+    "spanId": "637a7a68094f1afb"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:56316 - \"OPTIONS /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "6912238f0008045cbb003e0c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:31.525404Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:31.856632846Z"
+  },
+  {
+    "insertId": "6912238f000a83e363df146b",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "772",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.006072659s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:31.681542Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/51f10f096a3f5bf0c201d5819446603c",
+    "receiveTimestamp": "2025-11-10T17:40:31.856601518Z",
+    "spanId": "7a26a1d1b38f0457"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:56326 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "6912238f000a7fd214ded51c",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:31.688082Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:31.856632846Z"
+  },
+  {
+    "insertId": "691223a10003e31315a3bf2f",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "994",
+      "status": 200,
+      "responseSize": "547",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.190709234s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:49.062112Z",
+    "severity": "INFO",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/02c43d67fc6814e9ef0134cb5ae43fbb",
+    "receiveTimestamp": "2025-11-10T17:40:49.261757060Z",
+    "spanId": "96af3c1506beb880",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:60900 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "691223a10003df89642b79b4",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:49.253833Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:49.259163578Z"
+  },
+  {
+    "insertId": "691223a3000219db0eecda7b",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "995",
+      "status": 200,
+      "responseSize": "547",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.184358207s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:50.951057Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/e8ea0a867121b85aef0134cb5ae43d99",
+    "receiveTimestamp": "2025-11-10T17:40:51.259379886Z",
+    "spanId": "48aa54b91a65007a"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:47160 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "691223a3000216519b938aa8",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:51.136785Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:51.259456537Z"
+  },
+  {
+    "insertId": "691223a3000cad8df55baeb8",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1008",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.302858461s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:51.526427Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/14fd0d560190cb1fef0134cb5ae43083",
+    "receiveTimestamp": "2025-11-10T17:40:51.925617255Z",
+    "spanId": "8901396e96be74a1"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:47170 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223a3000ca9f6d2540850",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:51.829942Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:51.924881430Z"
+  },
+  {
+    "insertId": "691223a7000d28e13095040b",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1009",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.182359704s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:55.678268Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/e2fd55482b22638bef0134cb5ae43eb2",
+    "receiveTimestamp": "2025-11-10T17:40:55.921333847Z",
+    "spanId": "2f4133a57e846415"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:47174 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223a7000d2504295dd20f",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:55.861444Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:55.921048699Z"
+  },
+  {
+    "insertId": "691223a8000e99208ac04139",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1009",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.168940955s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:56.786004Z",
+    "severity": "INFO",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/e89f1125973450e6ef0134cb5ae438d9",
+    "receiveTimestamp": "2025-11-10T17:40:57.254439453Z",
+    "spanId": "5b680243c1c515e5"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:47182 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223a8000e95d6f4ba12d4",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:56.955862Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:57.251282413Z"
+  },
+  {
+    "insertId": "691223a9000d80056fa92906",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1007",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.189081973s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:57.693576Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/d4b569088df35e3aef0134cb5ae43f24",
+    "receiveTimestamp": "2025-11-10T17:40:57.919157297Z",
+    "spanId": "483fccdf7db96d86"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:47190 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223a9000d7c9ff00bf9b8",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:40:57.883871Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:40:57.918362630Z"
+  },
+  {
+    "insertId": "691223b500049820bf1a42d2",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me",
+      "requestSize": "994",
+      "status": 200,
+      "responseSize": "547",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.169292649s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:09.129740Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/d31a2f950baac501ddb7c7be8a8f0882",
+    "receiveTimestamp": "2025-11-10T17:41:09.575684635Z",
+    "spanId": "4a591dc60bdf548b",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:16854 - \"GET /api/v1/users/me HTTP/1.1\" 200 OK",
+    "insertId": "691223b50004939dfc506228",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:09.299933Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:09.576886841Z"
+  },
+  {
+    "insertId": "691223b600004192603c057d",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/?skip=0&limit=20",
+      "requestSize": "1009",
+      "status": 200,
+      "responseSize": "671",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.343936561s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:09.670986Z",
+    "severity": "INFO",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/6272ba0f3187d2b2ddb7c7be8a8f0d63",
+    "receiveTimestamp": "2025-11-10T17:41:10.240902206Z",
+    "spanId": "377e0c7eea635001"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:16870 - \"GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223b600003e74fd483043",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:10.015988Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:10.245003936Z"
+  },
+  {
+    "insertId": "691223b90008e090bf75b21f",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/avatars/defaults",
+      "requestSize": "771",
+      "status": 200,
+      "responseSize": "19692",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.004022501s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:13.575946Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/80c5cac219757951ddb7c7be8a8f09dd",
+    "receiveTimestamp": "2025-11-10T17:41:13.904019461Z",
+    "spanId": "4243f5cd84f03970"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:10462 - \"GET /api/v1/avatars/defaults HTTP/1.1\" 200 OK",
+    "insertId": "691223b90008dd3f512de3c3",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:13.580927Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:13.907264784Z"
+  },
+  {
+    "insertId": "691223c3000d5a28addd3156",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me/posts",
+      "requestSize": "734",
+      "status": 200,
+      "responseSize": "346",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.003086410s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:23.870237Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/8a95e3a1fd0af80617097cbc6809789f",
+    "receiveTimestamp": "2025-11-10T17:41:23.899404611Z",
+    "spanId": "774f1be605eca88c",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:23790 - \"OPTIONS /api/v1/users/me/posts HTTP/1.1\" 200 OK",
+    "insertId": "691223c3000d56e97a3872d9",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:23.874217Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:23.900318805Z"
+  },
+  {
+    "insertId": "691223c40001a19c88807404",
+    "httpRequest": {
+      "requestMethod": "DELETE",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/users/me/posts",
+      "requestSize": "991",
+      "status": 404,
+      "responseSize": "220",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.003056740s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:24.102428Z",
+    "severity": "WARNING",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/5fad9042b4f38dd217097cbc68097463",
+    "receiveTimestamp": "2025-11-10T17:41:24.230130025Z",
+    "spanId": "60e2a08f55ec665a"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:23796 - \"DELETE /api/v1/users/me/posts HTTP/1.1\" 404 Not Found",
+    "insertId": "691223c400019e3067d26f6f",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:24.106032Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:24.232022693Z"
+  },
+  {
+    "insertId": "691223cf0005364ef5a47d43",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/chat/?skip=0&limit=20",
+      "requestSize": "751",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.003262571s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:35.336665Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/53939743e8a1a2ae32243a3ce09dcde9",
+    "receiveTimestamp": "2025-11-10T17:41:35.351236046Z",
+    "spanId": "10b9f21c095083ce",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:6528 - \"OPTIONS /api/v1/chat/?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223cf00053163f42ed6c8",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:35.340323Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:35.345059499Z"
+  },
+  {
+    "insertId": "691223d000071ff0165845aa",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/chat/?skip=0&limit=20",
+      "requestSize": "1007",
+      "status": 500,
+      "responseSize": "130",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.918678676s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:35.546632Z",
+    "severity": "ERROR",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/72b1261045b993ba32243a3ce09dc618",
+    "receiveTimestamp": "2025-11-10T17:41:36.678963304Z",
+    "spanId": "ff3616f92e633285"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:6542 - \"GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1\" 500 Internal Server Error",
+    "insertId": "691223d000066ad0decdf01a",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:36.420560Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:36.676974953Z"
+  },
+  {
+    "textPayload": "ERROR:    Exception in ASGI application",
+    "insertId": "691223d000071c4b0371367b",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:36.465995Z",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:41:36.471269090Z"
+  },
+  {
+    "textPayload": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py\", line 409, in run_asgi\n    result = await app(  # type: ignore[func-returns-value]\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py\", line 60, in __call__\n    return await self.app(scope, receive, send)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/applications.py\", line 1054, in __call__\n    await super().__call__(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/applications.py\", line 112, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py\", line 187, in __call__\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py\", line 165, in __call__\n    await self.app(scope, receive, _send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py\", line 93, in __call__\n    await self.simple_response(scope, receive, send, request_headers=headers)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py\", line 144, in simple_response\n    await self.app(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py\", line 62, in __call__\n    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 714, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 734, in app\n    await route.handle(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 288, in handle\n    await self.app(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 76, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 73, in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/routing.py\", line 301, in app\n    raw_response = await run_endpoint_function(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/routing.py\", line 214, in run_endpoint_function\n    return await run_in_threadpool(dependant.call, **values)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/starlette/concurrency.py\", line 37, in run_in_threadpool\n    return await anyio.to_thread.run_sync(func)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/to_thread.py\", line 56, in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\", line 2470, in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\", line 967, in run\n    result = context.run(func, *args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/src/app/app/api/v1/endpoints/chat.py\", line 58, in list_user_chat_rooms\n    chat_rooms = chat_service.get_chat_rooms_for_user(user_id=current_user['anonymous_id'], limit=limit)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/src/app/app/services/firestore_services/chat_service.py\", line 76, in get_chat_rooms_for_user\n    return [doc.to_dict() for doc in docs]\n                                     ^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/stream_generator.py\", line 58, in __next__\n    return self._generator.__next__()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/query.py\", line 410, in _make_stream\n    response_iterator, expected_prefix = self._get_stream_iterator(\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/query.py\", line 260, in _get_stream_iterator\n    response_iterator = self._client._firestore_api.run_query(\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/services/firestore/client.py\", line 1624, in run_query\n    response = rpc(\n               ^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/gapic_v1/method.py\", line 131, in __call__\n    return wrapped_func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 294, in retry_wrapped_func\n    return retry_target(\n           ^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 156, in retry_target\n    next_sleep = _retry_error_helper(\n                 ^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_base.py\", line 214, in _retry_error_helper\n    raise final_exc from source_exc\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 147, in retry_target\n    result = target()\n             ^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/timeout.py\", line 130, in func_with_timeout\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/grpc_helpers.py\", line 173, in error_remapped_callable\n    raise exceptions.from_grpc_error(exc) from exc\ngoogle.api_core.exceptions.FailedPrecondition: 400 The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/anonymous-hubs-477707/firestore/indexes?create_composite=Clhwcm9qZWN0cy9hbm9ueW1vdXMtaHVicy00Nzc3MDcvZGF0YWJhc2VzLyhkZWZhdWx0KS9jb2xsZWN0aW9uR3JvdXBzL2NoYXRfcm9vbXMvaW5kZXhlcy9fEAEaEAoMcGFydGljaXBhbnRzGAEaDgoKdXBkYXRlZF9hdBACGgwKCF9fbmFtZV9fEAI",
+    "insertId": "691223d000071cbc7aec07f2",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:36.466108Z",
+    "severity": "ERROR",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:41:36.805379148Z",
+    "errorGroups": [
+      {
+        "id": "CN6Yofu0opexIQ"
+      }
+    ]
+  },
+  {
+    "insertId": "691223d90001c8e8e803fae6",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/chat/requests/pending?skip=0&limit=20",
+      "requestSize": "767",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.002596310s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:45.112789Z",
+    "severity": "INFO",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/351eaa452df4d24181a08226f0d2d7f9",
+    "receiveTimestamp": "2025-11-10T17:41:45.337490640Z",
+    "spanId": "904a2fa2a9c0a396"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:62158 - \"OPTIONS /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1\" 200 OK",
+    "insertId": "691223d90001c5532c03f776",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:45.116051Z",
+    "labels": {
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:45.336614652Z"
+  },
+  {
+    "insertId": "691223da00043d9250813369",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/chat/requests/pending?skip=0&limit=20",
+      "requestSize": "1023",
+      "status": 500,
+      "responseSize": "130",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.897041707s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:45.379154Z",
+    "severity": "ERROR",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/9ed1f0a6934907a381a08226f0d2dbe0",
+    "receiveTimestamp": "2025-11-10T17:41:46.339386758Z",
+    "spanId": "12aed1b68aa4d824",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "/usr/src/app/app/services/firestore_services/chat_request_service.py:56: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.",
+    "insertId": "691223d900086474e8e4bbc1",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:45.550004Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:41:45.795169284Z"
+  },
+  {
+    "textPayload": "  .where('status', '==', ChatRequestStatusEnum.PENDING.value) \\",
+    "insertId": "691223d9000864841c1bb06d",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "service_name": "empathy-hub-backend",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:45.550020Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:41:45.795169284Z"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:62170 - \"GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1\" 500 Internal Server Error",
+    "insertId": "691223da000428cd3bf27c0e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:46.272589Z",
+    "labels": {
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:41:46.337047567Z"
+  },
+  {
+    "textPayload": "ERROR:    Exception in ASGI application",
+    "insertId": "691223da000439fef65b620f",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "project_id": "anonymous-hubs-477707",
+        "location": "us-central1",
+        "configuration_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:46.276990Z",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:41:46.461766403Z"
+  },
+  {
+    "textPayload": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py\", line 409, in run_asgi\n    result = await app(  # type: ignore[func-returns-value]\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py\", line 60, in __call__\n    return await self.app(scope, receive, send)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/applications.py\", line 1054, in __call__\n    await super().__call__(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/applications.py\", line 112, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py\", line 187, in __call__\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py\", line 165, in __call__\n    await self.app(scope, receive, _send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py\", line 93, in __call__\n    await self.simple_response(scope, receive, send, request_headers=headers)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/cors.py\", line 144, in simple_response\n    await self.app(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py\", line 62, in __call__\n    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 714, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 734, in app\n    await route.handle(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 288, in handle\n    await self.app(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 76, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/usr/local/lib/python3.12/site-packages/starlette/routing.py\", line 73, in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/routing.py\", line 301, in app\n    raw_response = await run_endpoint_function(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/fastapi/routing.py\", line 214, in run_endpoint_function\n    return await run_in_threadpool(dependant.call, **values)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/starlette/concurrency.py\", line 37, in run_in_threadpool\n    return await anyio.to_thread.run_sync(func)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/to_thread.py\", line 56, in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\", line 2470, in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\", line 967, in run\n    result = context.run(func, *args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/src/app/app/api/v1/endpoints/chat.py\", line 66, in list_pending_chat_requests\n    pending_requests = chat_request_service.get_pending_requests_for_user(user_id=current_user['anonymous_id'], limit=limit)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/src/app/app/services/firestore_services/chat_request_service.py\", line 59, in get_pending_requests_for_user\n    return [doc.to_dict() for doc in docs]\n                                     ^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/stream_generator.py\", line 58, in __next__\n    return self._generator.__next__()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/query.py\", line 410, in _make_stream\n    response_iterator, expected_prefix = self._get_stream_iterator(\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/query.py\", line 260, in _get_stream_iterator\n    response_iterator = self._client._firestore_api.run_query(\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/cloud/firestore_v1/services/firestore/client.py\", line 1624, in run_query\n    response = rpc(\n               ^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/gapic_v1/method.py\", line 131, in __call__\n    return wrapped_func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 294, in retry_wrapped_func\n    return retry_target(\n           ^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 156, in retry_target\n    next_sleep = _retry_error_helper(\n                 ^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_base.py\", line 214, in _retry_error_helper\n    raise final_exc from source_exc\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py\", line 147, in retry_target\n    result = target()\n             ^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/timeout.py\", line 130, in func_with_timeout\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/google/api_core/grpc_helpers.py\", line 173, in error_remapped_callable\n    raise exceptions.from_grpc_error(exc) from exc\ngoogle.api_core.exceptions.FailedPrecondition: 400 The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/anonymous-hubs-477707/firestore/indexes?create_composite=Cltwcm9qZWN0cy9hbm9ueW1vdXMtaHVicy00Nzc3MDcvZGF0YWJhc2VzLyhkZWZhdWx0KS9jb2xsZWN0aW9uR3JvdXBzL2NoYXRfcmVxdWVzdHMvaW5kZXhlcy9fEAEaEAoMcmVxdWVzdGVlX2lkEAEaCgoGc3RhdHVzEAEaDgoKY3JlYXRlZF9hdBACGgwKCF9fbmFtZV9fEAI",
+    "insertId": "691223da00043a79d52dd80f",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "configuration_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:41:46.277113Z",
+    "severity": "ERROR",
+    "labels": {
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstderr",
+    "receiveTimestamp": "2025-11-10T17:41:46.461766403Z",
+    "errorGroups": [
+      {
+        "id": "CN6Yofu0opexIQ"
+      }
+    ]
+  },
+  {
+    "insertId": "691223e80002031ae2f02dd0",
+    "httpRequest": {
+      "requestMethod": "OPTIONS",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/",
+      "requestSize": "737",
+      "status": 200,
+      "responseSize": "359",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "0.002594180s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7"
+      }
+    },
+    "timestamp": "2025-11-10T17:42:00.127711Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-trigger-region": "global",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/5185e7af95b6f9c647d8b58c1c6a7678",
+    "receiveTimestamp": "2025-11-10T17:42:00.139140497Z",
+    "spanId": "11608cf8adb98779",
+    "traceSampled": true
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:35852 - \"OPTIONS /api/v1/posts/ HTTP/1.1\" 200 OK",
+    "insertId": "691223e80001fff587659893",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "location": "us-central1",
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend"
+      }
+    },
+    "timestamp": "2025-11-10T17:42:00.131061Z",
+    "labels": {
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:42:00.139521919Z"
+  },
+  {
+    "insertId": "691223ea0000a08f9d026f72",
+    "httpRequest": {
+      "requestMethod": "POST",
+      "requestUrl": "https://empathy-hub-backend-131065304705.us-central1.run.app/api/v1/posts/",
+      "requestSize": "1072",
+      "status": 201,
+      "responseSize": "639",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+      "remoteIp": "200.7.116.28",
+      "referer": "https://sfaisolutions.com/",
+      "serverIp": "34.143.72.2",
+      "latency": "1.711146616s",
+      "protocol": "HTTP/1.1"
+    },
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "location": "us-central1",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "configuration_name": "empathy-hub-backend",
+        "service_name": "empathy-hub-backend",
+        "project_id": "anonymous-hubs-477707"
+      }
+    },
+    "timestamp": "2025-11-10T17:42:00.328429Z",
+    "severity": "INFO",
+    "labels": {
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "gcb-trigger-region": "global",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Frequests",
+    "trace": "projects/anonymous-hubs-477707/traces/920cb7adbf25671047d8b58c1c6a7c5a",
+    "receiveTimestamp": "2025-11-10T17:42:02.134670961Z",
+    "spanId": "1d826d56a8dbabd5"
+  },
+  {
+    "textPayload": "INFO:     169.254.169.126:35862 - \"POST /api/v1/posts/ HTTP/1.1\" 201 Created",
+    "insertId": "691223ea00009c6cdf494c8e",
+    "resource": {
+      "type": "cloud_run_revision",
+      "labels": {
+        "project_id": "anonymous-hubs-477707",
+        "configuration_name": "empathy-hub-backend",
+        "revision_name": "empathy-hub-backend-00011-gb7",
+        "service_name": "empathy-hub-backend",
+        "location": "us-central1"
+      }
+    },
+    "timestamp": "2025-11-10T17:42:02.040044Z",
+    "labels": {
+      "managed-by": "gcp-cloud-build-deploy-cloud-run",
+      "gcb-build-id": "c90e62b7-0e45-402b-b05e-092407542997",
+      "commit-sha": "ce1161f73d67a8f8d4c3e832c6119ce0ceacf7f5",
+      "gcb-trigger-id": "f6ffa37f-372b-4f57-a60b-7570883f07a7",
+      "gcb-trigger-region": "global",
+      "instanceId": "0014778296eae4d13ffbc61ea3427f633011eedbe5581ad395c4496c5d15f4d56f8689f10d93e24607c4d095f90de99b37668e89f5bdf1c86346cb27667d6555515f00586a5e707fc748180cc0a512"
+    },
+    "logName": "projects/anonymous-hubs-477707/logs/run.googleapis.com%2Fstdout",
+    "receiveTimestamp": "2025-11-10T17:42:02.139151088Z"
+  }
+]

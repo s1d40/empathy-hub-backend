@@ -151,6 +151,25 @@ def delete_comment(comment_id: str) -> bool:
     delete_in_transaction(transaction, post_ref, comment_ref, mapping_ref)
     return True
 
+def delete_all_comments_by_author(author_id: str) -> int:
+    """
+    Deletes all comments by a specific author.
+    """
+    # This is inefficient as it iterates through all posts.
+    # A more efficient solution would involve a root-level 'comments' collection
+    # with an author_id field, allowing for a direct query.
+    
+    deleted_count = 0
+    # Get all comments by the author (this uses the inefficient get_comments_by_author)
+    comments_to_delete = get_comments_by_author(author_id)
+    
+    for comment_data in comments_to_delete:
+        comment_id = comment_data.get('comment_id')
+        if comment_id:
+            if delete_comment(comment_id):
+                deleted_count += 1
+    return deleted_count
+
 def vote_on_comment(comment_id: str, user_id: str, vote_type: VoteTypeEnum) -> Optional[dict]:
     post_id = get_post_id_for_comment(comment_id)
     if not post_id:

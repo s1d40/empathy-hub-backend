@@ -89,11 +89,20 @@ def delete_user_me(current_user: dict = Depends(get_current_active_user_firestor
         raise HTTPException(status_code=404, detail="User not found")
     return
 
-# TODO: Refactor the data erasure endpoints to use the new firestore services.
-# @router.delete("/me/posts", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
-# def delete_all_my_posts(current_user: dict = Depends(get_current_active_user_firestore)):
-#     deleted_count = post_service.delete_all_posts_by_author(author_id=current_user['anonymous_id'])
-#     return schemas.DeletionSummary(message="All your posts have been deleted.", deleted_count=deleted_count)
+@router.delete("/me/chat-messages", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_chat_messages(current_user: dict = Depends(get_current_active_user_firestore)):
+    deleted_count = chat_service.delete_all_chat_messages_by_user(user_id=current_user['anonymous_id'])
+    return schemas.DeletionSummary(message="All your chat messages have been deleted.", deleted_count=deleted_count)
+
+@router.delete("/me/posts", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_posts(current_user: dict = Depends(get_current_active_user_firestore)):
+    deleted_count = post_service.delete_all_posts_by_author(author_id=current_user['anonymous_id'])
+    return schemas.DeletionSummary(message="All your posts have been deleted.", deleted_count=deleted_count)
+
+@router.delete("/me/comments", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
+def delete_all_my_comments(current_user: dict = Depends(get_current_active_user_firestore)):
+    deleted_count = comment_service.delete_all_comments_by_author(author_id=current_user['anonymous_id'])
+    return schemas.DeletionSummary(message="All your comments have been deleted.", deleted_count=deleted_count)
 
 @router.get("/{user_anonymous_id}/posts", response_model=List[schemas.PostRead])
 def read_posts_by_user(
