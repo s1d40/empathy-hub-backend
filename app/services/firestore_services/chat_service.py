@@ -1,7 +1,7 @@
 import uuid
 from typing import List, Optional
 from firebase_admin import firestore
-from google.cloud.firestore import Timestamp
+
 from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, UserSimple, ChatMessageRead
 from app.services.firestore_services import user_service
 from datetime import datetime
@@ -28,8 +28,8 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
     # Convert Firestore Timestamps to datetime objects
     # created_at is required by schema, so it must be a datetime
     created_at_ts = room_dict.get('created_at')
-    if isinstance(created_at_ts, firestore.Timestamp):
-        room_dict['created_at'] = created_at_ts.to_datetime()
+    if isinstance(created_at_ts, datetime):
+        room_dict['created_at'] = created_at_ts
     elif isinstance(created_at_ts, firestore.SERVER_TIMESTAMP.__class__):
         # This should ideally not happen if the document is read after being written
         # If it does, it means the timestamp hasn't been resolved by Firestore yet.
@@ -41,8 +41,8 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
         room_dict['created_at'] = datetime.now() # Ensure it's always a datetime
 
     updated_at_ts = room_dict.get('updated_at')
-    if isinstance(updated_at_ts, firestore.Timestamp):
-        room_dict['updated_at'] = updated_at_ts.to_datetime()
+    if isinstance(updated_at_ts, datetime):
+        room_dict['updated_at'] = updated_at_ts
     elif isinstance(updated_at_ts, firestore.SERVER_TIMESTAMP.__class__):
         room_dict['updated_at'] = datetime.now() # Fallback
     else:
@@ -70,8 +70,8 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
                 sender_user_simple = UserSimple(anonymous_id=uuid.UUID(sender_data['anonymous_id']), username=sender_data['username'])
         
         message_timestamp = last_msg_data.get('timestamp')
-        if isinstance(message_timestamp, firestore.Timestamp):
-            message_timestamp = message_timestamp.to_datetime()
+        if isinstance(message_timestamp, datetime):
+            message_timestamp = message_timestamp
         elif isinstance(message_timestamp, firestore.SERVER_TIMESTAMP.__class__):
             message_timestamp = datetime.now() # Fallback
         else:

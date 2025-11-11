@@ -28,14 +28,9 @@ class Settings(BaseSettings):
         'http://localhost:8000',
         'http://127.0.0.1:8000',
         "https://sfaisolutions.com", # Deployed frontend origin
-        "https://empathy-hub-backend-131065304705.us-central1.run.app", # Backend's own Cloud Run URL
-        # Add any other origins if needed, e.g., your deployed frontend URL
     ]
-
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@host:port/db")
-    
     # GCP and Firebase Settings
-    GCP_PROJECT_ID: str = os.getenv("GCP_PROJECT_ID", "your-gcp-project-id") # TODO: Replace with your GCP project ID
+    GCP_PROJECT_ID: str
     FIRESTORE_EMULATOR_HOST: Optional[str] = os.getenv("FIRESTORE_EMULATOR_HOST") # e.g., "localhost:8080"
 
     #JWT Settings
@@ -50,8 +45,6 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # For debugging purposes:
-print(f"DEBUG: Loaded DATABASE_URL: '{settings.DATABASE_URL}'")
-print(f"DEBUG: Type of DATABASE_URL: {type(settings.DATABASE_URL)}")
 print(f"DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: {len(settings.DEFAULT_AVATAR_FILENAMES) if settings.DEFAULT_AVATAR_FILENAMES else 'Not loaded or empty'}")
 print(f"DEBUG: GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}")
 print(f"DEBUG: FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
