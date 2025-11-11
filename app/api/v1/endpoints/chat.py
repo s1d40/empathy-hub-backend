@@ -111,7 +111,7 @@ def get_chat_room_messages(
     current_user: dict = Depends(get_current_active_user_firestore),
 ):
     chat_room = chat_service.get_chat_room(room_id)
-    if not chat_room or current_user['anonymous_id'] not in chat_room['participants']:
+    if not chat_room or not any(p.anonymous_id == uuid.UUID(current_user['anonymous_id']) for p in chat_room['participants']):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You are not a participant of this chat room.")
 
     messages = chat_service.get_messages_for_chat_room(room_id=room_id, limit=limit)
