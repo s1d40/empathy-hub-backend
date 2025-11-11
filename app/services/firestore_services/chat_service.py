@@ -1,6 +1,7 @@
 import uuid
 from typing import List, Optional
 from firebase_admin import firestore
+from app import schemas
 
 from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, ChatMessageRead
 from app.schemas.user import UserSimple
@@ -12,6 +13,37 @@ from datetime import datetime
 def get_chat_rooms_collection():
     """Returns the 'chat_rooms' collection reference, ensuring the client is requested after initialization."""
     return firestore.client().collection('chat_rooms')
+
+def _format_chat_message(message_data: dict) -> dict:
+    """
+    Formats a chat message dictionary from Firestore to match the ChatMessageRead schema.
+    """
+    if not message_data:
+        return None
+
+    message_data['id'] = message_data.get('message_id')
+    message_data['anonymous_message_id'] = f"msg_{uuid.UUID(message_data.get('message_id')).hex[:8]}"
+
+
+    # Format sender if sender_id exists
+    if 'sender_id' in message_data:
+        sender_data = user_service.get_user_by_anonymous_id(message_data['sender_id'])
+        if sender_data:
+            message_data['sender'] = UserSimple(
+                anonymous_id=uuid.UUID(sender_data['anonymous_id']),
+                username=sender_data['username'],
+                avatar_url=sender_data.get('avatar_url')
+            )
+
+    # Convert timestamp to datetime object
+    if 'timestamp' in message_data and isinstance(message_data['timestamp'], str):
+        message_data['created_at'] = datetime.fromisoformat(message_data['timestamp'])
+    elif 'timestamp' in message_data and isinstance(message_data['timestamp'], (int, float)):
+        message_data['created_at'] = datetime.fromtimestamp(message_data['timestamp'])
+    else:
+        message_data['created_at'] = message_data.get('timestamp')
+
+    return message_data
 
 def _format_chat_room(room_dict: dict) -> Optional[dict]:
     """
@@ -66,38 +98,7 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
 
     # Format last_message if present as a ChatMessageRead Pydantic model
     if 'last_message' in room_dict and room_dict['last_message']:
-        last_msg_data = room_dict['last_message']
-        sender_id = last_msg_data.get('sender_id')
-        sender_user_simple = None
-        if sender_id:
-            sender_data = user_service.get_user_by_anonymous_id(sender_id)
-            if sender_data:
-                sender_user_simple = UserSimple(
-                    anonymous_id=uuid.UUID(sender_data['anonymous_id']),
-                    username=sender_data['username'],
-                    avatar_url=sender_data.get('avatar_url')
-                )
-        
-        message_timestamp = last_msg_data.get('timestamp')
-        if isinstance(message_timestamp, datetime):
-            message_timestamp = message_timestamp
-        elif isinstance(message_timestamp, firestore.SERVER_TIMESTAMP.__class__):
-            message_timestamp = datetime.now() # Fallback
-        else:
-            message_timestamp = datetime.now() # Ensure it's always a datetime
-
-        # Ensure anonymous_message_id and chatroom_anonymous_id are UUIDs
-        anonymous_message_id = uuid.UUID(last_msg_data.get('message_id')) if last_msg_data.get('message_id') else uuid.uuid4()
-        chatroom_anonymous_id = room_dict['anonymous_room_id'] # Already converted to UUID above
-
-        room_dict['last_message'] = ChatMessageRead(
-            anonymous_message_id=anonymous_message_id,
-            chatroom_anonymous_id=chatroom_anonymous_id,
-            sender_anonymous_id=uuid.UUID(sender_id) if sender_id else uuid.uuid4(),
-            content=last_msg_data.get('content'),
-            timestamp=message_timestamp,
-            sender=sender_user_simple
-        )
+        room_dict['last_message'] = _format_chat_message(room_dict['last_message'])
     else:
         room_dict['last_message'] = None # Ensure it's None if no last message
     
@@ -197,6 +198,7 @@ def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender
     }
 
     last_message_summary = {
+        "message_id": message_id,
         "content": message_in.content,
         "sender_id": sender_id,
         "timestamp": firestore.SERVER_TIMESTAMP,
@@ -221,7 +223,7 @@ def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
     chat_rooms_collection = get_chat_rooms_collection()
     messages_query = chat_rooms_collection.document(room_id).collection('messages').order_by('timestamp', direction='DESCENDING')
     docs = messages_query.limit(limit).stream()
-    return [doc.to_dict() for doc in docs]
+    return [_format_chat_message(doc.to_dict()) for doc in docs]
 
 def delete_all_chat_messages_by_user(user_id: str) -> int:
     """
