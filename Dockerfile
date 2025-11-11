@@ -25,4 +25,4 @@ EXPOSE 8080
 # Command to run the application
 # We use 0.0.0.0 to make it accessible from outside the container
 # Use Gunicorn as the process manager with Uvicorn workers for production.
-CMD ["/bin/sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port \"$PORT\""]
+CMD ["/bin/sh", "-c", "exec uvicorn app.app.main:app --host 0.0.0.0 --port \"$PORT\""]
