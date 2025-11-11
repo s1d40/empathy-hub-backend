@@ -37,6 +37,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = os.getenv("SECRET_KEY", "secret_key")
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 *24 * 7 # 7 days
+    INSTANCE_ID: str = os.getenv("K_REVISION", "local") # Unique identifier for each Cloud Run instance
 
     class Config:
         case_sensitive = True
@@ -48,3 +49,4 @@ settings = Settings()
 print(f"DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: {len(settings.DEFAULT_AVATAR_FILENAMES) if settings.DEFAULT_AVATAR_FILENAMES else 'Not loaded or empty'}")
 print(f"DEBUG: GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}")
 print(f"DEBUG: FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
+print(f"DEBUG: INSTANCE_ID from settings: {settings.INSTANCE_ID}")
