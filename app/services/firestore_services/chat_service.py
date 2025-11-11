@@ -203,11 +203,16 @@ def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
     """
     Retrieves a list of chat rooms for a specific user.
     """
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logging.info(f"get_chat_rooms_for_user called for user_id: {user_id}")
+
     chat_rooms_collection = get_chat_rooms_collection()
     query = chat_rooms_collection.where('participants', 'array_contains', user_id).order_by('updated_at', direction='DESCENDING')
     docs = list(query.limit(limit).stream())
 
     if not docs:
+        logging.info("No chat rooms found for user.")
         return []
 
     # Collect all user IDs from all rooms
@@ -219,11 +224,22 @@ def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
             all_user_ids.add(room_data['last_message']['sender_id'])
 
     # Fetch all users in one batch
+    logging.info(f"Fetching user data for user_ids: {all_user_ids}")
     users_data = user_service.get_users_by_anonymous_ids(list(all_user_ids))
     users_map = {user['anonymous_id']: user for user in users_data}
+    logging.info(f"Users map created: {users_map}")
 
     # Format all rooms with the complete user map
-    return [_format_chat_room(doc.to_dict(), users_map) for doc in docs]
+    formatted_rooms = []
+    for doc in docs:
+        room_data = doc.to_dict()
+        logging.info(f"Formatting room: {room_data}")
+        formatted_room = _format_chat_room(room_data, users_map)
+        logging.info(f"Formatted room: {formatted_room}")
+        formatted_rooms.append(formatted_room)
+    
+    logging.info("Finished formatting chat rooms.")
+    return formatted_rooms
 
 def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender_id: str) -> dict:
     """
