@@ -2,7 +2,8 @@ import uuid
 from typing import List, Optional
 from firebase_admin import firestore
 
-from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, UserSimple, ChatMessageRead
+from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, ChatMessageRead
+from app.schemas.user import UserSimple
 from app.services.firestore_services import user_service
 from datetime import datetime
 
@@ -54,7 +55,11 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
         for p_id in room_dict['participants']:
             user_data = user_service.get_user_by_anonymous_id(p_id)
             if user_data:
-                formatted_participants.append(UserSimple(anonymous_id=uuid.UUID(user_data['anonymous_id']), username=user_data['username']))
+                formatted_participants.append(UserSimple(
+                    anonymous_id=uuid.UUID(user_data['anonymous_id']),
+                    username=user_data['username'],
+                    avatar_url=user_data.get('avatar_url')
+                ))
         room_dict['participants'] = formatted_participants
     else:
         room_dict['participants'] = [] # Ensure it's always a list
@@ -67,7 +72,11 @@ def _format_chat_room(room_dict: dict) -> Optional[dict]:
         if sender_id:
             sender_data = user_service.get_user_by_anonymous_id(sender_id)
             if sender_data:
-                sender_user_simple = UserSimple(anonymous_id=uuid.UUID(sender_data['anonymous_id']), username=sender_data['username'])
+                sender_user_simple = UserSimple(
+                    anonymous_id=uuid.UUID(sender_data['anonymous_id']),
+                    username=sender_data['username'],
+                    avatar_url=sender_data.get('avatar_url')
+                )
         
         message_timestamp = last_msg_data.get('timestamp')
         if isinstance(message_timestamp, datetime):
@@ -263,4 +272,3 @@ def delete_all_chat_messages_by_user(user_id: str) -> int:
             batch.commit()
             
     return deleted_count
-

@@ -53,6 +53,13 @@ class AuthorRead(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+class UserSimple(BaseModel):
+    anonymous_id: uuid.UUID
+    username: str
+    avatar_url: Optional[str] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
 class UserInDB(UserBase):
     anonymous_id: str
     created_at: datetime
