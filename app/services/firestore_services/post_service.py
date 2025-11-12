@@ -86,6 +86,14 @@ def get_post(post_id: str) -> Optional[dict]:
     doc = doc_ref.get()
     if doc.exists:
         post_data = doc.to_dict()
+
+        # Get comment count
+        comments_collection = doc.reference.collection('comments')
+        aggregation_query = comments_collection.count()
+        query_result = aggregation_query.get()
+        comment_count = query_result[0][0].value if query_result else 0
+        post_data['comment_count'] = comment_count
+
         author_id = post_data.get('author_id')
         users_data = user_service.get_users_by_anonymous_ids([author_id])
         users_map = {user['anonymous_id']: user for user in users_data}
