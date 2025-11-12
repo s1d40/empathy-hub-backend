@@ -42,6 +42,7 @@ class PostRead(PostBase):
     # In a more advanced setup, we might embed a UserRead schema here.
     author: AuthorRead
     
+    comment_count: int
     is_active: bool
     is_edited: bool
     upvotes: int
