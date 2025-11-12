@@ -97,16 +97,32 @@ def get_posts(skip: int = 0, limit: int = 100) -> List[dict]:
     Retrieves a list of posts with pagination.
     """
     posts_collection = get_posts_collection()
-    docs = list(posts_collection.order_by('created_at', direction='DESCENDING').limit(limit).offset(skip).stream())
+    query = posts_collection.order_by('created_at', direction='DESCENDING').limit(limit).offset(skip)
+    docs = list(query.stream())
     
     if not docs:
         return []
 
-    author_ids = list(set(doc.to_dict().get('author_id') for doc in docs))
+    post_list = []
+    for doc in docs:
+        post_data = doc.to_dict()
+        
+        # TODO: This is not performant. For each post, we are making a new query to get the comment count.
+        # A better approach would be to use a distributed counter.
+        comments_collection = doc.reference.collection('comments')
+        # Use aggregate query to count comments more efficiently
+        aggregation_query = comments_collection.count()
+        query_result = aggregation_query.get()
+        comment_count = query_result[0][0].value if query_result else 0
+        
+        post_data['comment_count'] = comment_count
+        post_list.append(post_data)
+
+    author_ids = list(set(post.get('author_id') for post in post_list))
     users_data = user_service.get_users_by_anonymous_ids(author_ids)
     users_map = {user['anonymous_id']: user for user in users_data}
 
-    return [_format_post(doc.to_dict(), users_map) for doc in docs]
+    return [_format_post(post, users_map) for post in post_list]
 
 def get_posts_by_author(author_id: str) -> List[dict]:
     """
