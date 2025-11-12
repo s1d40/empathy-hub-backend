@@ -27,18 +27,11 @@ print(f"DEBUG (main.py): GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}
 print(f"DEBUG (main.py): FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
 if not firebase_admin._apps:
     try:
-        if settings.FIRESTORE_EMULATOR_HOST:
-            # Use emulator if the host is set
-            cred = google_credentials.AnonymousCredentials()
-            firebase_admin.initialize_app(cred, {
-                'projectId': settings.GCP_PROJECT_ID,
-            })
-            print("Firebase initialized with EMULATOR.")
-        else:
-            # Use Application Default Credentials for production
-            cred = firebase_credentials.ApplicationDefault()
-            firebase_admin.initialize_app(cred, {'projectId': settings.GCP_PROJECT_ID})
-            print("Firebase initialized with Application Default Credentials.")
+        # Initialize Firebase Admin SDK.
+        # It will automatically use FIRESTORE_EMULATOR_HOST if set in environment.
+        # For production, it will use Application Default Credentials.
+        firebase_admin.initialize_app(options={'projectId': settings.GCP_PROJECT_ID})
+        print("Firebase Admin SDK initialized.")
     except Exception as e:
         print(f"Firebase initialization failed: {e}")
 else:

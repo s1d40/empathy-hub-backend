@@ -1,6 +1,7 @@
 import uuid
 from typing import List, Optional
 from firebase_admin import firestore
+from google.cloud.firestore_v1.transforms import Sentinel
 from app import schemas
 
 from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, ChatMessageRead
@@ -23,14 +24,20 @@ def _format_chat_message(message_data: dict, users_map: dict, room_id: str) -> d
 
     message_id = message_data.get('message_id')
     sender_id = message_data.get('sender_id')
+    client_message_id = message_data.get('client_message_id') # Get client_message_id
+
+    timestamp = message_data.get('timestamp')
+    if isinstance(timestamp, Sentinel):
+        timestamp = datetime.now()
 
     formatted_message = {
         'anonymous_message_id': uuid.UUID(message_id) if message_id else None,
         'chatroom_anonymous_id': uuid.UUID(room_id) if room_id else None,
         'sender_anonymous_id': uuid.UUID(sender_id) if sender_id else None,
         'content': message_data.get('content'),
-        'timestamp': message_data.get('timestamp'),
-        'sender': None
+        'timestamp': timestamp,
+        'sender': None,
+        'client_message_id': uuid.UUID(client_message_id) if client_message_id else None # Include client_message_id
     }
 
     # Format sender if sender_id exists
@@ -213,7 +220,7 @@ def get_chat_rooms_for_user(user_id: str, limit: int = 20) -> List[dict]:
     # Format all rooms with the complete user map
     return [_format_chat_room(doc.to_dict(), users_map) for doc in docs]
 
-def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender_id: str) -> dict:
+def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender_id: str, client_message_id: Optional[uuid.UUID] = None) -> dict:
     """
     Adds a new message to a chat room's 'messages' subcollection and updates the room's 'last_message'.
     """
@@ -234,6 +241,8 @@ def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender
         "sender_username": sender_data.get('username'),
         "timestamp": firestore.SERVER_TIMESTAMP,
     }
+    if client_message_id:
+        message_data["client_message_id"] = str(client_message_id)
 
     last_message_summary = {
         "message_id": message_id,
@@ -241,6 +250,8 @@ def add_message_to_chat_room(room_id: str, message_in: ChatMessageCreate, sender
         "sender_id": sender_id,
         "timestamp": firestore.SERVER_TIMESTAMP,
     }
+    if client_message_id:
+        last_message_summary["client_message_id"] = str(client_message_id)
 
     # Use a batch write to add the message and update the room atomically
     db = firestore.client()

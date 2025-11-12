@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     # GCP and Firebase Settings
     GCP_PROJECT_ID: str
     FIRESTORE_EMULATOR_HOST: Optional[str] = os.getenv("FIRESTORE_EMULATOR_HOST") # e.g., "localhost:8080"
+    PUBSUB_EMULATOR_HOST: Optional[str] = os.getenv("PUBSUB_EMULATOR_HOST") # e.g., "localhost:8085"
 
     #JWT Settings
     SECRET_KEY: str = os.getenv("SECRET_KEY", "secret_key")

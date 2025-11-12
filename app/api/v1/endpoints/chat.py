@@ -8,6 +8,7 @@ from app.api.v1.firestore_deps import get_current_active_user_firestore
 from app.schemas.enums import ChatAvailabilityEnum, ChatRequestStatusEnum, RelationshipTypeEnum
 from app.core.chat_manager import manager
 from app.core import security
+from app.core.utils import convert_uuids_to_str # Import the utility function
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -167,19 +168,33 @@ async def websocket_endpoint(
                 db_message = chat_service.add_message_to_chat_room(
                     room_id=room_id,
                     message_in=schemas.ChatMessageCreate(content=message_data.content),
-                    sender_id=current_user['anonymous_id']
+                    sender_id=current_user['anonymous_id'],
+                    client_message_id=message_data.client_message_id # Pass client_message_id
                 )
                 logger.info(f"WebSocket: Message saved to Firestore by user {current_user['anonymous_id']} in room {room_id}. Message ID: {db_message.get('id')}")
                 
                 # Publish message to Pub/Sub instead of direct broadcast
-                await manager.publish_message_to_pubsub(room_id, db_message)
+                serializable_db_message = convert_uuids_to_str(db_message)
+                await manager.publish_message_to_pubsub(room_id, serializable_db_message)
 
             except Exception as e:
                 logger.error(f"WebSocket: Error processing message from user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)
-                await manager.send_personal_message(websocket, f"Error: {str(e)}")
+                error_payload = {"detail": f"Error processing message: {str(e)}"}
+                if message_data.client_message_id: # Include client_message_id in error if present
+                    error_payload["clientMessageId"] = str(message_data.client_message_id)
+                error_message = schemas.WebSocketMessage(
+                    type="error",
+                    payload=error_payload
+                ).model_dump_json()
+                await manager.send_personal_message(websocket, error_message)
     except WebSocketDisconnect:
         logger.info(f"WebSocket disconnected: user_id={current_user['anonymous_id']}, room_id={room_id}")
         manager.disconnect(websocket, room_id, current_user['anonymous_id'])
     except Exception as e:
         logger.error(f"WebSocket unexpected error for user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)
+        error_message = schemas.WebSocketMessage(
+            type="error",
+            payload={"detail": "Internal server error"}
+        ).model_dump_json()
+        await manager.send_personal_message(websocket, error_message)
         await websocket.close(code=status.WS_500_INTERNAL_ERROR, reason="Internal server error")

@@ -83,3 +83,4 @@ class WebSocketMessage(BaseModel):
 
 class WebSocketChatMessage(BaseModel):
     content: str = Field(..., min_length=1, max_length=2000)
+    client_message_id: Optional[uuid.UUID] = None # New field for optimistic UI

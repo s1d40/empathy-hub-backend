@@ -1,6 +1,7 @@
 import logging
 import json
 import asyncio
+import os # Import os
 from typing import Dict, List, Tuple
 from fastapi import WebSocket
 from google.cloud import pubsub_v1
@@ -13,6 +14,9 @@ logger = logging.getLogger(__name__)
 class ConnectionManager:
     def __init__(self):
         self.active_connections: Dict[str, List[Tuple[str, WebSocket]]] = {}
+        if settings.PUBSUB_EMULATOR_HOST:
+            os.environ["PUBSUB_EMULATOR_HOST"] = settings.PUBSUB_EMULATOR_HOST
+            logger.info(f"Using Pub/Sub emulator at {settings.PUBSUB_EMULATOR_HOST}")
         self.publisher = pubsub_v1.PublisherClient()
         self.subscriber = pubsub_v1.SubscriberClient()
         self.project_id = settings.GCP_PROJECT_ID
@@ -21,6 +25,7 @@ class ConnectionManager:
         self.topic_path = self.publisher.topic_path(self.project_id, self.topic_name)
         self.subscription_path = self.subscriber.subscription_path(self.project_id, self.subscription_name)
         self.future = None # To hold the subscriber future
+        self.loop = None # To hold the main event loop
 
         # Ensure subscription exists
         try:
@@ -52,6 +57,13 @@ class ConnectionManager:
                     del self.active_connections[room_id]
                     logger.info(f"Room {room_id} is now empty and removed.")
 
+    async def send_personal_message(self, websocket: WebSocket, message: str):
+        """Sends a direct message to a specific WebSocket connection."""
+        try:
+            await websocket.send_text(message)
+        except Exception as e:
+            logger.error(f"Error sending personal message to WebSocket: {e}")
+
     async def publish_message_to_pubsub(self, room_id: str, message_payload: dict):
         """Publishes a message to the Pub/Sub topic."""
         try:
@@ -75,6 +87,7 @@ class ConnectionManager:
                     payload=data
                 )
                 message_str = ws_message.model_dump_json()
+                logger.info(f"Broadcasting message to room {room_id}: {message_str}")
                 logger.info(f"Received message from Pub/Sub for room {room_id}. Broadcasting to local clients.")
 
                 for recipient_id, connection in self.active_connections[room_id]:
@@ -91,9 +104,23 @@ class ConnectionManager:
     def start_pubsub_subscriber(self):
         """Starts the Pub/Sub subscriber in a background task."""
         if self.future is None or self.future.done():
+            try:
+                self.loop = asyncio.get_running_loop()
+            except RuntimeError:
+                logger.error("No running event loop to attach the Pub/Sub subscriber to.")
+                return
+
             logger.info(f"Starting Pub/Sub subscriber for subscription {self.subscription_name}...")
-            # The callback needs to be awaited, so we wrap it in an asyncio.Task
-            self.future = self.subscriber.subscribe(self.subscription_path, callback=lambda message: asyncio.create_task(self._pubsub_callback(message)))
+
+            def callback_wrapper(message):
+                """Wrapper to schedule the async callback in the main event loop."""
+                if self.loop:
+                    asyncio.run_coroutine_threadsafe(self._pubsub_callback(message), self.loop)
+                else:
+                    logger.error("Event loop not available for Pub/Sub callback.")
+                    message.nack() # Nack the message if we can't process it
+
+            self.future = self.subscriber.subscribe(self.subscription_path, callback=callback_wrapper)
             logger.info(f"Pub/Sub subscriber started. Listening on {self.subscription_path}")
         else:
             logger.info("Pub/Sub subscriber already running.")
