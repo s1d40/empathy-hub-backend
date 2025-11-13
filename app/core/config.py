@@ -31,7 +31,9 @@ class Settings(BaseSettings):
     ]
     # GCP and Firebase Settings
     GCP_PROJECT_ID: str
+    # For live deployment, ensure FIRESTORE_EMULATOR_HOST environment variable is NOT set.
     FIRESTORE_EMULATOR_HOST: Optional[str] = os.getenv("FIRESTORE_EMULATOR_HOST") # e.g., "localhost:8080"
+    # For live deployment, ensure PUBSUB_EMULATOR_HOST environment variable is NOT set.
     PUBSUB_EMULATOR_HOST: Optional[str] = os.getenv("PUBSUB_EMULATOR_HOST") # e.g., "localhost:8085"
 
     #JWT Settings
