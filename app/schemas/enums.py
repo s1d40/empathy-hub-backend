@@ -33,3 +33,16 @@ class ReportStatusEnum(str, enum.Enum):
     REVIEWED_ACTION_TAKEN = "reviewed_action_taken"
     REVIEWED_NO_ACTION = "reviewed_no_action"
     DISMISSED = "dismissed"
+
+class NotificationTypeEnum(str, enum.Enum):
+    NEW_COMMENT_ON_POST = "new_comment_on_post"
+    NEW_CHAT_MESSAGE = "new_chat_message"
+    CHAT_REQUEST_RECEIVED = "chat_request_received"
+    CHAT_REQUEST_ACCEPTED = "chat_request_accepted"
+    CHAT_REQUEST_DECLINED = "chat_request_declined"
+    # Add other types as needed
+
+class NotificationStatusEnum(str, enum.Enum):
+    UNREAD = "unread"
+    READ = "read"
+    ARCHIVED = "archived"

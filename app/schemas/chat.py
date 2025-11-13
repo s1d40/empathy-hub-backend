@@ -17,6 +17,14 @@ class UserSimple(BaseModel):
     class Config:
         from_attributes = True
 
+class ChatParticipantStatus(BaseModel):
+    anonymous_id: uuid.UUID
+    username: str # Include username for convenience
+    last_read_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
 # --- ChatMessage Schemas ---
 
 class ChatMessageBase(BaseModel):
@@ -60,7 +68,7 @@ class ChatRoomRead(ChatRoomBase):
     anonymous_room_id: uuid.UUID
     created_at: datetime
     updated_at: Optional[datetime] = None
-    participants: List[UserSimple] = []
+    participants: List[ChatParticipantStatus] # Changed from UserSimple
     last_message: Optional[ChatMessageRead] = None # To show a preview
 
     class Config:

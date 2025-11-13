@@ -120,6 +120,21 @@ def get_chat_room_messages(
     messages = chat_service.get_messages_for_chat_room(room_id=room_id, limit=limit)
     return messages
 
+@router.post("/{room_id}/mark-read", response_model=schemas.ChatRoomRead, summary="Mark a chat room as read for the current user")
+def mark_chat_room_as_read_endpoint(
+    room_id: str,
+    current_user: dict = Depends(get_current_active_user_firestore),
+):
+    success = chat_service.mark_chat_room_as_read(room_id=room_id, user_id=current_user['anonymous_id'])
+    if not success:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Failed to mark chat room as read or room not found/user not participant.")
+    
+    # Retrieve and return the updated chat room
+    updated_chat_room = chat_service.get_chat_room(room_id)
+    if not updated_chat_room:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Chat room not found after update.")
+    return updated_chat_room
+
 @router.websocket("/ws/{room_id}")
 async def websocket_endpoint(
     websocket: WebSocket,
@@ -156,7 +171,7 @@ async def websocket_endpoint(
 
     # TODO: Add block check for 1-on-1 chats
 
-    await manager.connect(websocket, room_id, current_user['anonymous_id'])
+    await manager.connect_chat(websocket, room_id, current_user['anonymous_id'])
     try:
         while True:
             data = await websocket.receive_text()
@@ -175,10 +190,10 @@ async def websocket_endpoint(
                 
                 # Publish message to Pub/Sub instead of direct broadcast
                 serializable_db_message = convert_uuids_to_str(db_message)
-                await manager.publish_message_to_pubsub(room_id, serializable_db_message)
+                await manager.publish_chat_message_to_pubsub(room_id, serializable_db_message)
 
             except Exception as e:
-                logger.error(f"WebSocket: Error processing message from user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)
+                logger.error(f"WebSocket: Error processing message from user {current_user['anonymous_id']} in room {room_id}: {e}")
                 error_payload = {"detail": f"Error processing message: {str(e)}"}
                 if message_data.client_message_id: # Include client_message_id in error if present
                     error_payload["clientMessageId"] = str(message_data.client_message_id)
@@ -189,12 +204,49 @@ async def websocket_endpoint(
                 await manager.send_personal_message(websocket, error_message)
     except WebSocketDisconnect:
         logger.info(f"WebSocket disconnected: user_id={current_user['anonymous_id']}, room_id={room_id}")
-        manager.disconnect(websocket, room_id, current_user['anonymous_id'])
+        manager.disconnect_chat(websocket, room_id, current_user['anonymous_id'])
     except Exception as e:
-        logger.error(f"WebSocket unexpected error for user {current_user['anonymous_id']} in room {room_id}: {e}", exc_info=True)
+        logger.error(f"WebSocket unexpected error for user {current_user['anonymous_id']} in room {room_id}: {e}")
         error_message = schemas.WebSocketMessage(
             type="error",
             payload={"detail": "Internal server error"}
         ).model_dump_json()
         await manager.send_personal_message(websocket, error_message)
         await websocket.close(code=status.WS_500_INTERNAL_ERROR, reason="Internal server error")
+
+@router.websocket("/ws-updates")
+async def websocket_chat_updates_endpoint(
+    websocket: WebSocket,
+    token: str = Query(...),
+):
+    logger.info("WebSocket connection attempt for general chat updates")
+    # Authenticate user from token
+    try:
+        payload = security.decode_access_token(token_data=token)
+        user_id = payload.get("anonymous_id")
+        if not user_id:
+            logger.warning("WebSocket (chat updates): No user_id found in token")
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Invalid authentication credentials")
+            return
+        current_user = user_service.get_user_by_anonymous_id(user_id)
+        if not current_user or not current_user.get("is_active"):
+            logger.warning(f"WebSocket (chat updates): User {user_id} not found or inactive")
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="User not found or inactive")
+            return
+        logger.info(f"WebSocket (chat updates): User {user_id} authenticated")
+    except Exception as e:
+        logger.error(f"WebSocket (chat updates) authentication failed: {e}")
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Invalid authentication credentials")
+        return
+
+    await manager.connect_chat_updates(websocket, current_user['anonymous_id'])
+    try:
+        while True:
+            # Keep the connection alive, or handle incoming messages if needed
+            await websocket.receive_text() 
+    except WebSocketDisconnect:
+        logger.info(f"WebSocket (chat updates) disconnected for user: {current_user['anonymous_id']}")
+        manager.disconnect_chat_updates(current_user['anonymous_id'])
+    except Exception as e:
+        logger.error(f"WebSocket (chat updates) unexpected error for user {current_user['anonymous_id']}: {e}")
+        manager.disconnect_chat_updates(current_user['anonymous_id'])

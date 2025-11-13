@@ -1,9 +1,13 @@
 import uuid
 from typing import List, Optional
 from firebase_admin import firestore
+from app import schemas
 from app.schemas.comment import CommentCreate, CommentUpdate
-from app.schemas.enums import VoteTypeEnum
+from app.schemas.enums import VoteTypeEnum, NotificationTypeEnum, NotificationStatusEnum # Import new enums
+from app.schemas.notification import NotificationCreate # Import NotificationCreate directly
 from app.services.firestore_services import user_service
+from app.services.firestore_services import notification_service # Import notification_service
+from app.services.firestore_services import post_service # Import post_service to get post author
 
 def get_posts_collection():
     return firestore.client().collection('posts')
@@ -43,8 +47,11 @@ def _format_comment_response(comment: dict, users_map: dict) -> Optional[dict]:
 def create_comment(post_id: str, comment_in: CommentCreate, author_id: str) -> dict:
     db = firestore.client()
     post_ref = get_posts_collection().document(post_id)
-    if not post_ref.get().exists:
+    post_doc = post_ref.get()
+    if not post_doc.exists:
         raise ValueError("Post not found")
+    
+    post_author_id = post_doc.to_dict().get('author_id') # Get the post author ID
 
     author_data = user_service.get_user_by_anonymous_id(author_id)
     if not author_data:
@@ -78,6 +85,20 @@ def create_comment(post_id: str, comment_in: CommentCreate, author_id: str) -> d
 
     created_comment = comment_ref.get().to_dict()
     users_map = {author_id: author_data}
+
+    # Create notification for the post author if they are not the comment author
+    if post_author_id and post_author_id != author_id:
+        notification_service.create_notification(
+            notification_in=NotificationCreate(
+                recipient_id=uuid.UUID(post_author_id),
+                sender_id=uuid.UUID(author_id),
+                notification_type=NotificationTypeEnum.NEW_COMMENT_ON_POST,
+                content=f"{author_data.get('username', 'Someone')} commented on your post: '{comment_in.content[:50]}...'",
+                resource_id=uuid.UUID(post_id),
+                status=NotificationStatusEnum.UNREAD
+            )
+        )
+
     return _format_comment_response(created_comment, users_map)
 
 def get_post_id_for_comment(comment_id: str) -> Optional[str]:

@@ -4,7 +4,7 @@ from firebase_admin import firestore
 from google.cloud.firestore_v1.transforms import Sentinel
 from app import schemas
 
-from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, ChatMessageRead
+from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, ChatMessageRead, ChatParticipantStatus
 from app.schemas.user import UserSimple
 from app.services.firestore_services import user_service
 from datetime import datetime
@@ -79,21 +79,28 @@ def _format_chat_room(room_dict: dict, users_map: dict) -> Optional[dict]:
     else:
         room_dict['updated_at'] = None 
     
-    # Format participants as a list of UserSimple Pydantic models
+    # Format participants as a list of ChatParticipantStatus Pydantic models
+    formatted_participants = []
     if 'participants' in room_dict and isinstance(room_dict['participants'], list):
-        formatted_participants = []
+        participant_read_status = room_dict.get('participant_read_status', {})
         for p_id in room_dict['participants']:
             user_data = users_map.get(p_id)
             if user_data:
-                formatted_participants.append(UserSimple(
+                last_read_at = participant_read_status.get(p_id)
+                if isinstance(last_read_at, datetime):
+                    pass
+                elif isinstance(last_read_at, Sentinel): # If it's a server timestamp sentinel
+                    last_read_at = datetime.now() # Approximate for formatting
+                else:
+                    last_read_at = None # Default if not set or invalid
+
+                formatted_participants.append(ChatParticipantStatus(
                     anonymous_id=uuid.UUID(user_data['anonymous_id']),
                     username=user_data['username'],
-                    avatar_url=user_data.get('avatar_url')
+                    last_read_at=last_read_at
                 ))
-        room_dict['participants'] = formatted_participants
-    else:
-        room_dict['participants'] = []
-
+    room_dict['participants'] = formatted_participants
+    
     # Format last_message if present as a ChatMessageRead Pydantic model
     if 'last_message' in room_dict and room_dict['last_message']:
         room_dict['last_message'] = _format_chat_message(room_dict['last_message'], users_map, room_id_str)
@@ -133,6 +140,7 @@ def create_chat_room(room_in: ChatRoomCreate, initiator_id: str) -> dict:
             "last_message": None,
             "created_at": firestore.SERVER_TIMESTAMP,
             "updated_at": firestore.SERVER_TIMESTAMP,
+            "participant_read_status": {p_id: firestore.SERVER_TIMESTAMP for p_id in all_participant_ids} # Initialize read status
         }
         transaction.set(room_ref, room_data)
         return room_ref
@@ -336,3 +344,31 @@ def delete_all_chat_messages_by_user(user_id: str) -> int:
             batch.commit()
             
     return deleted_count
+
+def mark_chat_room_as_read(room_id: str, user_id: str) -> bool:
+    """
+    Updates the last_read_at timestamp for a specific user in a chat room.
+    """
+    chat_rooms_collection = get_chat_rooms_collection()
+    room_ref = chat_rooms_collection.document(room_id)
+
+    # Use a transaction to ensure atomicity
+    @firestore.transactional
+    def update_read_status_in_transaction(transaction):
+        doc = room_ref.get(transaction=transaction)
+        if not doc.exists:
+            return False
+
+        participant_read_status = doc.to_dict().get('participant_read_status', {})
+        if user_id in participant_read_status:
+            participant_read_status[user_id] = firestore.SERVER_TIMESTAMP
+            transaction.update(room_ref, {'participant_read_status': participant_read_status})
+            return True
+        return False
+
+    try:
+        transaction = firestore.client().transaction()
+        return update_read_status_in_transaction(transaction)
+    except Exception as e:
+        print(f"Error marking chat room as read: {e}")
+        return False

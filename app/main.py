@@ -18,6 +18,7 @@ from app.api.v1.endpoints import (
     reports as reports_router,
     chat as chat_router,
     avatars as avatars_router,
+    notifications as notifications_router, # Import the new notifications router
 )
 from app.core.chat_manager import manager # Import manager
 
@@ -77,6 +78,7 @@ api_router_firestore.include_router(user_actions_router.router, prefix="/user-ac
 api_router_firestore.include_router(reports_router.router, prefix="/reports", tags=["reports"])
 api_router_firestore.include_router(chat_router.router, prefix="/chat", tags=["chat"])
 api_router_firestore.include_router(avatars_router.router, prefix="/avatars", tags=["avatars"])
+api_router_firestore.include_router(notifications_router.router, prefix="/notifications", tags=["notifications"]) # Include the new notifications router
 
 app.include_router(api_router_firestore, prefix=settings.API_V1_STR)
 
