@@ -30,3 +30,6 @@ class ChatRequestRead(ChatRequestBase):
 
     class Config:
         from_attributes = True
+
+class ChatRequestReadWithNewFlag(ChatRequestRead):
+    is_new_request: bool = Field(..., description="Indicates if this is a newly created request or an existing one.")

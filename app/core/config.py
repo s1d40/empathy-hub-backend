@@ -32,9 +32,9 @@ class Settings(BaseSettings):
     # GCP and Firebase Settings
     GCP_PROJECT_ID: str
     # For live deployment, ensure FIRESTORE_EMULATOR_HOST environment variable is NOT set.
-    FIRESTORE_EMULATOR_HOST: Optional[str] = os.getenv("FIRESTORE_EMULATOR_HOST") # e.g., "localhost:8080"
+    # FIRESTORE_EMULATOR_HOST: Optional[str] = os.getenv("FIRESTORE_EMULATOR_HOST") # e.g., "localhost:8080"
     # For live deployment, ensure PUBSUB_EMULATOR_HOST environment variable is NOT set.
-    PUBSUB_EMULATOR_HOST: Optional[str] = os.getenv("PUBSUB_EMULATOR_HOST") # e.g., "localhost:8085"
+    # PUBSUB_EMULATOR_HOST: Optional[str] = os.getenv("PUBSUB_EMULATOR_HOST") # e.g., "localhost:8085"
 
     #JWT Settings
     SECRET_KEY: str = os.getenv("SECRET_KEY", "secret_key")
@@ -51,5 +51,5 @@ settings = Settings()
 # For debugging purposes:
 print(f"DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: {len(settings.DEFAULT_AVATAR_FILENAMES) if settings.DEFAULT_AVATAR_FILENAMES else 'Not loaded or empty'}")
 print(f"DEBUG: GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}")
-print(f"DEBUG: FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
+# print(f"DEBUG: FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
 print(f"DEBUG: INSTANCE_ID from settings: {settings.INSTANCE_ID}")

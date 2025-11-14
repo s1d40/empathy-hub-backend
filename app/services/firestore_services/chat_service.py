@@ -8,6 +8,9 @@ from app.schemas.chat import ChatRoomCreate, ChatMessageCreate, ChatMessageRead,
 from app.schemas.user import UserSimple
 from app.services.firestore_services import user_service
 from datetime import datetime
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from google.cloud.firestore_v1.base_batch import BaseBatch # Added BaseBatch for type hinting
 
 # This service replaces the functionality of crud/crud_chat.py for a Firestore database.
 
@@ -109,9 +112,10 @@ def _format_chat_room(room_dict: dict, users_map: dict) -> Optional[dict]:
     
     return room_dict
 
-def create_chat_room(room_in: ChatRoomCreate, initiator_id: str) -> dict:
+def create_chat_room(room_in: ChatRoomCreate, initiator_id: str, initial_message: Optional[str] = None, requester_id: Optional[str] = None) -> dict:
     """
     Creates a new chat room document in Firestore.
+    If an initial_message is provided, it will be added as the first message.
     """
     db = firestore.client()
     chat_rooms_collection = get_chat_rooms_collection()
@@ -124,40 +128,68 @@ def create_chat_room(room_in: ChatRoomCreate, initiator_id: str) -> dict:
     @firestore.transactional
     def create_room_in_transaction(transaction):
         if not room_in.is_group:
-            # Check if a room with these participants already exists
             query = chat_rooms_collection.where('is_group', '==', False).where('participants', '==', all_participant_ids)
             docs = list(query.stream(transaction=transaction))
             if docs:
-                return docs[0].reference
+                return docs[0].reference, False # Return existing room reference and a flag indicating it's not new
 
         room_id = str(uuid.uuid4())
         room_ref = chat_rooms_collection.document(room_id)
+        
+        last_message_summary = None
+        
+        # If there's an initial message, prepare it
+        if initial_message and requester_id:
+            message_id = str(uuid.uuid4())
+            message_ref = room_ref.collection('messages').document(message_id)
+            message_data = {
+                "message_id": message_id,
+                "room_id": room_id,
+                "content": initial_message,
+                "sender_id": requester_id,
+                "timestamp": firestore.SERVER_TIMESTAMP,
+            }
+            transaction.set(message_ref, message_data)
+            
+            last_message_summary = {
+                "message_id": message_id,
+                "content": initial_message,
+                "sender_id": requester_id,
+                "timestamp": firestore.SERVER_TIMESTAMP,
+            }
+
         room_data = {
             "room_id": room_id,
             "name": room_in.name if room_in.is_group else None,
             "is_group": room_in.is_group,
             "participants": all_participant_ids,
-            "last_message": None,
+            "last_message": last_message_summary,
             "created_at": firestore.SERVER_TIMESTAMP,
             "updated_at": firestore.SERVER_TIMESTAMP,
-            "participant_read_status": {p_id: firestore.SERVER_TIMESTAMP for p_id in all_participant_ids} # Initialize read status
+            "participant_read_status": {p_id: firestore.SERVER_TIMESTAMP for p_id in all_participant_ids}
         }
         transaction.set(room_ref, room_data)
-        return room_ref
+        return room_ref, True # Return new room reference and a flag indicating it's new
 
     try:
         transaction = db.transaction()
-        room_ref = create_room_in_transaction(transaction)
+        room_ref, is_new = create_room_in_transaction(transaction)
+        
         created_doc = room_ref.get()
         if not created_doc.exists:
             raise ValueError("Failed to create or find chat room")
         
+        room_data = created_doc.to_dict()
+        
         # Fetch users for formatting
-        user_ids = created_doc.to_dict().get('participants', [])
-        users_data = user_service.get_users_by_anonymous_ids(user_ids)
+        user_ids = room_data.get('participants', [])
+        if room_data.get('last_message') and room_data['last_message'].get('sender_id'):
+            user_ids.append(room_data['last_message']['sender_id'])
+            
+        users_data = user_service.get_users_by_anonymous_ids(list(set(user_ids)))
         users_map = {user['anonymous_id']: user for user in users_data}
 
-        return _format_chat_room(created_doc.to_dict(), users_map)
+        return _format_chat_room(room_data, users_map)
     except Exception as e:
         # Log the exception e
         raise e
@@ -295,14 +327,17 @@ def get_messages_for_chat_room(room_id: str, limit: int = 50) -> List[dict]:
 
     return [_format_chat_message(doc.to_dict(), users_map, room_id) for doc in docs]
 
-def delete_all_chat_messages_by_user(user_id: str) -> int:
+def delete_all_chat_messages_by_user(user_id: str, batch: Optional["BaseBatch"] = None) -> int:
     """
     Deletes all messages sent by a specific user across all chat rooms they are a participant in.
     Updates the 'last_message' field in chat rooms if the deleted message was the last one.
+    If a batch is provided, operations are added to it; otherwise, they are committed immediately.
     """
     db = firestore.client()
     chat_rooms_collection = get_chat_rooms_collection()
     deleted_count = 0
+    
+    local_batch = batch if batch else db.batch()
 
     # Get all chat rooms the user is a participant in
     user_chat_rooms = chat_rooms_collection.where('participants', 'array_contains', user_id).stream()
@@ -316,12 +351,9 @@ def delete_all_chat_messages_by_user(user_id: str) -> int:
             messages_to_delete_refs.append(msg_doc.reference)
             deleted_count += 1
         
-        # Delete messages in batches
-        if messages_to_delete_refs:
-            batch = db.batch()
-            for msg_ref in messages_to_delete_refs:
-                batch.delete(msg_ref)
-            batch.commit()
+        # Add message deletions to the batch
+        for msg_ref in messages_to_delete_refs:
+            local_batch.delete(msg_ref)
 
         # Check if the last_message was from this user and update if necessary
         room_data = room_doc.to_dict()
@@ -336,12 +368,13 @@ def delete_all_chat_messages_by_user(user_id: str) -> int:
                     "timestamp": msg_doc.get('timestamp'),
                 }
             
-            batch = db.batch()
-            batch.update(room_ref, {
+            local_batch.update(room_ref, {
                 'last_message': new_last_message,
                 'updated_at': firestore.SERVER_TIMESTAMP # Update timestamp as room content changed
             })
-            batch.commit()
+            
+    if not batch: # Only commit if no batch was provided externally
+        local_batch.commit()
             
     return deleted_count
 
@@ -370,5 +403,40 @@ def mark_chat_room_as_read(room_id: str, user_id: str) -> bool:
         transaction = firestore.client().transaction()
         return update_read_status_in_transaction(transaction)
     except Exception as e:
-        print(f"Error marking chat room as read: {e}")
+        logger.error(f"Error marking chat room as read: {e}")
         return False
+
+def delete_all_chat_rooms_by_user(user_id: str, batch: Optional["BaseBatch"] = None) -> int:
+    """
+    Deletes all chat rooms where the given user_id is a participant.
+    If a batch is provided, the delete operations are added to the batch.
+    Otherwise, it commits immediately.
+    Returns the count of chat rooms deleted.
+    """
+    db = firestore.client()
+    chat_rooms_collection = get_chat_rooms_collection()
+    deleted_count = 0
+
+    local_batch = batch if batch else db.batch()
+
+    # Query for chat rooms where the user is a participant
+    query = chat_rooms_collection.where('participants', 'array_contains', user_id)
+    
+    # Firestore does not allow deleting subcollections directly when deleting a document.
+    # We need to delete all messages in each chat room's subcollection first.
+    for room_doc in query.stream():
+        room_ref = room_doc.reference
+        
+        # Delete all messages in the subcollection
+        messages_refs = room_ref.collection('messages').list_documents()
+        for msg_ref in messages_refs:
+            local_batch.delete(msg_ref) # Add to batch
+        
+        # Now delete the chat room document itself
+        local_batch.delete(room_ref) # Add to batch
+        deleted_count += 1
+    
+    if not batch: # Only commit if no batch was provided externally
+        local_batch.commit()
+    
+    return deleted_count

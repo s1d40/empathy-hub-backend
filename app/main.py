@@ -1,3 +1,4 @@
+import logging
 import os
 import uvicorn
 from fastapi import FastAPI, APIRouter
@@ -22,10 +23,12 @@ from app.api.v1.endpoints import (
 )
 from app.core.chat_manager import manager # Import manager
 
+logging.basicConfig(level=logging.INFO)
+
 # --- Firebase Initialization ---
 print("Initializing Firebase Admin SDK...")
 print(f"DEBUG (main.py): GCP_PROJECT_ID from settings: {settings.GCP_PROJECT_ID}")
-print(f"DEBUG (main.py): FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
+# print(f"DEBUG (main.py): FIRESTORE_EMULATOR_HOST from settings: {settings.FIRESTORE_EMULATOR_HOST}")
 if not firebase_admin._apps:
     try:
         # Initialize Firebase Admin SDK.

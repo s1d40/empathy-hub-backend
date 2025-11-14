@@ -39,7 +39,7 @@ class ChatMessageRead(ChatMessageBase):
     chatroom_anonymous_id: uuid.UUID
     sender_anonymous_id: uuid.UUID
     timestamp: datetime
-    sender: UserSimple # To show who sent the message
+    sender: Optional[UserSimple] = None # To show who sent the message
 
     class Config:
         from_attributes = True

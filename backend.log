@@ -1,4 +1,500 @@
-INFO:     Started server process [80223]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
+INFO:     Will watch for changes in these directories: ['/home/s1d/Projects/Empathy_Hub/empathy-hub-backend']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [7458] using WatchFiles
+INFO:     Started server process [7473]
+INFO:     Waiting for application startup.
+INFO:app.core.chat_manager:Pub/Sub chat subscriber started on projects/anonymous-hubs-477707/subscriptions/empathy-hub-chat-subscription-local
+INFO:app.core.chat_manager:Pub/Sub notification subscriber started on projects/anonymous-hubs-477707/subscriptions/empathy-hub-notifications-subscription-local
+INFO:app.core.chat_manager:Pub/Sub chat room update subscriber started on projects/anonymous-hubs-477707/subscriptions/empathy-hub-chat-room-updates-subscription-local
+INFO:     Application startup complete.
+DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: 200
+DEBUG: GCP_PROJECT_ID from settings: anonymous-hubs-477707
+DEBUG: INSTANCE_ID from settings: local
+Initializing Firebase Admin SDK...
+DEBUG (main.py): GCP_PROJECT_ID from settings: anonymous-hubs-477707
+Firebase Admin SDK initialized.
+Main app lifespan startup: Starting Pub/Sub subscriber...
+INFO:     127.0.0.1:46326 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/google/cloud/firestore_v1/base_collection.py:304: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.
+  return query.where(field_path, op_string, value)
+INFO:     127.0.0.1:46326 - "POST /api/v1/users/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:46326 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User cf454c32-8594-4093-841b-87b43e515212 authenticated
+INFO:     ('127.0.0.1', 40312) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM0QkRGIiwiYW5vbnltb3VzX2lkIjoiY2Y0NTRjMzItODU5NC00MDkzLTg0MWItODdiNDNlNTE1MjEyIiwiZXhwIjoxNzYzNjg0NjA2fQ.sQ0-7zTTAnVISMQLLpdcgPz9HnhxhlUgY6mskgCmFvQ" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 40344) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM0QkRGIiwiYW5vbnltb3VzX2lkIjoiY2Y0NTRjMzItODU5NC00MDkzLTg0MWItODdiNDNlNTE1MjEyIiwiZXhwIjoxNzYzNjg0NjA2fQ.sQ0-7zTTAnVISMQLLpdcgPz9HnhxhlUgY6mskgCmFvQ" [accepted]
+INFO:     connection open
+/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/chat_request_service.py:115: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.
+  .where('status', '==', ChatRequestStatusEnum.PENDING.value) \
+INFO:     127.0.0.1:40330 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40324 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40388 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40346 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40340 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40360 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40374 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36382 - "POST /api/v1/posts/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:36382 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:40708 - "GET /api/v1/users/me HTTP/1.1" 401 Unauthorized
+INFO:     192.168.1.107:40708 - "POST /api/v1/auth/token HTTP/1.1" 404 Not Found
+INFO:     192.168.1.107:40708 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     192.168.1.107:43492 - "POST /api/v1/users/ HTTP/1.1" 201 Created
+INFO:     192.168.1.107:43492 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 45568) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     ('192.168.1.107', 45612) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     connection open
+INFO:     192.168.1.107:45586 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:45582 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:45596 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:45628 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:45642 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:45630 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:45654 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42572 - "POST /api/v1/posts/ HTTP/1.1" 201 Created
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 38672) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     ('192.168.1.107', 38712) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:38668 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38682 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38696 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38726 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 38738) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     ('192.168.1.107', 38750) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:38682 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38740 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38766 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38668 - "PUT /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 38778) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:38682 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38766 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38726 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     ('192.168.1.107', 38780) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50278 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50292 - "GET /api/v1/posts/9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb/comments/?skip=0&limit=15 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.comment_service:create_comment: Checking notification condition. Post Author ID: 08e60e09-291d-4b9a-b9c1-e6a17faf08da, Comment Author ID: cf454c32-8594-4093-841b-87b43e515212
+INFO:app.services.firestore_services.comment_service:create_comment: Condition met for notification creation. Recipient: 08e60e09-291d-4b9a-b9c1-e6a17faf08da, Sender: cf454c32-8594-4093-841b-87b43e515212
+INFO:app.services.firestore_services.notification_service:create_notification: Generated notification_id: 167c3b41-a5f6-4f28-a242-7dd4efb5c50e
+INFO:app.services.firestore_services.notification_service:Attempting to publish notification to empathy-hub-notifications. Data: {"recipient_id": "08e60e09-291d-4b9a-b9c1-e6a17faf08da", "content": "Anonymous4BDF commented on your post: 'opjh\u00f3ih[ioh[oih...'", "status": "unread", "created_at": "2025-11-14T00:26:23.893000+00:00", "resource_id": "9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb", "notification_type": "new_comment_on_post", "notification_id": "167c3b41-a5f6-4f28-a242-7dd4efb5c50e", "sender_id": "cf454c32-8594-4093-841b-87b43e515212", "updated_at": "2025-11-14T00:26:23.893000+00:00"}
+INFO:app.services.firestore_services.notification_service:Published notification to Pub/Sub topic empathy-hub-notifications for recipient 08e60e09-291d-4b9a-b9c1-e6a17faf08da.
+INFO:     127.0.0.1:50292 - "POST /api/v1/posts/9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb/comments/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:50292 - "GET /api/v1/posts/9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb/comments/?skip=0&limit=15 HTTP/1.1" 200 OK
+INFO:app.core.chat_manager:_notification_pubsub_callback: Received notification data: {'recipient_id': '08e60e09-291d-4b9a-b9c1-e6a17faf08da', 'content': "Anonymous4BDF commented on your post: 'opjhóih[ioh[oih...'", 'status': 'unread', 'created_at': '2025-11-14T00:26:23.893000+00:00', 'resource_id': '9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb', 'notification_type': 'new_comment_on_post', 'notification_id': '167c3b41-a5f6-4f28-a242-7dd4efb5c50e', 'sender_id': 'cf454c32-8594-4093-841b-87b43e515212', 'updated_at': '2025-11-14T00:26:23.893000+00:00'}
+INFO:     127.0.0.1:49416 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:49622 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/chat_service.py:224: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.
+  query = chat_rooms_collection.where('is_group', '==', False).where('participants', '==', participants_sorted)
+/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/chat_request_service.py:157: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.
+  .where('requestee_id', '==', requestee_id) \
+/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/chat_request_service.py:158: UserWarning: Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.
+  .where('status', '==', ChatRequestStatusEnum.PENDING.value)
+INFO:app.services.firestore_services.notification_service:create_notification: Generated notification_id: 546898b9-f662-4e1f-8b4d-fb3ca384a52c
+INFO:app.services.firestore_services.notification_service:Attempting to publish notification to empathy-hub-notifications. Data: {"recipient_id": "08e60e09-291d-4b9a-b9c1-e6a17faf08da", "content": "User Anonymous4BDF has sent you a chat request.", "status": "unread", "created_at": "2025-11-14T00:26:42.276000+00:00", "resource_id": "f3f8abeb-af15-4e37-8d87-f7e096328b05", "notification_type": "chat_request_received", "notification_id": "546898b9-f662-4e1f-8b4d-fb3ca384a52c", "sender_id": "cf454c32-8594-4093-841b-87b43e515212", "updated_at": "2025-11-14T00:26:42.276000+00:00"}
+INFO:app.services.firestore_services.notification_service:Published notification to Pub/Sub topic empathy-hub-notifications for recipient 08e60e09-291d-4b9a-b9c1-e6a17faf08da.
+INFO:     127.0.0.1:43522 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.core.chat_manager:_notification_pubsub_callback: Received notification data: {'recipient_id': '08e60e09-291d-4b9a-b9c1-e6a17faf08da', 'content': 'User Anonymous4BDF has sent you a chat request.', 'status': 'unread', 'created_at': '2025-11-14T00:26:42.276000+00:00', 'resource_id': 'f3f8abeb-af15-4e37-8d87-f7e096328b05', 'notification_type': 'chat_request_received', 'notification_id': '546898b9-f662-4e1f-8b4d-fb3ca384a52c', 'sender_id': 'cf454c32-8594-4093-841b-87b43e515212', 'updated_at': '2025-11-14T00:26:42.276000+00:00'}
+INFO:     192.168.1.107:38256 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.services.firestore_services.notification_service:mark_notification_as_read: Received notification_id: 167c3b41-a5f6-4f28-a242-7dd4efb5c50e
+INFO:app.services.firestore_services.notification_service:mark_notification_as_read: For notification_id 167c3b41-a5f6-4f28-a242-7dd4efb5c50e, doc.exists: True (Attempt 1/5)
+INFO:     192.168.1.107:38558 - "GET /api/v1/posts/9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:mark_notification_as_read: Successfully marked notification 167c3b41-a5f6-4f28-a242-7dd4efb5c50e as read.
+INFO:     192.168.1.107:38554 - "PUT /api/v1/notifications/167c3b41-a5f6-4f28-a242-7dd4efb5c50e/read HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38562 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:38570 - "GET /api/v1/posts/9d6c57ae-10ee-4ccf-ae36-2c717fc20fcb/comments/?skip=0&limit=15 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:mark_notification_as_read: Received notification_id: 546898b9-f662-4e1f-8b4d-fb3ca384a52c
+INFO:app.services.firestore_services.notification_service:mark_notification_as_read: For notification_id 546898b9-f662-4e1f-8b4d-fb3ca384a52c, doc.exists: True (Attempt 1/5)
+INFO:app.services.firestore_services.notification_service:mark_notification_as_read: Successfully marked notification 546898b9-f662-4e1f-8b4d-fb3ca384a52c as read.
+INFO:     192.168.1.107:46590 - "PUT /api/v1/notifications/546898b9-f662-4e1f-8b4d-fb3ca384a52c/read HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: cf454c32-8594-4093-841b-87b43e515212
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User cf454c32-8594-4093-841b-87b43e515212 authenticated
+INFO:     ('127.0.0.1', 51714) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM0QkRGIiwiYW5vbnltb3VzX2lkIjoiY2Y0NTRjMzItODU5NC00MDkzLTg0MWItODdiNDNlNTE1MjEyIiwiZXhwIjoxNzYzNjg0NjA2fQ.sQ0-7zTTAnVISMQLLpdcgPz9HnhxhlUgY6mskgCmFvQ" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 51742) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM0QkRGIiwiYW5vbnltb3VzX2lkIjoiY2Y0NTRjMzItODU5NC00MDkzLTg0MWItODdiNDNlNTE1MjEyIiwiZXhwIjoxNzYzNjg0NjA2fQ.sQ0-7zTTAnVISMQLLpdcgPz9HnhxhlUgY6mskgCmFvQ" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51708 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51720 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51732 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51756 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: cf454c32-8594-4093-841b-87b43e515212
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User cf454c32-8594-4093-841b-87b43e515212 authenticated
+INFO:     ('127.0.0.1', 51758) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM0QkRGIiwiYW5vbnltb3VzX2lkIjoiY2Y0NTRjMzItODU5NC00MDkzLTg0MWItODdiNDNlNTE1MjEyIiwiZXhwIjoxNzYzNjg0NjA2fQ.sQ0-7zTTAnVISMQLLpdcgPz9HnhxhlUgY6mskgCmFvQ" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 51792) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM0QkRGIiwiYW5vbnltb3VzX2lkIjoiY2Y0NTRjMzItODU5NC00MDkzLTg0MWItODdiNDNlNTE1MjEyIiwiZXhwIjoxNzYzNjg0NjA2fQ.sQ0-7zTTAnVISMQLLpdcgPz9HnhxhlUgY6mskgCmFvQ" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51768 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51776 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51808 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:Deleted 2 notifications for user cf454c32-8594-4093-841b-87b43e515212 (as recipient or sender).
+INFO:     127.0.0.1:51820 - "DELETE /api/v1/users/me HTTP/1.1" 204 No Content
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: cf454c32-8594-4093-841b-87b43e515212
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:51820 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42250 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:41852 - "POST /api/v1/chat/requests/f3f8abeb-af15-4e37-8d87-f7e096328b05/accept HTTP/1.1" 404 Not Found
+INFO:     192.168.1.107:43942 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47446 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     192.168.1.107:39552 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 39556) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     ('192.168.1.107', 39610) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:39586 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39572 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39622 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39602 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39628 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39644 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39640 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47776 - "POST /api/v1/users/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:47776 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 6872843e-1c2a-4bb8-97bc-05661a00485c authenticated
+INFO:     ('127.0.0.1', 47786) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM2Qzc4IiwiYW5vbnltb3VzX2lkIjoiNjg3Mjg0M2UtMWMyYS00YmI4LTk3YmMtMDU2NjFhMDA0ODVjIiwiZXhwIjoxNzYzNjg1NTU5fQ.5oI5rAq_2aqP0TpqkID55cT-NLER91zHlQMi3nDyROM" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 47820) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM2Qzc4IiwiYW5vbnltb3VzX2lkIjoiNjg3Mjg0M2UtMWMyYS00YmI4LTk3YmMtMDU2NjFhMDA0ODVjIiwiZXhwIjoxNzYzNjg1NTU5fQ.5oI5rAq_2aqP0TpqkID55cT-NLER91zHlQMi3nDyROM" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:47800 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47806 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47812 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47852 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47838 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47860 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47832 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:     192.168.1.107:46620 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 46632) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:46638 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:46650 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     ('192.168.1.107', 46656) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:46664 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 46674) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     ('192.168.1.107', 46694) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     connection open
+INFO:     192.168.1.107:46682 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:46684 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:46710 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:39372 - "POST /api/v1/posts/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:37924 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:create_notification: Generated notification_id: 9372a240-ca1c-4327-be51-9cf6ef192fc9
+INFO:app.services.firestore_services.notification_service:Attempting to publish notification to empathy-hub-notifications. Data: {"recipient_id": "08e60e09-291d-4b9a-b9c1-e6a17faf08da", "content": "User Anonymous6C78 has sent you a chat request.", "status": "unread", "created_at": "2025-11-14T00:39:40.738000+00:00", "resource_id": "23fcc2a4-4a5c-4acd-baf9-ef4270537d8a", "notification_type": "chat_request_received", "notification_id": "9372a240-ca1c-4327-be51-9cf6ef192fc9", "sender_id": "6872843e-1c2a-4bb8-97bc-05661a00485c", "updated_at": "2025-11-14T00:39:40.738000+00:00"}
+INFO:app.services.firestore_services.notification_service:Published notification to Pub/Sub topic empathy-hub-notifications for recipient 08e60e09-291d-4b9a-b9c1-e6a17faf08da.
+INFO:     127.0.0.1:37936 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.core.chat_manager:_notification_pubsub_callback: Received notification data: {'recipient_id': '08e60e09-291d-4b9a-b9c1-e6a17faf08da', 'content': 'User Anonymous6C78 has sent you a chat request.', 'status': 'unread', 'created_at': '2025-11-14T00:39:40.738000+00:00', 'resource_id': '23fcc2a4-4a5c-4acd-baf9-ef4270537d8a', 'notification_type': 'chat_request_received', 'notification_id': '9372a240-ca1c-4327-be51-9cf6ef192fc9', 'sender_id': '6872843e-1c2a-4bb8-97bc-05661a00485c', 'updated_at': '2025-11-14T00:39:40.738000+00:00'}
+INFO:     192.168.1.107:49582 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46270 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 6872843e-1c2a-4bb8-97bc-05661a00485c
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 6872843e-1c2a-4bb8-97bc-05661a00485c authenticated
+INFO:     ('127.0.0.1', 52892) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM2Qzc4IiwiYW5vbnltb3VzX2lkIjoiNjg3Mjg0M2UtMWMyYS00YmI4LTk3YmMtMDU2NjFhMDA0ODVjIiwiZXhwIjoxNzYzNjg1NTU5fQ.5oI5rAq_2aqP0TpqkID55cT-NLER91zHlQMi3nDyROM" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 52914) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM2Qzc4IiwiYW5vbnltb3VzX2lkIjoiNjg3Mjg0M2UtMWMyYS00YmI4LTk3YmMtMDU2NjFhMDA0ODVjIiwiZXhwIjoxNzYzNjg1NTU5fQ.5oI5rAq_2aqP0TpqkID55cT-NLER91zHlQMi3nDyROM" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52888 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52894 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52900 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52930 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 6872843e-1c2a-4bb8-97bc-05661a00485c
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 6872843e-1c2a-4bb8-97bc-05661a00485c authenticated
+INFO:     ('127.0.0.1', 52934) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM2Qzc4IiwiYW5vbnltb3VzX2lkIjoiNjg3Mjg0M2UtMWMyYS00YmI4LTk3YmMtMDU2NjFhMDA0ODVjIiwiZXhwIjoxNzYzNjg1NTU5fQ.5oI5rAq_2aqP0TpqkID55cT-NLER91zHlQMi3nDyROM" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 52954) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM2Qzc4IiwiYW5vbnltb3VzX2lkIjoiNjg3Mjg0M2UtMWMyYS00YmI4LTk3YmMtMDU2NjFhMDA0ODVjIiwiZXhwIjoxNzYzNjg1NTU5fQ.5oI5rAq_2aqP0TpqkID55cT-NLER91zHlQMi3nDyROM" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52942 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52944 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52962 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:Deleted 1 notifications for user 6872843e-1c2a-4bb8-97bc-05661a00485c (as recipient or sender).
+INFO:     127.0.0.1:54310 - "DELETE /api/v1/users/me HTTP/1.1" 204 No Content
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 6872843e-1c2a-4bb8-97bc-05661a00485c
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:54310 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42028 - "POST /api/v1/chat/requests/23fcc2a4-4a5c-4acd-baf9-ef4270537d8a/accept HTTP/1.1" 404 Not Found
+INFO:     192.168.1.107:42028 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 44332) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     ('192.168.1.107', 44354) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:44336 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:44320 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     192.168.1.107:44360 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:44342 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     192.168.1.107:44336 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 44374) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     ('192.168.1.107', 44384) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:44360 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:44342 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57578 - "POST /api/v1/users/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:57578 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d authenticated
+INFO:     ('127.0.0.1', 57592) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM1QzI2IiwiYW5vbnltb3VzX2lkIjoiY2UyZWYzYjUtNDMxZC00MzMzLWI5YjgtOWU5N2ZkNDdmYjlkIiwiZXhwIjoxNzYzNjg1NjQ1fQ.fE3IipZZsSKVKBwosOTkHdzfxlE-QtJqsdr_AvMkaI8" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 57620) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM1QzI2IiwiYW5vbnltb3VzX2lkIjoiY2UyZWYzYjUtNDMxZC00MzMzLWI5YjgtOWU5N2ZkNDdmYjlkIiwiZXhwIjoxNzYzNjg1NjQ1fQ.fE3IipZZsSKVKBwosOTkHdzfxlE-QtJqsdr_AvMkaI8" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57596 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57644 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57608 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57634 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57662 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57648 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:create_notification: Generated notification_id: 232ed096-8821-429b-a284-ec6c1628f040
+INFO:app.services.firestore_services.notification_service:Attempting to publish notification to empathy-hub-notifications. Data: {"recipient_id": "08e60e09-291d-4b9a-b9c1-e6a17faf08da", "content": "User Anonymous5C26 has sent you a chat request.", "status": "unread", "created_at": "2025-11-14T00:40:50.890000+00:00", "resource_id": "dfd483f2-2da1-4dc2-ab2b-a3e2df850536", "notification_type": "chat_request_received", "notification_id": "232ed096-8821-429b-a284-ec6c1628f040", "sender_id": "ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d", "updated_at": "2025-11-14T00:40:50.890000+00:00"}
+INFO:app.services.firestore_services.notification_service:Published notification to Pub/Sub topic empathy-hub-notifications for recipient 08e60e09-291d-4b9a-b9c1-e6a17faf08da.
+INFO:     127.0.0.1:57666 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.core.chat_manager:_notification_pubsub_callback: Received notification data: {'recipient_id': '08e60e09-291d-4b9a-b9c1-e6a17faf08da', 'content': 'User Anonymous5C26 has sent you a chat request.', 'status': 'unread', 'created_at': '2025-11-14T00:40:50.890000+00:00', 'resource_id': 'dfd483f2-2da1-4dc2-ab2b-a3e2df850536', 'notification_type': 'chat_request_received', 'notification_id': '232ed096-8821-429b-a284-ec6c1628f040', 'sender_id': 'ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d', 'updated_at': '2025-11-14T00:40:50.890000+00:00'}
+INFO:     192.168.1.107:47712 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38748 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:     192.168.1.107:40282 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 42840) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     ('192.168.1.107', 42866) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     192.168.1.107:42842 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42846 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42850 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42882 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42908 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42892 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42916 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42918 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d
+INFO:     connection closed
+INFO:     127.0.0.1:57944 - "GET /api/v1/users/me HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d authenticated
+INFO:     ('127.0.0.1', 57950) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM1QzI2IiwiYW5vbnltb3VzX2lkIjoiY2UyZWYzYjUtNDMxZC00MzMzLWI5YjgtOWU5N2ZkNDdmYjlkIiwiZXhwIjoxNzYzNjg1NjQ1fQ.fE3IipZZsSKVKBwosOTkHdzfxlE-QtJqsdr_AvMkaI8" [accepted]
+INFO:     connection open
+INFO:     ('127.0.0.1', 57990) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM1QzI2IiwiYW5vbnltb3VzX2lkIjoiY2UyZWYzYjUtNDMxZC00MzMzLWI5YjgtOWU5N2ZkNDdmYjlkIiwiZXhwIjoxNzYzNjg1NjQ1fQ.fE3IipZZsSKVKBwosOTkHdzfxlE-QtJqsdr_AvMkaI8" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57974 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57960 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58008 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57988 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58004 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58024 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58026 - "GET /api/v1/posts/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42846 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42850 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42882 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:40282 - "GET /api/v1/avatars/defaults HTTP/1.1" 200 OK
+INFO:     ('192.168.1.107', 42934) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 42924) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     connection open
+INFO:     192.168.1.107:42908 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:     192.168.1.107:42846 - "GET /api/v1/notifications/notifications/?limit=100 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42882 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     192.168.1.107:42850 - "GET /api/v1/chat/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.api.v1.endpoints.notifications:WebSocket connection attempt for notifications
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification): User 08e60e09-291d-4b9a-b9c1-e6a17faf08da authenticated
+INFO:     ('192.168.1.107', 42942) - "WebSocket /api/v1/notifications/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     ('192.168.1.107', 42958) - "WebSocket /api/v1/chat/ws-updates?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbm9ueW1vdXM4MTNEIiwiYW5vbnltb3VzX2lkIjoiMDhlNjBlMDktMjkxZC00YjlhLWI5YzEtZTZhMTdmYWYwOGRhIiwiZXhwIjoxNzYzNjg0NzQyfQ.exdA2KVYuPx9gi84lVXz0WhKWmTv57GM4-gxMuvIP7g" [accepted]
+INFO:     connection open
+INFO:     connection open
+INFO:     192.168.1.107:42908 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     127.0.0.1:55248 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:     192.168.1.107:48450 - "POST /api/v1/chat/requests/dfd483f2-2da1-4dc2-ab2b-a3e2df850536/decline HTTP/1.1" 200 OK
+INFO:     192.168.1.107:48450 - "GET /api/v1/chat/requests/pending?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:app.services.firestore_services.notification_service:create_notification: Generated notification_id: 9464f588-c0d0-4f90-85e3-cd161a3cb2c6
+INFO:app.services.firestore_services.notification_service:Attempting to publish notification to empathy-hub-notifications. Data: {"recipient_id": "08e60e09-291d-4b9a-b9c1-e6a17faf08da", "content": "User Anonymous5C26 has sent you a chat request.", "status": "unread", "created_at": "2025-11-14T00:54:03.717000+00:00", "resource_id": "081552d7-828e-4e76-abd2-b09e7a728420", "notification_type": "chat_request_received", "notification_id": "9464f588-c0d0-4f90-85e3-cd161a3cb2c6", "sender_id": "ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d", "updated_at": "2025-11-14T00:54:03.717000+00:00"}
+INFO:app.services.firestore_services.notification_service:Published notification to Pub/Sub topic empathy-hub-notifications for recipient 08e60e09-291d-4b9a-b9c1-e6a17faf08da.
+INFO:     127.0.0.1:41882 - "POST /api/v1/chat/initiate-direct HTTP/1.1" 201 Created
+INFO:app.core.chat_manager:_notification_pubsub_callback: Received notification data: {'recipient_id': '08e60e09-291d-4b9a-b9c1-e6a17faf08da', 'content': 'User Anonymous5C26 has sent you a chat request.', 'status': 'unread', 'created_at': '2025-11-14T00:54:03.717000+00:00', 'resource_id': '081552d7-828e-4e76-abd2-b09e7a728420', 'notification_type': 'chat_request_received', 'notification_id': '9464f588-c0d0-4f90-85e3-cd161a3cb2c6', 'sender_id': 'ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d', 'updated_at': '2025-11-14T00:54:03.717000+00:00'}
+INFO:     connection closed
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: ce2ef3b5-431d-4333-b9b8-9e97fd47fb9d
+INFO:     connection closed
+WARNING:  WatchFiles detected changes in 'app/core/config.py'. Reloading...
+INFO:     Shutting down
+INFO:app.api.v1.endpoints.notifications:WebSocket (notification) disconnected for user: 08e60e09-291d-4b9a-b9c1-e6a17faf08da
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+INFO:app.core.chat_manager:All Pub/Sub subscribers stopped.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7473]
+Process SpawnProcess-2:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/server.py", line 70, in serve
+    await self._serve(sockets)
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/server.py", line 77, in _serve
+    config.load()
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/config.py", line 435, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/main.py", line 13, in <module>
+    from app.api.v1.endpoints import (
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/api/v1/endpoints/users.py", line 5, in <module>
+    from app.services.firestore_services import user_service, post_service, comment_service, chat_service, notification_service, chat_request_service
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/comment_service.py", line 10, in <module>
+    from app.services.firestore_services import notification_service # Import notification_service
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/notification_service.py", line 22, in <module>
+    if settings.PUBSUB_EMULATOR_HOST:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/pydantic/main.py", line 989, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'Settings' object has no attribute 'PUBSUB_EMULATOR_HOST'
+DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: 200
+DEBUG: GCP_PROJECT_ID from settings: anonymous-hubs-477707
+DEBUG: INSTANCE_ID from settings: local
+WARNING:  WatchFiles detected changes in 'scripts/setup_pubsub_emulator.py'. Reloading...
+Process SpawnProcess-3:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/server.py", line 70, in serve
+    await self._serve(sockets)
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/server.py", line 77, in _serve
+    config.load()
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/config.py", line 435, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/main.py", line 13, in <module>
+    from app.api.v1.endpoints import (
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/api/v1/endpoints/users.py", line 5, in <module>
+    from app.services.firestore_services import user_service, post_service, comment_service, chat_service, notification_service, chat_request_service
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/comment_service.py", line 10, in <module>
+    from app.services.firestore_services import notification_service # Import notification_service
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/app/services/firestore_services/notification_service.py", line 22, in <module>
+    if settings.PUBSUB_EMULATOR_HOST:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/s1d/Projects/Empathy_Hub/empathy-hub-backend/venv/lib/python3.12/site-packages/pydantic/main.py", line 989, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'Settings' object has no attribute 'PUBSUB_EMULATOR_HOST'
+DEBUG: Loaded DEFAULT_AVATAR_FILENAMES count: 200
+DEBUG: GCP_PROJECT_ID from settings: anonymous-hubs-477707
+DEBUG: INSTANCE_ID from settings: local

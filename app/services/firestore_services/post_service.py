@@ -1,9 +1,11 @@
 import uuid
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING # Added TYPE_CHECKING
 from firebase_admin import firestore
 from app.schemas.post import PostCreate, PostUpdate
 from app.schemas.enums import VoteTypeEnum
 from app.services.firestore_services import user_service
+if TYPE_CHECKING:
+    from google.cloud.firestore_v1.base_batch import BaseBatch # Added BaseBatch for type hinting
 
 # This service replaces the functionality of crud/crud_post.py for a Firestore database.
 
@@ -23,22 +25,27 @@ def _format_post(post_dict: dict, users_map: dict) -> dict:
     post_dict['author'] = {
         'anonymous_id': author_id,
         'username': author_data.get('username') if author_data else "Unknown",
-        'avatar_url': author_data.get('avatar_url') if author_data else None
+        'avatar_url': author_data.get('avatar_url') if author_data else None,
+        'chat_availability': author_data.get('chat_availability') if author_data else None
     }
     post_dict.pop('author_username', None)
     post_dict.pop('author_avatar_url', None)
     return post_dict
 
-def delete_collection(coll_ref, batch_size):
+def delete_collection(coll_ref, batch_size, batch: Optional["BaseBatch"] = None):
     docs = coll_ref.limit(batch_size).stream()
     deleted = 0
 
     for doc in docs:
-        doc.reference.delete()
+        if batch:
+            batch.delete(doc.reference)
+        else:
+            # print(f"Deleting document {doc.id} from collection {coll_ref.id}") # Removed print
+            doc.reference.delete()
         deleted = deleted + 1
 
     if deleted >= batch_size:
-        return delete_collection(coll_ref, batch_size)
+        return delete_collection(coll_ref, batch_size, batch)
 
 def create_post(post_in: PostCreate, author_id: str) -> dict:
     """
@@ -183,9 +190,11 @@ def update_post(post_id: str, post_in: PostUpdate) -> Optional[dict]:
         # Log the exception e
         raise e
 
-def delete_post(post_id: str) -> bool:
+def delete_post(post_id: str, batch: Optional["BaseBatch"] = None) -> bool:
     """
     Deletes a post document and its subcollections from Firestore.
+    If a batch is provided, the delete operations are added to the batch.
+    Otherwise, it commits immediately.
     """
     posts_collection = get_posts_collection()
     post_ref = posts_collection.document(post_id)
@@ -193,16 +202,23 @@ def delete_post(post_id: str) -> bool:
     # Delete subcollections
     comments_ref = post_ref.collection('comments')
     votes_ref = post_ref.collection('votes')
-    delete_collection(comments_ref, 50)
-    delete_collection(votes_ref, 50)
+    
+    # Pass the batch to delete_collection
+    delete_collection(comments_ref, 50, batch)
+    delete_collection(votes_ref, 50, batch)
 
     # Delete the post document itself
-    post_ref.delete()
+    if batch:
+        batch.delete(post_ref)
+    else:
+        post_ref.delete()
     return True
 
-def delete_all_posts_by_author(author_id: str) -> int:
+def delete_all_posts_by_author(author_id: str, batch: Optional["BaseBatch"] = None) -> int:
     """
     Deletes all posts by a specific author, including their subcollections.
+    If a batch is provided, the delete operations are added to the batch.
+    Otherwise, it commits immediately (though this function is intended to be called with a batch).
     """
     posts_collection = get_posts_collection()
     query = posts_collection.where('author_id', '==', author_id).stream()
@@ -210,7 +226,8 @@ def delete_all_posts_by_author(author_id: str) -> int:
     deleted_count = 0
     for doc in query:
         post_id = doc.id
-        delete_post(post_id) # Use the existing delete_post to handle subcollections
+        # Pass the batch to delete_post
+        delete_post(post_id, batch)
         deleted_count += 1
     return deleted_count
 

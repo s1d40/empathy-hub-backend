@@ -2,12 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from app.schemas.token import Token
 from app import schemas
-from app.services.firestore_services import user_service, post_service, comment_service, chat_service
+from app.services.firestore_services import user_service, post_service, comment_service, chat_service, notification_service, chat_request_service
 from app.core.security import create_access_token
 from app.core.config import settings
 from datetime import timedelta
 import uuid
 from app.api.v1.firestore_deps import get_current_active_user_firestore
+from firebase_admin import firestore # New import
 
 router = APIRouter()
 
@@ -80,14 +81,26 @@ def update_user_me(user_in: schemas.UserUpdate, current_user: dict = Depends(get
 @router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_me(current_user: dict = Depends(get_current_active_user_firestore)):
     """
-    Delete the current authenticated user's profile from Firestore.
+    Delete the current authenticated user's profile and all associated content from Firestore atomically.
     """
-    # TODO: In a real application, this should trigger a process to delete all user's content.
-    # For now, it just deletes the user document.
-    success = user_service.delete_user(anonymous_id=current_user['anonymous_id'])
-    if not success:
-        raise HTTPException(status_code=404, detail="User not found")
-    return
+    user_id = current_user['anonymous_id']
+    db = firestore.client()
+    batch = db.batch()
+
+    # Pass the batch to all deletion services
+    chat_service.delete_all_chat_messages_by_user(user_id=user_id, batch=batch)
+    post_service.delete_all_posts_by_author(author_id=user_id, batch=batch)
+    comment_service.delete_all_comments_by_author(author_id=user_id, batch=batch)
+    notification_service.delete_all_notifications_by_user(user_id=user_id, batch=batch)
+    chat_service.delete_all_chat_rooms_by_user(user_id=user_id, batch=batch)
+    chat_request_service.delete_all_chat_requests_by_user(user_id=user_id, batch=batch)
+    user_service.delete_user(anonymous_id=user_id, batch=batch) # user_service.delete_user will now accept batch
+
+
+    # Commit the batch: all deletions happen atomically
+    batch.commit()
+
+    return {"message": "User and all associated content deleted successfully."}
 
 @router.delete("/me/chat-messages", response_model=schemas.DeletionSummary, status_code=status.HTTP_200_OK)
 def delete_all_my_chat_messages(current_user: dict = Depends(get_current_active_user_firestore)):

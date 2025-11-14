@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from app import schemas
-from app.services.firestore_services import post_service
+from app.services.firestore_services import post_service, notification_service # Import notification_service
 from app.api.v1.firestore_deps import get_current_active_user_firestore
 
 router = APIRouter()
@@ -71,13 +71,13 @@ def update_post(
     post = post_service.get_post(post_id=post_id)
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
-    if post['author_id'] != current_user['anonymous_id']:
+    if post['author']['anonymous_id'] != current_user['anonymous_id']:
         raise HTTPException(status_code=403, detail="Not authorized to update this post")
 
     updated_post = post_service.update_post(post_id=post_id, post_in=post_in)
     return updated_post
 
-@router.delete("/{post_id}", response_model=schemas.PostRead)
+@router.delete("/{post_id}", response_model=dict) # Changed response_model to dict
 def delete_post(
     post_id: str,
     current_user: dict = Depends(get_current_active_user_firestore)
@@ -88,9 +88,9 @@ def delete_post(
     post = post_service.get_post(post_id=post_id)
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
-    if post['author_id'] != current_user['anonymous_id']:
+    if post['author']['anonymous_id'] != current_user['anonymous_id']:
         raise HTTPException(status_code=403, detail="Not authorized to delete this post")
 
-    # The service returns a boolean, but we return the post data before deletion
     post_service.delete_post(post_id=post_id)
-    return post
+    notification_service.delete_notifications_by_resource_id(post_id) # Delete associated notifications
+    return {"message": "Post and associated notifications deleted successfully"}

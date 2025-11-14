@@ -21,7 +21,8 @@ from .chat_request import (
         ChatRequestBase,
         ChatRequestCreate,
         ChatRequestUpdate,
-        ChatRequestRead
+        ChatRequestRead,
+        ChatRequestReadWithNewFlag # Added this
     )
 from .user_relationship import ( # Add this
     UserRelationshipCreate,

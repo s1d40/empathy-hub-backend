@@ -3,8 +3,9 @@ import random
 from firebase_admin import firestore
 from app.schemas.user import UserCreate, UserUpdate
 from app.core.config import settings
-from typing import List, Optional
-from app.services.firestore_services import post_service, comment_service
+from typing import List, Optional, TYPE_CHECKING # Added TYPE_CHECKING
+if TYPE_CHECKING:
+    from google.cloud.firestore_v1.base_batch import BaseBatch # Added BaseBatch for type hinting
 
 # This service replaces the functionality of crud/crud_user.py for a Firestore database.
 
@@ -154,25 +155,22 @@ def update_user(anonymous_id: str, user_in: UserUpdate) -> Optional[dict]:
         # Log the exception e
         raise e
 
-def delete_user(anonymous_id: str) -> bool:
+def delete_user(anonymous_id: str, batch: Optional["BaseBatch"] = None) -> bool:
     """
-    Deletes a user and all of their content (posts and comments) from Firestore.
+    Deletes a user document from Firestore.
+    If a batch is provided, the delete operation is added to the batch.
+    Otherwise, it commits immediately.
     """
-    # Delete user's posts
-    user_posts = post_service.get_posts_by_author(anonymous_id)
-    for post in user_posts:
-        post_service.delete_post(post['post_id'])
-
-    # Delete user's comments
-    user_comments = comment_service.get_comments_by_author(anonymous_id)
-    for comment in user_comments:
-        comment_service.delete_comment(comment['comment_id'])
-
-    # Delete the user document
     users_collection = get_users_collection()
     doc_ref = users_collection.document(anonymous_id)
-    doc = doc_ref.get()
-    if doc.exists:
-        doc_ref.delete()
+
+    if batch:
+        batch.delete(doc_ref)
         return True
-    return False
+    else:
+        # If no batch is provided, perform immediate deletion (e.g., for standalone calls)
+        doc = doc_ref.get()
+        if doc.exists:
+            doc_ref.delete()
+            return True
+        return False

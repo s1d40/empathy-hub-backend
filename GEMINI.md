@@ -1,4 +1,4 @@
-# Gemini Project Analysis: Empathy Hub Backend
+# Gemini Project Analysis: Anonymous Hubs Backend
 
 ## Project Status (November 2025)
 
@@ -8,7 +8,7 @@ This document has been updated to reflect the current Firestore-based architectu
 
 ## Project Overview
 
-The Empathy Hub backend is a Python application built with the **FastAPI** framework. It serves as the API for the Empathy Hub platform, providing endpoints for user authentication, content management (posts and comments), real-time chat, and user interaction features like muting, blocking, and reporting. The backend uses **Google Cloud Firestore** as its database.
+The Anonymous Hubs backend is a Python application built with the **FastAPI** framework. It serves as the API for the Anonymous Hubs platform, providing endpoints for user authentication, content management (posts and comments), real-time chat, and user interaction features like muting, blocking, and reporting. The backend uses **Google Cloud Firestore** as its database.
 
 ## Core Architecture
 

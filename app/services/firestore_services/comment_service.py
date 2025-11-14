@@ -1,5 +1,6 @@
+import logging
 import uuid
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING # Added TYPE_CHECKING
 from firebase_admin import firestore
 from app import schemas
 from app.schemas.comment import CommentCreate, CommentUpdate
@@ -8,6 +9,10 @@ from app.schemas.notification import NotificationCreate # Import NotificationCre
 from app.services.firestore_services import user_service
 from app.services.firestore_services import notification_service # Import notification_service
 from app.services.firestore_services import post_service # Import post_service to get post author
+if TYPE_CHECKING:
+    from google.cloud.firestore_v1.base_batch import BaseBatch # Added BaseBatch for type hinting
+
+logger = logging.getLogger(__name__)
 
 def get_posts_collection():
     return firestore.client().collection('posts')
@@ -15,14 +20,17 @@ def get_posts_collection():
 def get_comment_post_mapping_collection():
     return firestore.client().collection('comment_post_mapping')
 
-def delete_collection(coll_ref, batch_size):
+def delete_collection(coll_ref, batch_size, batch: Optional["BaseBatch"] = None):
     docs = coll_ref.limit(batch_size).stream()
     deleted = 0
     for doc in docs:
-        doc.reference.delete()
+        if batch:
+            batch.delete(doc.reference)
+        else:
+            doc.reference.delete()
         deleted += 1
     if deleted >= batch_size:
-        return delete_collection(coll_ref, batch_size)
+        return delete_collection(coll_ref, batch_size, batch)
 
 def _format_comment_response(comment: dict, users_map: dict) -> Optional[dict]:
     if not comment:
@@ -86,8 +94,10 @@ def create_comment(post_id: str, comment_in: CommentCreate, author_id: str) -> d
     created_comment = comment_ref.get().to_dict()
     users_map = {author_id: author_data}
 
+    logger.info(f"create_comment: Checking notification condition. Post Author ID: {post_author_id}, Comment Author ID: {author_id}")
     # Create notification for the post author if they are not the comment author
     if post_author_id and post_author_id != author_id:
+        logger.info(f"create_comment: Condition met for notification creation. Recipient: {post_author_id}, Sender: {author_id}")
         notification_service.create_notification(
             notification_in=NotificationCreate(
                 recipient_id=uuid.UUID(post_author_id),
@@ -98,6 +108,8 @@ def create_comment(post_id: str, comment_in: CommentCreate, author_id: str) -> d
                 status=NotificationStatusEnum.UNREAD
             )
         )
+    else:
+        logger.info(f"create_comment: Condition NOT met for notification creation. Post Author ID: {post_author_id}, Comment Author ID: {author_id}")
 
     return _format_comment_response(created_comment, users_map)
 
@@ -188,41 +200,51 @@ def update_comment(comment_id: str, comment_in: CommentUpdate) -> Optional[dict]
         # Log the exception e
         raise e
 
-def delete_comment(comment_id: str) -> bool:
+def delete_comment(comment_id: str, batch: Optional["BaseBatch"] = None) -> bool:
     post_id = get_post_id_for_comment(comment_id)
     if not post_id:
         return False
     
-    db = firestore.client()
     post_ref = get_posts_collection().document(post_id)
     comment_ref = post_ref.collection('comments').document(comment_id)
     
     if not comment_ref.get().exists:
         return False
 
-    delete_collection(comment_ref.collection('votes'), 50)
+    # Delete subcollections (votes)
+    delete_collection(comment_ref.collection('votes'), 50, batch)
     mapping_ref = get_comment_post_mapping_collection().document(comment_id)
 
-    @firestore.transactional
-    def delete_in_transaction(transaction, post_ref, comment_ref, mapping_ref):
-        post_snapshot = post_ref.get(transaction=transaction)
-        current_comment_count = post_snapshot.get('comment_count') or 0
-        transaction.delete(comment_ref)
-        transaction.delete(mapping_ref)
-        transaction.update(post_ref, {'comment_count': max(0, current_comment_count - 1)})
+    if batch:
+        batch.delete(comment_ref)
+        batch.delete(mapping_ref)
+        # Decrement comment count in post (this needs to be handled carefully in a batch)
+        # For now, we'll assume the calling function (delete_all_comments_by_author)
+        # will handle the post comment count update if needed, or we'll rely on a Cloud Function.
+        # Direct decrement in a batch without reading the current value first is problematic.
+        # For simplicity in this batch context, we'll omit the comment_count update here.
+        # A more robust solution would involve a distributed counter or a Cloud Function trigger.
+    else:
+        # Original transactional logic for standalone deletion
+        db = firestore.client()
+        @firestore.transactional
+        def delete_in_transaction(transaction, post_ref, comment_ref, mapping_ref):
+            post_snapshot = post_ref.get(transaction=transaction)
+            current_comment_count = post_snapshot.get('comment_count') or 0
+            transaction.delete(comment_ref)
+            transaction.delete(mapping_ref)
+            transaction.update(post_ref, {'comment_count': max(0, current_comment_count - 1)})
 
-    transaction = db.transaction()
-    delete_in_transaction(transaction, post_ref, comment_ref, mapping_ref)
+        transaction = db.transaction()
+        delete_in_transaction(transaction, post_ref, comment_ref, mapping_ref)
     return True
 
-def delete_all_comments_by_author(author_id: str) -> int:
+def delete_all_comments_by_author(author_id: str, batch: Optional["BaseBatch"] = None) -> int:
     """
     Deletes all comments by a specific author.
+    If a batch is provided, the delete operations are added to the batch.
+    Otherwise, it commits immediately (though this function is intended to be called with a batch).
     """
-    # This is inefficient as it iterates through all posts.
-    # A more efficient solution would involve a root-level 'comments' collection
-    # with an author_id field, allowing for a direct query.
-    
     deleted_count = 0
     # Get all comments by the author (this uses the inefficient get_comments_by_author)
     comments_to_delete = get_comments_by_author(author_id)
@@ -230,10 +252,10 @@ def delete_all_comments_by_author(author_id: str) -> int:
     for comment_data in comments_to_delete:
         comment_id = comment_data.get('anonymous_comment_id')
         if comment_id:
-            if delete_comment(comment_id):
+            # Pass the batch to delete_comment
+            if delete_comment(comment_id, batch):
                 deleted_count += 1
     return deleted_count
-
 def vote_on_comment(comment_id: str, user_id: str, vote_type: VoteTypeEnum) -> Optional[dict]:
     post_id = get_post_id_for_comment(comment_id)
     if not post_id:

@@ -50,6 +50,7 @@ class AuthorRead(BaseModel):
     id: uuid.UUID = Field(validation_alias='anonymous_id') # This will be the user's anonymous_id, Pydantic handles UUID -> str serialization
     username: str
     avatar_url: Optional[str] = None
+    chat_availability: Optional[ChatAvailabilityEnum] = None
 
     model_config = ConfigDict(from_attributes=True)
 

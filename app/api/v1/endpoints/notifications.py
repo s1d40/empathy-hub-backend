@@ -50,6 +50,18 @@ def mark_notification_read(
         )
     return notification
 
+@router.put("/mark_all_read", status_code=status.HTTP_200_OK)
+def mark_all_notifications_read(
+    current_user: schemas.UserRead = Depends(get_current_user)
+):
+    """
+    Marks all unread notifications for the current user as read.
+    """
+    updated_count = notification_service.mark_all_notifications_as_read_for_user(
+        user_id=str(current_user.anonymous_id)
+    )
+    return {"message": f"Marked {updated_count} notifications as read."}
+
 @router.delete("/{notification_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_notification(
     notification_id: str,
@@ -77,6 +89,16 @@ def delete_user_notification(
             detail="Failed to delete notification"
         )
     return {"message": "Notification deleted successfully"}
+
+# @router.get("/notifications/debug/{notification_id}")
+# def debug_get_notification(notification_id: str):
+#     """
+#     DEBUG ENDPOINT: Get a notification by ID to check its existence.
+#     """
+#     notification = notification_service.get_notification_by_id(notification_id)
+#     if notification:
+#         return {"notification_id": notification_id, "exists": True, "data": notification}
+#     return {"notification_id": notification_id, "exists": False}
 
 @router.websocket("/ws")
 async def websocket_endpoint(
